@@ -6,7 +6,7 @@ repos:
   - id: yamllint
     args:
     - -c
-    - ".yamllint-config.yaml"
+    - ".github/.yamllint-config.yaml"
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v3.4.0
   hooks:
