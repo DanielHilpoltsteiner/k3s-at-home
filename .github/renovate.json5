@@ -13,12 +13,12 @@
     "fileMatch": ["apps/.+\\.yaml$", "apps/.+\\.yml"]
   },
   "helm-values": {
-    "fileMatch": ["apps/.+helm-\\.yaml$"]
+    "fileMatch": ["apps/.+helm-.+\\.yaml$"]
   },
   "regexManagers": [
     // regexManager to read and process HelmRelease files
     {
-      "fileMatch": ["apps/.+helm-\\.yaml$"],
+      "fileMatch": ["apps/.+helm-.+\\.yaml$"],
       "matchStrings": [
         "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
       ],
