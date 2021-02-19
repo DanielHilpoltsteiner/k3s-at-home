@@ -7,6 +7,7 @@ metadata:
 spec:
   project: default
   source:
+    # renovate: registryUrl=https://codecentric.github.io/helm-charts
     repoURL: 'https://codecentric.github.io/helm-charts'
     targetRevision: 4.0.0
     chart: mailhog
@@ -16,8 +17,6 @@ spec:
         ---
         # helm install -n mailhog mailhog codecentric/mailhog -f values.yml
         image:
-          repository: docker.io/mailhog/mailhog
-          tag: "v1.0.1"
           pullPolicy: IfNotPresent
 
         ingress:

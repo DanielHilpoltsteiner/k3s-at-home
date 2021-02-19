@@ -7,6 +7,7 @@ metadata:
 spec:
   project: default
   source:
+    # renovate: registryUrl=https://grafana.github.io/helm-charts
     repoURL: 'https://grafana.github.io/helm-charts'
     targetRevision: 6.4.2
     chart: grafana
@@ -15,15 +16,9 @@ spec:
       values: |
         ---
         image:
-          repository: grafana/grafana
-          tag: 7.3.3
-          sha: ""
           pullPolicy: IfNotPresent
 
         downloadDashboardsImage:
-          repository: curlimages/curl
-          tag: 7.73.0
-          sha: ""
           pullPolicy: IfNotPresent
 
         ingress:
@@ -51,9 +46,6 @@ spec:
           enabled: true
 
           image:
-            repository: busybox
-            tag: "1.31.1"
-            sha: ""
             pullPolicy: IfNotPresent
 
         admin:
