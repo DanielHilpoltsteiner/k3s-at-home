@@ -1,0 +1,27 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: code-server
+  name: code-server
+  namespace: services
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.allow-http: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/auth-url: "http://authelia.services.svc.cluster.local/api/verify"
+    nginx.ingress.kubernetes.io/auth-signin: "https://authelia.technolab.duckdns.org/"
+spec:
+  rules:
+  - host: code-server.technolab.duckdns.org
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: code-server
+          servicePort: 8443
+  tls:
+  - hosts:
+    - code-server.technolab.duckdns.org
+    secretName: services-technolab-duckdns-org-tls

@@ -1,0 +1,203 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: varken
+  namespace: media
+  labels:
+    app: varken
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: varken
+  template:
+    metadata:
+      labels:
+        app: varken
+    spec:
+      containers:
+      - name: varken
+        image: harbor.home-lab.io/cache/boerderij/varken:1.7.6
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TZ
+          value: "Europe/Berlin"
+        - name: VRKN_GLOBAL_SONARR_SERVER_IDS
+          value: "1"
+        - name: VRKN_GLOBAL_RADARR_SERVER_IDS
+          value: "1"
+        - name: VRKN_GLOBAL_LIDARR_SERVER_IDS
+          value: "1"
+        - name: VRKN_GLOBAL_TAUTULLI_SERVER_IDS
+          value: "1"
+        - name: VRKN_GLOBAL_SICKCHILL_SERVER_IDS
+          value: "false"
+        - name: VRKN_GLOBAL_UNIFI_SERVER_IDS
+          value: "1"
+        - name: VRKN_GLOBAL_OMBI_SERVER_IDS
+          value: "1"
+        - name: VRKN_GLOBAL_MAXMIND_LICENSE_KEY
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_GLOBAL_MAXMIND_LICENSE_KEY
+        - name: VRKN_INFLUXDB_URL
+          value: "10.0.40.11"
+        - name: VRKN_INFLUXDB_PORT
+          value: "8086"
+        - name: VRKN_INFLUXDB_SSL
+          value: "false"
+        - name: VRKN_INFLUXDB_VERIFY_SSL
+          value: "false"
+        - name: VRKN_INFLUXDB_USERNAME
+          value: "varken"
+        - name: VRKN_INFLUXDB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_INFLUXDB_PASSWORD
+        - name: VRKN_TAUTULLI_1_URL
+          value: "tautulli.media.svc.cluster.local:8181"
+        - name: VRKN_TAUTULLI_1_FALLBACK_IP
+          value: "1.1.1.1"
+        - name: VRKN_TAUTULLI_1_APIKEY
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_TAUTULLI_1_APIKEY
+        - name: VRKN_TAUTULLI_1_SSL
+          value: "false"
+        - name: VRKN_TAUTULLI_1_VERIFY_SSL
+          value: "false"
+        - name: VRKN_TAUTULLI_1_GET_ACTIVITY
+          value: "true"
+        - name: VRKN_TAUTULLI_1_GET_ACTIVITY_RUN_SECONDS
+          value: "30"
+        - name: VRKN_TAUTULLI_1_GET_STATS
+          value: "true"
+        - name: VRKN_TAUTULLI_1_GET_STATS_RUN_SECONDS
+          value: "3600"
+        - name: VRKN_SONARR_1_URL
+          value: "sonarr.media.svc.cluster.local:8989"
+        - name: VRKN_SONARR_1_APIKEY
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_SONARR_1_APIKEY
+        - name: VRKN_SONARR_1_SSL
+          value: "false"
+        - name: VRKN_SONARR_1_VERIFY_SSL
+          value: "false"
+        - name: VRKN_SONARR_1_MISSING_DAYS
+          value: "7"
+        - name: VRKN_SONARR_1_MISSING_DAYS_RUN_SECONDS
+          value: "300"
+        - name: VRKN_SONARR_1_FUTURE_DAYS
+          value: "1"
+        - name: VRKN_SONARR_1_FUTURE_DAYS_RUN_SECONDS
+          value: "300"
+        - name: VRKN_SONARR_1_QUEUE
+          value: "true"
+        - name: VRKN_SONARR_1_QUEUE_RUN_SECONDS
+          value: "300"
+        - name: VRKN_RADARR_1_URL
+          value: "radarr.media.svc.cluster.local:7878"
+        - name: VRKN_RADARR_1_APIKEY
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_RADARR_1_APIKEY
+        - name: VRKN_RADARR_1_SSL
+          value: "false"
+        - name: VRKN_RADARR_1_VERIFY_SSL
+          value: "false"
+        - name: VRKN_RADARR_1_QUEUE
+          value: "true"
+        - name: VRKN_RADARR_1_QUEUE_RUN_SECONDS
+          value: "300"
+        - name: VRKN_RADARR_1_GET_MISSING
+          value: "true"
+        - name: VRKN_RADARR_1_GET_MISSING_RUN_SECONDS
+          value: "300"
+        - name: VRKN_LIDARR_1_URL
+          value: "lidarr.media.svc.cluster.local:8686"
+        - name: VRKN_LIDARR_1_APIKEY
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_LIDARR_1_APIKEY
+        - name: VRKN_LIDARR_1_SSL
+          value: "false"
+        - name: VRKN_LIDARR_1_VERIFY_SSL
+          value: "false"
+        - name: VRKN_LIDARR_1_MISSING_DAYS
+          value: "30"
+        - name: VRKN_LIDARR_1_MISSING_DAYS_RUN_SECONDS
+          value: "300"
+        - name: VRKN_LIDARR_1_FUTURE_DAYS
+          value: "30"
+        - name: VRKN_LIDARR_1_FUTURE_DAYS_RUN_SECONDS
+          value: "300"
+        - name: VRKN_LIDARR_1_QUEUE
+          value: "true"
+        - name: VRKN_LIDARR_1_QUEUE_RUN_SECONDS
+          value: "300"
+        - name: VRKN_UNIFI_1_URL
+          value: "10.0.40.253:8443"
+        - name: VRKN_UNIFI_1_USERNAME
+          value: "varken"
+        - name: VRKN_UNIFI_1_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_UNIFI_1_PASSWORD
+        - name: VRKN_UNIFI_1_SITE
+          value: "default"
+        - name: VRKN_UNIFI_1_USG_NAME
+          value: "UniFi Security Gateway 3P"
+        - name: VRKN_UNIFI_1_SSL
+          value: "true"
+        - name: VRKN_UNIFI_1_VERIFY_SSL
+          value: "false"
+        - name: VRKN_UNIFI_1_GET_USG_STATS_RUN_SECONDS
+          value: "300"
+        - name: VRKN_OMBI_1_URL
+          value: "ombi.media.svc.cluster.local:3579"
+        - name: VRKN_OMBI_1_APIKEY
+          valueFrom:
+            secretKeyRef:
+              name: varken-secret
+              key: VRKN_OMBI_1_APIKEY
+        - name: VRKN_OMBI_1_SSL
+          value: "false"
+        - name: VRKN_OMBI_1_VERIFY_SSL
+          value: "false"
+        - name: VRKN_OMBI_1_GET_REQUEST_TYPE_COUNTS
+          value: "true"
+        - name: VRKN_OMBI_1_REQUEST_TYPE_RUN_SECONDS
+          value: "300"
+        - name: VRKN_OMBI_1_GET_REQUEST_TOTAL_COUNTS
+          value: "true"
+        - name: VRKN_OMBI_1_REQUEST_TOTAL_RUN_SECONDS
+          value: "300"
+        - name: VRKN_OMBI_1_GET_ISSUE_STATUS_COUNTS
+          value: "true"
+        - name: VRKN_OMBI_1_ISSUE_STATUS_RUN_SECONDS
+          value: "300"
+        resources:
+          requests:
+            memory: "20Mi"
+            cpu: "50m"
+          limits:
+            memory: "50Mi"
+            cpu: "100m"
+        volumeMounts:
+        - name: varken-volume
+          mountPath: /config
+      volumes:
+      - name: varken-volume
+        persistentVolumeClaim:
+          claimName: longhorn-pvc-varken

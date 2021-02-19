@@ -1,0 +1,23 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: plex
+  name: plex
+  namespace: services
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: plex.technolab.duckdns.org
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: plex
+          servicePort: 32400
+  tls:
+  - hosts:
+    - plex.technolab.duckdns.org
+    secretName: services-technolab-duckdns-org-tls

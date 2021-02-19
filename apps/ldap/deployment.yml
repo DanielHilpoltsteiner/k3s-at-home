@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openldap
+  namespace: ldap
+  labels:
+    app: openldap
+spec:
+  selector:
+    matchLabels:
+      app: openldap
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: openldap
+    spec:
+      containers:
+        - name: openldap
+          image: harbor.home-lab.io/cache/osixia/openldap:1.4.0
+          imagePullPolicy: IfNotPresent
+          args: ["--copy-service", "--loglevel", "debug"]
+          env:
+            - name: LDAP_OPENLDAP_UID
+              value: "1000"
+            - name: LDAP_OPENLDAP_GID
+              value: "1000"
+            - name: LDAP_ORGANISATION
+              value: MyCompany
+            - name: LDAP_DOMAIN
+              value: example.com
+            - name: LDAP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ldap-secret
+                  key: admin_password
+            - name: LDAP_CONFIG_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: ldap-secret
+                  key: config_password
+            - name: LDAP_ADDITIONAL_MODULES
+              value: memberof
+            - name: LDAP_ADDITIONAL_SCHEMAS
+              value: openldap
+            - name: LDAP_FORCE_RECONFIGURE
+              value: "true"
+            - name: LDAP_TLS
+              value: "false"
+          ports:
+            - containerPort: 389
+              name: ldap
+          volumeMounts:
+            - name: config
+              mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom/base.ldif
+              subPath: base.ldif
+      volumes:
+        - name: config
+          configMap:
+            name: ldap-config
+            items:
+              - key: base.ldif
+                path: base.ldif

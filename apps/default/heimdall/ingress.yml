@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: heimdall
+  name: heimdall
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: heimdall.home-lab.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: heimdall
+          servicePort: 80

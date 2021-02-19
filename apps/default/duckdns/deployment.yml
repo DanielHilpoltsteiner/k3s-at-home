@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: duckdns
+  labels:
+    app: duckdns
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: duckdns
+  template:
+    metadata:
+      labels:
+        app: duckdns
+    spec:
+      containers:
+      - name: duckdns
+        image: harbor.home-lab.io/library/duckdns-go:v1.0.2
+        env:
+        - name: TZ
+          value: "Europe/Berlin"
+        - name: DUCKDNS_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: duckdns-secret
+              key: duckdns-api-key
+        - name: DUCKDNS_DOMAINS
+          value: technolab
+        resources:
+          requests:
+            memory: "20Mi"
+            cpu: "10m"
+          limits:
+            memory: "50Mi"
+            cpu: "50m"

@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: jackett
+  name: jackett
+  namespace: media
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: jackett.home-lab.io
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: jackett
+          servicePort: 9117

@@ -1,0 +1,59 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bazarr
+  namespace: media
+  labels:
+    app: bazarr
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: bazarr
+  template:
+    metadata:
+      labels:
+        app: bazarr
+    spec:
+      containers:
+      - name: bazarr
+        image: ghcr.io/linuxserver/bazarr
+        ports:
+        - containerPort: 6767
+          name: bazarr
+        env:
+        - name: PUID
+          value: "65534"
+        - name: PGID
+          value: "65534"
+        - name: TZ
+          value: "Europe/Berlin"
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: tv
+          mountPath: /tv
+        - name: movies
+          mountPath: /movies
+        resources:
+          requests:
+            memory: "100Mi"
+            cpu: "100m"
+          limits:
+            memory: "300Mi"
+            cpu: 1
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: longhorn-pvc-bazarr
+      - name: movies
+        nfs:
+          server: 10.0.40.2
+          path: /mnt/vault/Media/Movies
+      - name: tv
+        nfs:
+          server: 10.0.40.2
+          path: /mnt/vault/Media/Series

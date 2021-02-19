@@ -1,0 +1,97 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authelia-config
+  namespace: services
+data:
+  configuration.yml: |
+    ###############################################################
+    #                   Authelia configuration                    #
+    ###############################################################
+
+    # The host and port to listen on
+    host: 0.0.0.0
+    port: 9091
+    log_level: debug
+    log_format: json
+    # jwt_secret: ${JWT_SECRET}
+
+    theme: dark
+
+    default_redirection_url: https://ebrianne.technolab.duckdns.org
+
+    totp:
+      issuer: authelia.com
+
+    authentication_backend:
+      disable_reset_password: true
+      refresh_interval: 5m
+      ldap:
+        url: ldap://openldap.ldap:389
+        start_tls: false
+        base_dn: dc=example,dc=com
+        username_attribute: uid
+        additional_users_dn: ou=users
+        users_filter: (&({username_attribute}={input})(objectClass=person))
+        additional_groups_dn: ou=groups
+        groups_filter: (&(member={dn})(objectclass=groupOfNames))
+        group_name_attribute: cn
+        mail_attribute: mail
+        display_name_attribute: displayName
+        user: cn=admin,dc=example,dc=com
+        # password: ${LDAP_ADMIN_PASSWORD}
+
+    access_control:
+      default_policy: deny
+      rules:
+        - domain: code-server.technolab.duckdns.org
+          subject: "user:ebrianne"
+          policy: two_factor
+
+    session:
+      name: authelia_session
+      # secret: ${SESSION_SECRET}
+      expiration: 24h
+      inactivity: 1h
+      remember_me_duration: 24h
+      domain: technolab.duckdns.org
+
+      redis:
+        host: redis.redis.svc.cluster.local
+        port: 6379
+
+    regulation:
+      max_retries: 3
+      find_time: 2m
+      ban_time: 30m
+
+    storage:
+      postgres:
+        host: 10.0.40.11
+        port: 5432
+        database: authelia
+        username: authelia
+        # password: ${DB_PASSWORD}
+        sslmode: disable
+
+    notifier:
+      disable_startup_check: true
+      # filesystem:
+      #   filename: /config/notification.txt
+      smtp:
+        # username: ebrianne
+        # Password can also be set using a secret: https://docs.authelia.com/configuration/secrets.html
+        # password: ${SMTP_PASSWORD}
+        host: mailhog.mailhog.svc.cluster.local
+        port: 1025
+        sender: authelia@home-lab.io
+        # HELO/EHLO Identifier. Some SMTP Servers may reject the default of localhost.
+        identifier: authelia
+        # Subject configuration of the emails sent.
+        # {title} is replaced by the text from the notifier
+        subject: "[Authelia] {title}"
+        # This address is used during the startup check to verify the email configuration is correct. It's not important what it is except if your email server only allows local delivery.
+        startup_check_address: test@home-lab.io
+        disable_require_tls: true
+        disable_html_emails: false

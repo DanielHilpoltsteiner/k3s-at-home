@@ -1,0 +1,40 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ldap-config
+  namespace: ldap
+  labels:
+    app: openldap
+data:
+  base.ldif: |
+    dn: ou=groups,dc=example,dc=com
+    objectclass: organizationalUnit
+    objectclass: top
+    ou: groups
+
+    dn: ou=users,dc=example,dc=com
+    objectclass: organizationalUnit
+    objectclass: top
+    ou: users
+
+    dn: cn=dev,ou=groups,dc=example,dc=com
+    cn: dev
+    member: uid=ebrianne,ou=users,dc=example,dc=com
+    objectclass: groupOfNames
+    objectclass: top
+
+    dn: cn=admins,ou=groups,dc=example,dc=com
+    cn: admins
+    member: uid=ebrianne,ou=users,dc=example,dc=com
+    objectclass: groupOfNames
+    objectclass: top
+
+    dn: uid=ebrianne,ou=users,dc=example,dc=com
+    uid: ebrianne
+    cn: ebrianne
+    objectclass: inetOrgPerson
+    objectclass: top
+    mail: eldwan35@gmail.com
+    sn: Eldwan Brianne
+    userpassword:

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-website
+  namespace: services
+  labels:
+    app: nginx-website
+  annotations:
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      name: http
+      targetPort: 8080
+  selector:
+    app: nginx-website

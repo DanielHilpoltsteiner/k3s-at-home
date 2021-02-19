@@ -1,0 +1,72 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plex
+  namespace: services
+  labels:
+    app: plex
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: plex
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      containers:
+      - name: plex
+        image: harbor.home-lab.io/cache/plexinc/pms-docker
+        imagePullPolicy: Always
+        readinessProbe:
+          httpGet:
+            path: /identity
+            port: 32400
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /identity
+            port: 32400
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+        ports:
+        - containerPort: 32400
+          name: pms
+          protocol: TCP
+        env:
+        - name: TZ
+          value: Europe/Berlin
+        volumeMounts:
+        - name: config
+          mountPath: /config
+        - name: tv
+          mountPath: /data/tv
+        - name: music
+          mountPath: /data/music
+        - name: movies
+          mountPath: /data/movies
+        - name: transcode
+          mountPath: /transcode
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: longhorn-pvc-plex
+      - name: transcode
+        emptyDir: {}
+      - name: tv
+        nfs:
+          server: 10.0.40.2
+          path: "/mnt/vault/Media/Series"
+      - name: movies
+        nfs:
+          server: 10.0.40.2
+          path: "/mnt/vault/Media/Movies"
+      - name: music
+        nfs:
+          server: 10.0.40.2
+          path: "/mnt/vault/Media/Music"

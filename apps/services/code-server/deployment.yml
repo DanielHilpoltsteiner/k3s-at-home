@@ -1,0 +1,75 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-server
+  namespace: services
+  labels:
+    app: code-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: code-server
+  minReadySeconds: 5
+  template:
+    metadata:
+      labels:
+        app: code-server
+    spec:
+      containers:
+      - name: code-server
+        image: harbor.home-lab.io/library/code-server:v3.8.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8443
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/Berlin"
+        - name: SUDO_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: code-server-secret
+              key: sudo_password
+        - name: DOCKER_HOST
+          value: "tcp://dind:2375"
+        - name: DOCKER_CLI_EXPERIMENTAL
+          value: "enabled"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: 0.5
+          limits:
+            memory: "2Gi"
+            cpu: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8443
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8443
+          initialDelaySeconds: 30
+          timeoutSeconds: 30
+        startupProbe:
+          httpGet:
+            path: /
+            port: 8443
+          failureThreshold: 30
+          periodSeconds: 10
+        volumeMounts:
+        - name: config
+          mountPath: /config
+      volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: longhorn-pvc-code-server

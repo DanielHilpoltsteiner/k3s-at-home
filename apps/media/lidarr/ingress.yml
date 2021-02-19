@@ -1,0 +1,19 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: lidarr
+  name: lidarr
+  namespace: media
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: lidarr.home-lab.io
+    http:
+      paths:
+      - path:
+        backend:
+          serviceName: lidarr
+          servicePort: 8686

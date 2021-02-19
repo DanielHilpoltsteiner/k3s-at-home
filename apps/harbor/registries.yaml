@@ -1,0 +1,9 @@
+mirrors:
+  harbor.home-lab.io:
+    endpoint:
+      - http://harbor.home-lab.io
+configs:
+  harbor.home-lab.io:
+    auth:
+      username: XXXXXX
+      password: XXXXXX

@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: code-server
+  namespace: services
+  labels:
+    app: code-server
+  annotations:
+spec:
+  ports:
+    - port: 8443
+      protocol: TCP
+      name: https
+      targetPort: 8443
+  selector:
+    app: code-server

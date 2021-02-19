@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tautulli
+  namespace: media
+spec:
+  ports:
+  - name: tautulli
+    targetPort: 8181
+    port: 8181
+  selector:
+    app: tautulli
