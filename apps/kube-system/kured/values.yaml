@@ -15,13 +15,11 @@ podAnnotations: {}
 extraArgs: {}
 
 extraEnvVars:
-#  - name: slackHookUrl
-#    valueFrom:
-#      secretKeyRef:
-#        name: secret_name
-#        key: secret_key
-#  - name: regularEnvVariable
-#    value: 123
+  - name: SLACK_HOOK_URL
+    valueFrom:
+      secretKeyRef:
+        name: kured-secret
+        key: slack-hook
 
 configuration:
   lockTtl: 0                 # force clean annotation after this ammount of time (default 0, disabled)
@@ -32,12 +30,12 @@ configuration:
   period: ""                 # reboot check period (default 1h0m0s)
   prometheusUrl: ""          # Prometheus instance to probe for active alerts
   rebootDays: []             # only reboot on these days (default [su,mo,tu,we,th,fr,sa])
-  rebootSentinel: ""         # path to file whose existence signals need to reboot (default "/var/run/reboot-required")
+  rebootSentinel: "/var/run/reboot-required"         # path to file whose existence signals need to reboot (default "/var/run/reboot-required")
   slackChannel: ""           # slack channel for reboot notfications
-  slackHookUrl: ""           # slack hook URL for reboot notfications
-  slackUsername: ""          # slack username for reboot notfications (default "kured")
-  messageTemplateDrain: ""   # slack message template when notifying about a node being drained (default "Draining node %s")
-  messageTemplateReboot: ""  # slack message template when notifying about a node being rebooted (default "Rebooted node %s")
+  slackHookUrl: "${SLACK_HOOK_URL}"  # slack hook URL for reboot notfications
+  slackUsername: "kured"          # slack username for reboot notfications (default "kured")
+  messageTemplateDrain: "Draining node %s from my k3s cluster"   # slack message template when notifying about a node being drained (default "Draining node %s")
+  messageTemplateReboot: "Rebooting node %s from my k3s cluster"  # slack message template when notifying about a node being rebooted (default "Rebooted node %s")
   startTime: "02:00"              # only reboot after this time of day (default "0:00")
   timeZone: "Europe/Berlin"               # time-zone to use (valid zones from "time" golang package)
 
