@@ -17,6 +17,8 @@ spec:
         ---
         # helm install -n mailhog mailhog codecentric/mailhog -f values.yml
         image:
+          repository: docker.io/mailhog/mailhog
+          tag: "v1.0.1"
           pullPolicy: IfNotPresent
 
         ingress:
