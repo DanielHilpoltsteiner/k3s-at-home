@@ -23,7 +23,7 @@ spec:
         fsGroup: 1000
       containers:
         - name: redis
-          image: redis:6.0.9-alpine
+          image: redis:6.0.10-alpine
           imagePullPolicy: Always
           securityContext:
             runAsUser: 1000
