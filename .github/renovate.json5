@@ -10,7 +10,7 @@
   // only rebase PRs when there's a conflict
   "rebaseWhen": "conflicted",
   "kubernetes": {
-    "fileMatch": ["apps/.+\\.yaml$"]
+    "fileMatch": ["apps/.+\\.yaml$", "apps/.+\\.yml"]
   },
   "helm-values": {
     "fileMatch": ["apps/.+helm-\\.yaml$"]
