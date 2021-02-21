@@ -713,17 +713,17 @@ database:
 redis:
   # if external Redis is used, set "type" to "external"
   # and fill the connection informations in "external" section
-  type: external
+  type: internal
   internal:
     # set the service account to be used, default if left empty
     serviceAccountName: ""
     image:
       repository: goharbor/redis-photon
       tag: v2.1.3
-    # resources:
-    #  requests:
-    #    memory: 256Mi
-    #    cpu: 100m
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 100m
     nodeSelector: {}
     tolerations: []
     affinity: {}
@@ -731,7 +731,7 @@ redis:
     # support redis, redis+sentinel
     # addr for redis: <host_redis>:<port_redis>
     # addr for redis+sentinel: <host_sentinel1>:<port_sentinel1>,<host_sentinel2>:<port_sentinel2>,<host_sentinel3>:<port_sentinel3>
-    addr: "redis.redis.svc.cluster.local:6379"
+    addr: ""
     # The name of the set of Redis instances to monitor, it must be set to support redis+sentinel
     sentinelMasterSet: ""
     # The "coreDatabaseIndex" must be "0" as the library Harbor

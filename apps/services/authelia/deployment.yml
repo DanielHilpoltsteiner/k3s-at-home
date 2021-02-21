@@ -17,6 +17,12 @@ spec:
         app: authelia
     spec:
       containers:
+      - name: redis
+        image: redis:alpine3.13
+        ports:
+        - containerPort: 6379
+          name: redis
+          protocol: TCP
       - name: authelia
         image: harbor.home-lab.io/cache/authelia/authelia:4.26.1
         imagePullPolicy: IfNotPresent

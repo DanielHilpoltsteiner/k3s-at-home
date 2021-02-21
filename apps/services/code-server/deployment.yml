@@ -21,8 +21,8 @@ spec:
     spec:
       containers:
       - name: code-server
-        image: harbor.home-lab.io/library/code-server:v3.8.0
-        imagePullPolicy: Always
+        image: harbor.home-lab.io/library/code-server:v3.9.0
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8443
         env:

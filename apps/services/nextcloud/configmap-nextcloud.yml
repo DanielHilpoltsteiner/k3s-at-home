@@ -1,0 +1,75 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nextcloud-config
+  namespace: services
+data:
+  custom.config.php: |-
+    <?php
+        $CONFIG = array (
+          'overwriteprotocol' => 'https',
+          'overwrite.cli.url' => 'https://nextcloud.technolab.duckdns.org',
+          'filelocking.enabled' => 'true',
+          'loglevel' => '2',
+          'enable_previews' => false,
+          'datadirectory' => '/data',
+          'trusted_domains' =>
+          array (
+            0 => 'localhost',
+            1 => 'nextcloud.technolab.duckdns.org'
+          ),
+          'trusted_proxies' =>
+          array (
+            0 => '10.69.0.0/16',
+            1 => '10.96.0.0/16'
+          ),
+          'default_language' => 'en',
+        );
+  redis.config.php: |-
+     <?php
+        $CONFIG = array (
+          'redis' => array(
+            'host' => 'localhost',
+            'port' => 6379
+            )
+        );
+  .htaccess: |-
+    # line below if for Apache 2.4
+    <ifModule mod_authz_core.c>
+    Require all denied
+    </ifModule>
+    # line below if for Apache 2.2
+    <ifModule !mod_authz_core.c>
+    deny from all
+    </ifModule>
+    # section for Apache 2.2 and 2.4
+    <ifModule mod_autoindex.c>
+    IndexIgnore *
+    </ifModule>
+  apache-pretty-urls.config.php: |-
+    <?php
+    $CONFIG = array (
+      'htaccess.RewriteBase' => '/',
+    );
+  apcu.config.php: |-
+    <?php
+    $CONFIG = array (
+      'memcache.local' => '\OC\Memcache\APCu',
+    );
+  apps.config.php: |-
+    <?php
+    $CONFIG = array (
+      "apps_paths" => array (
+          0 => array (
+                  "path"     => OC::$SERVERROOT."/apps",
+                  "url"      => "/apps",
+                  "writable" => false,
+          ),
+          1 => array (
+                  "path"     => OC::$SERVERROOT."/custom_apps",
+                  "url"      => "/custom_apps",
+                  "writable" => true,
+          ),
+      ),
+    );

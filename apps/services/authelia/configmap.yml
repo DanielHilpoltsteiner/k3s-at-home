@@ -58,13 +58,13 @@ data:
       domain: technolab.duckdns.org
 
       redis:
-        host: redis.redis.svc.cluster.local
+        host: localhost
         port: 6379
 
     regulation:
-      max_retries: 3
+      max_retries: 5
       find_time: 2m
-      ban_time: 30m
+      ban_time: 10m
 
     storage:
       postgres:
