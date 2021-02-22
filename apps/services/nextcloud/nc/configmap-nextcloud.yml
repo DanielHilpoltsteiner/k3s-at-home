@@ -29,10 +29,13 @@ data:
   redis.config.php: |-
      <?php
         $CONFIG = array (
+          'memcache.distributed' => '\\OC\\Memcache\\Redis',
+          'memcache.locking' => '\OC\\Memcache\\Redis',
           'redis' => array(
             'host' => 'localhost',
-            'port' => 6379
-            )
+            'port' => 6379,
+            'timeout' => 0.0,
+          )
         );
   .htaccess: |-
     # line below if for Apache 2.4
@@ -73,3 +76,8 @@ data:
           ),
       ),
     );
+  redis.conf: |-
+    bind 0.0.0.0
+    appendonly yes
+    # Other cluster members need to be able to connect
+    protected-mode no

@@ -21,14 +21,47 @@ spec:
         fsGroup: 33
       containers:
       - name: redis
-        image: redis:alpine3.13
+        image: redis:alpine
+        command:
+        - redis-server
+        - "/etc/redis/redis.conf"
+        env:
+        - name: MASTER
+          value: "true"
         ports:
         - containerPort: 6379
           name: redis
           protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "redis-cli -h $(hostname) ping"
+          initialDelaySeconds: 15
+          timeoutSeconds: 5
+        livenessProbe:
+          exec:
+            command:
+            - sh
+            - -c
+            - "redis-cli -h $(hostname) ping"
+          initialDelaySeconds: 20
+          periodSeconds: 3
+        volumeMounts:
+        - name: redis-conf
+          mountPath: /etc/redis/redis.conf
+          readOnly: true
+          subPath: redis.conf
+        - name: redis-data
+          mountPath: /data
       - name: nextcloud
         image: ebrianne/nextcloud:20.0.7-apache
         imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
         env:
         - name: POSTGRES_HOST
           value: "10.0.40.11"
@@ -66,8 +99,8 @@ spec:
           value: "localhost"
         - name: REDIS_HOST_PORT
           value: "6379"
-        - name: REDIS_HOST_PASSWORD
-          value: ""
+        - name: PHP_UPLOAD_LIMIT
+          value: "2G"
         livenessProbe:
           httpGet:
             path: /status.php
@@ -104,10 +137,19 @@ spec:
           timeoutSeconds: 5
           successThreshold: 1
           failureThreshold: 30
-        resources:
         volumeMounts:
         - name: nextcloud-root
           mountPath: /var/www/html
+          subPath: html
+        - name: nextcloud-root
+          mountPath: /var/www/html/config
+          subPath: config
+        - name: nextcloud-root
+          mountPath: /var/www/html/custom_apps
+          subPath: custom_apps
+        - name: nextcloud-root
+          mountPath: /var/www/html/themes
+          subPath: themes
         - name: nextcloud-data
           mountPath: /data
         - name: nextcloud-config
@@ -128,6 +170,31 @@ spec:
         - name: nextcloud-config
           mountPath: /var/www/html/config/apps.config.php
           subPath: apps.config.php
+      - name: nextcloud-exporter
+        image: xperimental/nextcloud-exporter:v0.4.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: NEXTCLOUD_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secret
+              key: nextcloud-username
+        - name: NEXTCLOUD_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nextcloud-secret
+              key: nextcloud-password
+        - name: NEXTCLOUD_SERVER
+          value: http://localhost
+        - name: NEXTCLOUD_TIMEOUT
+          value: "5s"
+        resources:
+          limits:
+            memory: "100Mi"
+            cpu: "100m"
+        ports:
+        - name: metrics
+          containerPort: 9205
       volumes:
       - name: nextcloud-root
         persistentVolumeClaim:
@@ -136,6 +203,11 @@ spec:
         configMap:
           name: nextcloud-config
       - name: nextcloud-data
-      nfs:
-        server: "10.0.40.2"
-        path: "/mnt/vault/Nextcloud"
+        nfs:
+          server: "10.0.40.2"
+          path: "/mnt/vault/Nextcloud"
+      - name: redis-data
+        emptyDir: {}
+      - name: redis-conf
+        configMap:
+          name: nextcloud-config

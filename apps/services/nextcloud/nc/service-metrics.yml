@@ -16,4 +16,4 @@ spec:
     port: 9205
     targetPort: metrics
   selector:
-    app: nextcloud-exporter
+    app: nextcloud

@@ -1,0 +1,47 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: nextcloud
+  namespace: services
+  labels:
+    app: nextcloud
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 1G
+    nginx.ingress.kubernetes.io/server-snippet: |-
+      server_tokens off;
+      proxy_hide_header X-Powered-By;
+
+      rewrite ^/.well-known/webfinger /public.php?service=webfinger last;
+      rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
+      rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
+      location = /.well-known/carddav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /.well-known/caldav {
+        return 301 $scheme://$host/remote.php/dav;
+      }
+      location = /robots.txt {
+        allow all;
+        log_not_found off;
+        access_log off;
+      }
+      location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
+        deny all;
+      }
+      location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
+        deny all;
+      }
+spec:
+  rules:
+  - host: nextcloud.technolab.duckdns.org
+    http:
+      paths:
+      - path: "/"
+        backend:
+          serviceName: nextcloud
+          servicePort: 8080
+  tls:
+  - hosts:
+    - nextcloud.technolab.duckdns.org
+    secretName: services-technolab-duckdns-org-tls
