@@ -183,7 +183,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: nextcloud-secret
-              key: nextcloud-password
+              key: nextcloud-exporter-password
         - name: NEXTCLOUD_SERVER
           value: http://localhost
         - name: NEXTCLOUD_TIMEOUT
