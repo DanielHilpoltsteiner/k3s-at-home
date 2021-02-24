@@ -56,7 +56,7 @@ spec:
         - name: redis-data
           mountPath: /data
       - name: nextcloud
-        image: ebrianne/nextcloud:20.0.7-apache
+        image: ebrianne/nextcloud:21.0.0-apache
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
