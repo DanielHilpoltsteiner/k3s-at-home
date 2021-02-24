@@ -528,7 +528,7 @@ chartmuseum:
   absoluteUrl: false
   image:
     repository: goharbor/chartmuseum-photon
-    tag: v2.1.3
+    tag: v2.2.0
   replicas: 1
   # resources:
   #  requests:
