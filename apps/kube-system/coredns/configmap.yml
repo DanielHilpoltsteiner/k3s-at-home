@@ -30,7 +30,7 @@ data:
             ttl 30
         }
         prometheus 0.0.0.0:9153
-        forward . /etc/resolv.conf
+        forward . 192.168.10.252
         cache 30
         loop
         reload
@@ -39,30 +39,14 @@ data:
 
     home-lab.io:53 {
       errors
-        log
-        health {
-            lameduck 5s
-        }
-        ready
-        prometheus 0.0.0.0:9153
-        forward . 192.168.10.252
-        cache 30
-        loop
-        reload
-        loadbalance
+      log
+      forward . 192.168.10.252
+      cache 30
     }
 
     technolab.duckdns.org:53 {
       errors
-        log
-        health {
-            lameduck 5s
-        }
-        ready
-        prometheus 0.0.0.0:9153
-        forward . 192.168.10.252
-        cache 30
-        loop
-        reload
-        loadbalance
+      log
+      forward . 1.1.1.1
+      cache 30
     }
