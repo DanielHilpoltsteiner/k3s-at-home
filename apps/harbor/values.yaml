@@ -634,7 +634,7 @@ notary:
     serviceAccountName: ""
     image:
       repository: goharbor/notary-server-photon
-      tag: v2.1.3
+      tag: v2.2.0
     replicas: 1
     # resources:
     #  requests:
