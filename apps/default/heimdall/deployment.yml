@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: heimdall
+  namespace: default
   labels:
     app: heimdall
 spec:
@@ -20,6 +21,7 @@ spec:
       containers:
       - name: heimdall
         image: ghcr.io/linuxserver/heimdall:version-2.2.2
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
         env:
