@@ -25,6 +25,7 @@ data:
             1 => '10.96.0.0/16'
           ),
           'default_language' => 'en',
+          'default_phone_region' => 'DE',
         );
   redis.config.php: |-
      <?php

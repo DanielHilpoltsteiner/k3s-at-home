@@ -13,7 +13,7 @@ image:
 
 nfs:
   server: 10.0.40.2
-  path: /mnt/vault/Kubernetes/volumes
+  path: /mnt/vault/Kubernetes
   mountOptions:
 
 # For creating the StorageClass automatically:
