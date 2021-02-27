@@ -13,18 +13,8 @@
     "fileMatch": ["apps/.+\\.yaml$", "apps/.+\\.yml"]
   },
   "helm-values": {
-    "fileMatch": ["apps/.+helm-.+\\.yaml$"]
+    "fileMatch": ["apps/.+\\.yaml$"]
   },
-  "regexManagers": [
-    // regexManager to read and process HelmRelease files
-    {
-      "fileMatch": ["apps/.+helm-.+\\.yaml$"],
-      "matchStrings": [
-        "registryUrl=(?<registryUrl>.*?)\n *chart: (?<depName>.*?)\n *version: (?<currentValue>.*)\n"
-      ],
-      "datasourceTemplate": "helm"
-    }
-  ],
   "packageRules": [
     // setup datasources
     {

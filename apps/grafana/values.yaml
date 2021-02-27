@@ -1,0 +1,68 @@
+---
+image:
+  repository: grafana/grafana
+  tag: 7.3.3
+  sha: ""
+  pullPolicy: IfNotPresent
+
+downloadDashboardsImage:
+  repository: curlimages/curl
+  tag: 7.73.0
+  sha: ""
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+  labels: {}
+  path: /
+  hosts:
+    - grafana.home-lab.io
+
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 200m
+    memory: 256Mi
+
+persistence:
+  enabled: true
+  existingClaim: longhorn-pvc-grafana
+
+initChownData:
+  enabled: true
+
+  image:
+    repository: busybox
+    tag: "1.31.1"
+    sha: ""
+    pullPolicy: IfNotPresent
+
+admin:
+  existingSecret: "grafana-secret"
+  userKey: admin-user
+  passwordKey: admin-password
+
+plugins:
+  - grafana-clock-panel
+  - grafana-worldmap-panel
+  - grafana-piechart-panel
+
+grafana.ini:
+  paths:
+    data: /var/lib/grafana/data
+    logs: /var/log/grafana
+    plugins: /var/lib/grafana/plugins
+    provisioning: /etc/grafana/provisioning
+  analytics:
+    check_for_updates: true
+  log:
+    mode: console
+  grafana_net:
+    url: https://grafana.net
+
+ldap:
+  enabled: false
