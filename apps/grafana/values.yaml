@@ -7,7 +7,7 @@ image:
 
 downloadDashboardsImage:
   repository: curlimages/curl
-  tag: 7.73.0
+  tag: 7.75.0
   sha: ""
   pullPolicy: IfNotPresent
 
