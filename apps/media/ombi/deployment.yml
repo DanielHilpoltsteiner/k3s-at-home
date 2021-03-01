@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: ombi
-        image: ghcr.io/linuxserver/ombi:version-v3.0.5223
+        image: linuxserver/ombi:version-v3.0.5223
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3579

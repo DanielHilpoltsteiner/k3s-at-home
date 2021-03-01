@@ -70,8 +70,13 @@
     //custom versionning
     {
       "matchDatasources": ["docker"],
-      "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*)",
-      "matchPackageNames": ["linuxserver/bazarr"]
+      "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*)$",
+      "matchPackageNames": ["linuxserver/bazarr", "linuxserver/jackett", "linuxserver/ombi", "linuxserver/tautulli"]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "versioning": "regex:^version\-(?<major>.*)\.(?<minor>.*)\.(?<patch>.*)\.(?<suffix>.*)$",
+      "matchPackageNames": ["linuxserver/lidarr", "linuxserver/radarr", "linuxserver/sonarr"]
     }
   ]
 }

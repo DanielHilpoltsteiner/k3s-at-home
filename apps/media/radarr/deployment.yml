@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: radarr
-        image: ghcr.io/linuxserver/radarr:version-3.0.2.4552
+        image: linuxserver/radarr:version-3.0.2.4552
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 7878
