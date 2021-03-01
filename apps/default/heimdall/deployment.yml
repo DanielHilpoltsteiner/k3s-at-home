@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: heimdall
-        image: ghcr.io/linuxserver/heimdall:version-2.2.2
+        image: linuxserver/heimdall:version-2.2.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 80
