@@ -21,12 +21,6 @@
       "matchDatasources": ["helm"],
       "separateMinorPatch": true
     },
-    //Specific to plex docker image
-    {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["plexinc/pms-docker"],
-      "versioning": "regex:^1\\.(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
-    },
     // global docker datasource settings
     {
       "matchDatasources": ["docker"],
@@ -66,6 +60,12 @@
       "matchDatasources": ["helm"],
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm-release", "dependency/patch"]
-    }
+    },
+    //Specific to plex docker image
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["plexinc/pms-docker"],
+      "versioning": "loose"
+    },
   ]
 }
