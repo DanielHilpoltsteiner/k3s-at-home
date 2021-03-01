@@ -20,7 +20,7 @@ spec:
     spec:
       initContainers:
       - name: sysctl-ipv6
-        image: busybox:latest
+        image: busybox:stable
         imagePullPolicy: IfNotPresent
         command:
         - sh
@@ -33,7 +33,7 @@ spec:
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
-        image: harbor.home-lab.io/library/docker-deluge-openvpn:latest
+        image: docker-deluge-openvpn:v1.0.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8112

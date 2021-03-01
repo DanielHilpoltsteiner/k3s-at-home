@@ -21,6 +21,12 @@
       "matchDatasources": ["helm"],
       "separateMinorPatch": true
     },
+    //Specific to plex docker image
+    {
+      "matchDatasources": ["docker"],
+      "matchPackageNames": ["plexinc/pms-docker"],
+      "versioning": "regex:^1\\.(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)$"
+    },
     // global docker datasource settings
     {
       "matchDatasources": ["docker"],
@@ -29,12 +35,6 @@
       "commitMessageExtra": "to {{#if isSingleVersion}}v{{{toVersion}}}{{else}}{{{newValue}}}{{/if}}",
       "matchUpdateTypes": ["major", "minor", "patch"],
       "separateMinorPatch": true
-    },
-    //Specific to plex docker image plexinc/pms-docker:1.{major}.{minor}-{patch}
-    {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["plexinc/pms-docker"],
-      "versioning": "regex:1\\.(?<major>.+)\\.(?<minor>.+)\\.(?<patch>.+)$"
     },
     // add labels according to package and update types
     {
