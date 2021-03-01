@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: plex
-        image: harbor.home-lab.io/cache/plexinc/pms-docker:1.21.3.4046-3c1c83ba4
+        image: plexinc/pms-docker:1.21.3.4046-3c1c83ba4
         imagePullPolicy: IfNotPresent
         readinessProbe:
           httpGet:

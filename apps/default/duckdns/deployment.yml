@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: duckdns
-        image: harbor.home-lab.io/library/duckdns-go:v1.0.2
+        image: ebrianne/duckdns-go:v1.0.2
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ

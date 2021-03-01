@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: openldap
-          image: harbor.home-lab.io/cache/osixia/openldap:1.4.0
+          image: osixia/openldap:1.4.0
           imagePullPolicy: IfNotPresent
           args: ["--copy-service", "--loglevel", "debug"]
           env:

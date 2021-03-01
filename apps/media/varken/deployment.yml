@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: varken
-        image: harbor.home-lab.io/cache/boerderij/varken:1.7.6
+        image: boerderij/varken:1.7.6
         imagePullPolicy: IfNotPresent
         env:
         - name: TZ

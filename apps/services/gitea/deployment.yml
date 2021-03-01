@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: gitea
-        image: harbor.home-lab.io/cache/gitea/gitea:1.13.1
+        image: gitea/gitea:1.13.1
         imagePullPolicy: IfNotPresent
         env:
         - name: APP_NAME

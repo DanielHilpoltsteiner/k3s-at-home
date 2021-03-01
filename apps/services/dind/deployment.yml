@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: dind
-        image: harbor.home-lab.io/cache/library/docker:20.10.2-dind
+        image: docker:20.10.2-dind
         imagePullPolicy: IfNotPresent
         args:
         - --host=tcp://0.0.0.0:2375
