@@ -70,7 +70,7 @@
     //custom versionning
     {
       "matchDatasources": ["docker"],
-      "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*)",
+      "versioning": "loose",
       "matchPackageNames": ["linuxserver/bazarr"]
     },
   ]
