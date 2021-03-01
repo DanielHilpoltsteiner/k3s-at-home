@@ -66,22 +66,22 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["plexinc/pms-docker"],
       "versioning": "loose"
-    },
+    }
     //custom versionning
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
-      "matchPackageNames": ["linuxserver/bazarr", "linuxserver/jackett", "linuxserver/ombi", "linuxserver/tautulli"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^version\-(?<major>.*)\.(?<minor>.*)\.(?<patch>.*)\..+$",
-      "matchPackageNames": ["linuxserver/lidarr", "linuxserver/radarr", "linuxserver/sonarr"]
-    },
-    {
-      "matchDatasources": ["docker"],
-      "versioning": "regex:^version\\-(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
-      "matchPackageNames": ["linuxserver/heimdall"]
-    },
+    //{
+    //  "matchDatasources": ["docker"],
+    //  "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
+    //  "matchPackageNames": ["linuxserver/bazarr", "linuxserver/jackett", "linuxserver/ombi", "linuxserver/tautulli"]
+    //},
+    //{
+    //  "matchDatasources": ["docker"],
+    //   "versioning": "regex:^version\-(?<major>.*)\.(?<minor>.*)\.(?<patch>.*)\..+$",
+    //   "matchPackageNames": ["linuxserver/lidarr", "linuxserver/radarr", "linuxserver/sonarr"]
+    // },
+    // {
+    //   "matchDatasources": ["docker"],
+    //   "versioning": "regex:^version\\-(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
+    //   "matchPackageNames": ["linuxserver/heimdall"]
+    // }
   ]
 }
