@@ -48,6 +48,9 @@ data:
         - domain: code-server.technolab.duckdns.org
           subject: "user:ebrianne"
           policy: two_factor
+        - domain: bitwarden.technolab.duckdns.org
+          subject: "user:ebrianne"
+          policy: two_factor
 
     session:
       name: authelia_session
