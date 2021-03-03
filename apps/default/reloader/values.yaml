@@ -1,5 +1,5 @@
 ---
-# helm install reloader stakater/reloader -f values.yaml
+# helm install -n default reloader stakater/reloader -f values.yaml
 # Generated from deployments/kubernetes/templates/chart/values.yaml.tmpl
 global:
   ## Reference to one or more secrets to be used when pulling images
