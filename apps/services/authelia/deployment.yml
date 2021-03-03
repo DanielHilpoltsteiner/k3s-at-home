@@ -24,7 +24,7 @@ spec:
           name: redis
           protocol: TCP
       - name: authelia
-        image: authelia/authelia:4.26.1
+        image: authelia/authelia:4.26.2
         imagePullPolicy: IfNotPresent
         env:
         - name: PUID
