@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: gitea
-        image: gitea/gitea:1.13.1
+        image: gitea/gitea:1.13.2
         imagePullPolicy: IfNotPresent
         env:
         - name: APP_NAME
