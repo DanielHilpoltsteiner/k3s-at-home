@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: dind
-        image: docker:20.10.2-dind
+        image: docker:20.10.5-dind
         imagePullPolicy: IfNotPresent
         args:
         - --host=tcp://0.0.0.0:2375
