@@ -1,4 +1,5 @@
 ---
+# helm install -n ingress-nginx ingress-nginx ingress-nginx/ingress-nginx -f values.yaml
 ## nginx configuration
 ## Ref: https://github.com/kubernetes/ingress-nginx/blob/master/controllers/nginx/configuration.md
 ##
@@ -129,7 +130,8 @@ controller:
   ## E.g. to specify the default SSL certificate you can use
   ## extraArgs:
   ##   default-ssl-certificate: "<namespace>/<secret_name>"
-  extraArgs: {}
+  extraArgs:
+    enable-ssl-passthrough: ""
 
   ## Additional environment variables to set
   extraEnvs: []
