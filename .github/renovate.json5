@@ -61,6 +61,14 @@
       "matchUpdateTypes": ["patch"],
       "labels": ["renovate/helm-release", "dependency/patch"]
     },
+    // pin package versions
+    {
+      "matchDatasources": ["docker"],
+      "allowedVersions": "<6",
+      "matchPackageNames": [
+        "redis"
+      ]
+    },
     //Specific to plex docker image
     {
       "matchDatasources": ["docker"],
