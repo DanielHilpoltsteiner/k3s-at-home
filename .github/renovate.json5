@@ -89,7 +89,7 @@
     {
      "matchDatasources": ["docker"],
       "versioning": "regex:^version\\-(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
-      "matchPackageNames": ["linuxserver/radarr","linuxserver/sonarr"]
+      "matchPackageNames": ["linuxserver/lidarr","linuxserver/sonarr"]
     }
     // {
     //  "matchDatasources": ["docker"],
