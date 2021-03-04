@@ -10,10 +10,9 @@
   // only rebase PRs when there's a conflict
   "rebaseWhen": "conflicted",
   "kubernetes": {
-    "fileMatch": ["apps/.+deployment\\.yml$"],
+    "fileMatch": ["apps/.+deployment\\.yml$", "apps/kube-system/sealsecrets/.+\\.yaml$"],
     "ignorePaths": [
-      ".github",
-      "apps/kube-system/"
+      ".github"
     ]
   },
   "helm-values": {
