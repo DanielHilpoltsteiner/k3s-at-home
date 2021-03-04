@@ -12,6 +12,8 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/auth-url: "http://authelia.services.svc.cluster.local/api/verify"
     nginx.ingress.kubernetes.io/auth-signin: "https://authelia.technolab.duckdns.org/"
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
 spec:
   rules:
   - host: bitwarden.technolab.duckdns.org
