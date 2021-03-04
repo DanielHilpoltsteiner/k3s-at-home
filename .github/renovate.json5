@@ -100,7 +100,6 @@
      {
       "matchDatasources": ["docker"],
        "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+).*-(?<compatibility>.*)$",
-       "allowedVersions": "",
        "matchPackageNames": ["linuxserver/bazarr"]
      }
   ]
