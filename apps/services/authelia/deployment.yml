@@ -5,7 +5,7 @@ metadata:
   name: authelia
   namespace: services
   annotations:
-    secret.reloader.stakater.com/reload: "authelia-config"
+    configmap.reloader.stakater.com/reload: "authelia-config"
   labels:
     app: authelia
 spec:
