@@ -3,69 +3,43 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: openldap
-  annotations:
-    configmap.reloader.stakater.com/reload: "ldap-config"
   namespace: ldap
   labels:
-    app: openldap
+    app.kubernetes.io/name: openldap
 spec:
   selector:
     matchLabels:
-      app: openldap
+      app.kubernetes.io/name: openldap
   replicas: 1
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
-        app: openldap
+        app.kubernetes.io/name: openldap
     spec:
       containers:
-        - name: openldap
-          image: osixia/openldap:1.5.0
-          imagePullPolicy: IfNotPresent
-          args: ["--copy-service", "--loglevel", "debug"]
-          env:
-            - name: LDAP_OPENLDAP_UID
-              value: "1000"
-            - name: LDAP_OPENLDAP_GID
-              value: "1000"
-            - name: LDAP_ORGANISATION
-              value: MyCompany
-            - name: LDAP_DOMAIN
-              value: example.com
-            - name: LDAP_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ldap-secret
-                  key: admin_password
-            - name: LDAP_CONFIG_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ldap-secret
-                  key: config_password
-            - name: LDAP_ADDITIONAL_MODULES
-              value: memberof
-            - name: LDAP_ADDITIONAL_SCHEMAS
-              value: openldap
-            - name: LDAP_FORCE_RECONFIGURE
-              value: "true"
-            - name: LDAP_TLS
-              value: "false"
-            - name: EBRIANNE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: ldap-secret
-                  key: ebrianne_password
-          ports:
-            - containerPort: 389
-              name: ldap
-          volumeMounts:
-            - name: config
-              mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom/base.ldif
-              subPath: base.ldif
-      volumes:
-        - name: config
-          configMap:
-            name: ldap-config
-            items:
-              - key: base.ldif
-                path: base.ldif
+      - name: openldap
+        image: docker.io/bitnami/openldap:2.4.57-debian-10-r36
+        imagePullPolicy: "IfNotPresent"
+        env:
+          - name: LDAP_ADMIN_USERNAME
+            value: "admin"
+          - name: LDAP_ADMIN_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                key: adminpassword
+                name: openldap-secret
+          - name: LDAP_USERS
+            valueFrom:
+              secretKeyRef:
+                key: users
+                name: openldap-secret
+          - name: LDAP_PASSWORDS
+            valueFrom:
+              secretKeyRef:
+                key: passwords
+                name: openldap-secret
+        ports:
+          - name: tcp-ldap
+            containerPort: 1389

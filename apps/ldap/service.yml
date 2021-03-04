@@ -3,14 +3,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: openldap
-  namespace: ldap
   labels:
-    app: openldap
+    app.kubernetes.io/name: openldap
 spec:
   type: ClusterIP
   ports:
-    - name: ldap
-      port: 389
-      targetPort: ldap
+    - name: tcp-ldap
+      port: 1389
+      targetPort: tcp-ldap
   selector:
-    app: openldap
+    app.kubernetes.io/name: openldap

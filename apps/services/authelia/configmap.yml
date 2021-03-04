@@ -28,7 +28,7 @@ data:
       disable_reset_password: true
       refresh_interval: 5m
       ldap:
-        url: ldap://openldap.ldap:389
+        url: ldap://openldap.ldap:1389
         start_tls: false
         base_dn: dc=example,dc=com
         username_attribute: uid
