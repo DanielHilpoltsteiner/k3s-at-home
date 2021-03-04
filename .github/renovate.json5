@@ -10,13 +10,14 @@
   // only rebase PRs when there's a conflict
   "rebaseWhen": "conflicted",
   "kubernetes": {
-    "fileMatch": ["apps/.+\\.yaml$", "apps/.+\\.yml$"],
+    "fileMatch": ["apps/.+deployment\\.yml$"],
     "ignorePaths": [
-      ".github"
+      ".github",
+      "apps/kube-system/"
     ]
   },
   "helm-values": {
-    "fileMatch": ["apps/.+\\.yaml$"]
+    "fileMatch": ["apps/.+values\\.yaml$", "apps/.+Chart\\.yaml$"]
   },
   "packageRules": [
     // setup datasources
