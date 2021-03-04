@@ -17,7 +17,7 @@
     ]
   },
   "helm-values": {
-    "fileMatch": ["apps/.+values\\.yaml$", "apps/.+Chart\\.yaml$"]
+    "fileMatch": ["apps/.+values\\.yaml$"]
   },
   "packageRules": [
     // setup datasources
