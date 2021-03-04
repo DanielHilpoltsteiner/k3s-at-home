@@ -10,7 +10,10 @@
   // only rebase PRs when there's a conflict
   "rebaseWhen": "conflicted",
   "kubernetes": {
-    "fileMatch": ["apps/.+\\.yaml$", "apps/.+\\.yml$"]
+    "fileMatch": ["apps/.+\\.yaml$", "apps/.+\\.yml$"],
+    "ignorePaths": [
+      ".github"
+    ]
   },
   "helm-values": {
     "fileMatch": ["apps/.+\\.yaml$"]
@@ -81,26 +84,24 @@
      "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
      "matchPackageNames": ["linuxserver/jackett","linuxserver/ombi","linuxserver/tautulli"]
     },
+    //2.2.2-ls119
     {
       "matchDatasources": ["docker"],
-      "versioning": "regex:^version\\-(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
+      "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-(?<compatibility>.*)$",
       "matchPackageNames": ["linuxserver/heimdall"]
     },
+    //3.0.2.4552-ls96 / 0.7.2.1878-ls38 / 2.0.0.5344-ls96
     {
-     "matchDatasources": ["docker"],
-      "versioning": "regex:^version\\-(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
-      "matchPackageNames": ["linuxserver/sonarr"]
-    }
-    // {
-    //  "matchDatasources": ["docker"],
-    //   "versioning": "regex:^version\\-(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*)\\..+$",
-    //   "matchPackageNames": ["linuxserver/lidarr", "linuxserver/radarr"]
-    // },
-    //bazarr special versioning
-    //{
-    //  "matchDatasources": ["docker"],
-    //  "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
-    //  "matchPackageNames": ["linuxserver/bazarr"]
-    //}
+      "matchDatasources": ["docker"],
+       "versioning": "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>.*)-(?<compatibility>.*)$",
+       "matchPackageNames": ["linuxserver/radarr","linuxserver/lidarr","linuxserver/sonarr"]
+     },
+     //v0.9.2-ls105 or v0.9.1.1-ls105
+     {
+      "matchDatasources": ["docker"],
+       "versioning": "regex:^v(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>.*)-(?<compatibility>.*)$",
+       "allowedVersions": "",
+       "matchPackageNames": ["linuxserver/bazarr"]
+     }
   ]
 }
