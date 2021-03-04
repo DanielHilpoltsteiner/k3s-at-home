@@ -74,8 +74,14 @@
       "matchDatasources": ["docker"],
       "matchPackageNames": ["plexinc/pms-docker"],
       "versioning": "loose"
+    },
+    //jacket versioning
+    {
+     "matchDatasources": ["docker"],
+     "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
+     "matchPackageNames": ["linuxserver/jackett"]
     }
-    //custom versionning
+    //custom versioning
     //{
     //  "matchDatasources": ["docker"],
     //  "versioning": "regex:^version\\-v(?<major>.*)\\.(?<minor>.*)\\.(?<patch>.*).+$",
