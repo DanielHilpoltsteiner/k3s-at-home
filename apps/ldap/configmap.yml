@@ -37,4 +37,4 @@ data:
     objectclass: top
     mail: eldwan35@gmail.com
     sn: Eldwan Brianne
-    userpassword:
+    userpassword: ${EBRIANNE_PASSWORD}
