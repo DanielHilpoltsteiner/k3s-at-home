@@ -560,18 +560,63 @@ argo-cd:
         - type: helm
           url: https://argoproj.github.io/argo-helm
           name: argo
-      # oidc.config: |
-      #   name: AzureAD
-      #   issuer: https://login.microsoftonline.com/TENANT_ID/v2.0
-      #   clientID: CLIENT_ID
-      #   clientSecret: $oidc.azuread.clientSecret
-      #   requestedIDTokenClaims:
-      #     groups:
-      #       essential: true
-      #   requestedScopes:
-      #     - openid
-      #     - profile
-      #     - email
+        - type: helm
+          url: https://stakater.github.io/stakater-charts
+          name: stakater
+        - type: helm
+          url: https://k8s-at-home.com/charts/
+          name: k8s-at-home
+        - type: helm
+          url: https://charts.bitnami.com/bitnami
+          name: bitnami
+        - type: helm
+          url: https://prometheus-community.github.io/helm-charts
+          name: prometheus-community
+        - type: helm
+          url: https://grafana.github.io/helm-charts
+          name: grafana
+        - type: helm
+          url: https://kubernetes.github.io/ingress-nginx
+          name: ingress-nginx
+        - type: helm
+          url: https://charts.jetstack.io
+          name: jetstack
+        - type: helm
+          url: https://ebrianne.github.io/helm-charts
+          name: ebrianne.github.io
+        - type: helm
+          url: https://helm.goharbor.io
+          name: harbor
+        - type: helm
+          url: https://kubernetes.github.io/kube-state-metrics
+          name: kube-state-metrics
+        - type: helm
+          url: https://coredns.github.io/helm
+          name: coredns
+        - type: helm
+          url: https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
+          name: nfs-subdir-external-provisioner
+        - type: helm
+          url: https://charts.longhorn.io
+          name: longhorn
+        - type: helm
+          url: https://codecentric.github.io/helm-charts
+          name: codecentric
+        - type: helm
+          url:     https://nextcloud.github.io/helm/
+          name: nextcloud
+        - type: helm
+          url: https://weaveworks.github.io/kured
+          name: kured
+        - type: helm
+          url: https://infracloudio.github.io/charts
+          name: infracloudio
+        - type: helm
+          url: https://kubernetes-sigs.github.io/descheduler/
+          name: descheduler
+        - type: helm
+          url: https://vmware-tanzu.github.io/helm-charts
+          name: vmware-tanzu
 
     ## Annotations to be added to ArgoCD ConfigMap
     configAnnotations: {}
