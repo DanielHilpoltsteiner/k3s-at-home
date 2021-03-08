@@ -1601,12 +1601,6 @@ extraScrapeConfigs: |
   - job_name: 'adguard'
     static_configs:
        - targets: ['192.168.10.252:9617']
-  - job_name: 'wireguard'
-    static_configs:
-      - targets: ['192.168.10.252:9586']
-  # - job_name: 'psql_k3s'
-  #   static_configs:
-  #     - targets: ['10.0.40.3:9104']
 
 # Adds option to add alert_relabel_configs to avoid duplicate alerts in alertmanager
 # useful in H/A prometheus with different external labels but the same alerts
