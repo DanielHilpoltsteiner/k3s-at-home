@@ -132,21 +132,131 @@ CREATE DATABASE `k3s`;
 CREATE USER k3s WITH PASSWORD '<password>';
 GRANT ALL ON DATABASE k3s TO k3s;
 ```
+### ETCD
+
+Create a etcd user
+
+```bash
+addgroup -S etcd 2>/dev/null
+adduser -S -D -H -h /dev/null -s /sbin/nologin -G etcd -g etcd etcd 2>/dev/null
+```
+
+Get the latest etcd binaries and extract the archive
+
+```bash
+wget https://github.com/etcd-io/etcd/releases/download/v3.4.15/etcd-v3.4.15-linux-amd64.tar
+tar xvf etcd-v3.4.15-linux-amd64.tar
+mv etcd-v3.4.15-linux-amd64/etcd etcd-v3.4.15-linux-amd64/etcdctl /usr/bin
+rm -rf etcd-v3.4.15-linux-amd64
+rm -rf etcd-v3.4.15-linux-amd64.tar
+```
+
+Check the etcd version
+
+```bash
+etcd --version
+
+etcd Version: 3.4.15
+Git SHA: aa7126864
+Go Version: go1.12.17
+Go OS/Arch: linux/amd64
+```
+
+Configure etcd and init.d using the files in `hacks/etcd-alpine` folder. Once configure you can start the service and add it on boot.
+
+```bash
+rc-service etcd start
+rc-update add etcd
+
+etcdctl member list -w table
++------------------+---------+--------+------------------------+------------------------+------------+
+|        ID        | STATUS  |  NAME  |       PEER ADDRS       |      CLIENT ADDRS      | IS LEARNER |
++------------------+---------+--------+------------------------+------------------------+------------+
+| 1790ea0adceb47ac | started | etcd-2 | http://10.0.40.11:2380 | http://10.0.40.11:2379 |      false |
+| 2258fe5a2cf07b76 | started | etcd-1 | http://10.0.40.10:2380 | http://10.0.40.10:2379 |      false |
+| a2fc059f31344bbd | started | etcd-3 | http://10.0.40.12:2380 | http://10.0.40.12:2379 |      false |
++------------------+---------+--------+------------------------+------------------------+------------+
+```
+
+### Pre-setup on Alpine linux
+
+A little bit of preparation before starting k3s.
+
+```bash 
+apk add iptables cni-plugins
+rc-service cgroups start
+rc-update add cgroups boot
+```
+
+Add this file in every node for sysctl `10-kube.conf`
+
+```bash
+# SWAP settings
+vm.swappiness=0
+vm.overcommit_memory=1
+
+# Have a larger connection range available
+net.ipv4.ip_local_port_range=1024 65000
+
+# Increase max connection
+net.core.somaxconn = 10000
+
+# Reuse closed sockets faster
+net.ipv4.tcp_tw_reuse=1
+net.ipv4.tcp_fin_timeout=15
+
+# The maximum number of "backlogged sockets".  Default is 128.
+net.core.netdev_max_backlog=4096
+
+# 16MB per socket - which sounds like a lot,
+# but will virtually never consume that much.
+net.core.rmem_max=16777216
+net.core.wmem_max=16777216
+
+# Various network tunables
+net.ipv4.tcp_max_syn_backlog=20480
+net.ipv4.tcp_max_tw_buckets=400000
+net.ipv4.tcp_no_metrics_save=1
+net.ipv4.tcp_rmem=4096 87380 16777216
+net.ipv4.tcp_syn_retries=2
+net.ipv4.tcp_synack_retries=2
+net.ipv4.tcp_wmem=4096 65536 16777216
+
+# ip_forward and tcp keepalive for iptables
+net.ipv4.tcp_keepalive_time=600
+net.ipv4.ip_forward=1
+
+# monitor file system events
+fs.inotify.max_user_instances=8192
+fs.inotify.max_user_watches=1048576
+```
+
+Reboot.
 
 ### Install k3s server
 
 On each master node ($IP_MASTER1 and $IP_MASTER2) to install k3s using containerd as container manager.
+
+With MySQL:
 
 ```bash
 export K3S_DATASTORE_ENDPOINT='mysql://username:password@tcp(database_ip_or_hostname:port)/database'
 curl -sfL https://get.k3s.io | sh -s - server --node-taint CriticalAddonsOnly=true:NoExecute --write-kubeconfig-mode 644 --disable traefik --disable servicelb --disable coredns --disable metrics-server --disable local-storage --tls-san $LB_IP --flannel-backend=none --disable-network-policy --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10
 ```
 
-or
+or with Postgres:
 
 ```bash
 export K3S_DATASTORE_ENDPOINT='postgres://username:password@10.0.40.3:5432/database?sslmode=disable'
 curl -sfL https://get.k3s.io | sh -s - server --node-taint CriticalAddonsOnly=true:NoExecute --write-kubeconfig-mode 644 --disable traefik --disable servicelb --disable coredns --disable metrics-server --disable local-storage --tls-san $LB_IP --flannel-backend=none --disable-network-policy --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10
+```
+
+or with etcd cluster:
+
+```bash
+export K3S_DATASTORE_ENDPOINT='http://etcd-1:2379,http://etcd-2:2379,http://etcd-3:2379'
+curl -sfL https://get.k3s.io | sh -s - server --node-taint CriticalAddonsOnly=true:NoExecute --write-kubeconfig-mode 644 --disable traefik --disable servicelb --disable coredns --disable metrics-server --disable local-storage --tls-san $LB_IP --flannel-backend=none --disable-network-policy --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10
+
 ```
 
 You can also use [docker](https://docs.docker.com/) by passing the flag `--docker`. However, docker as been deprecated in the recent kubernetes release and will be removed in the future.
