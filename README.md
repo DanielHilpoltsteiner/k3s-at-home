@@ -9,7 +9,7 @@
 The distribution of choice is [k3s](https://k3s.io/) as it is lightweight and contains all of the features that are used for a homelab case.
 I chose to do a [HA installation](https://rancher.com/docs/k3s/latest/en/installation/ha/) with 2 master nodes and 3 worker nodes. I use proxmox as the hypervisor layer and Ubuntu Server 20.04.
 
-### Install a Load Balancer (LB)
+### Create a Load Balancer (LB) (only needed for the hard way, kube-vip is used otherwise) 
 
 The setup of a load balancer is on the long run very useful, it allows to add more master nodes with time. You can chose any distribution you like that allow for TCP/UDP load balancing: [nginx](https://www.nginx.com/), [traefik](https://doc.traefik.io/traefik/), [haproxy](http://www.haproxy.org/)
 
@@ -183,9 +183,20 @@ etcdctl member list -w table
 A little bit of preparation before starting k3s.
 
 ```bash 
-apk add iptables cni-plugins
+apk add iptables cni-plugins open-iscsi nfs-utils sudo
 rc-service cgroups start
 rc-update add cgroups boot
+swapoff -a
+rc-update del swap boot
+```
+
+Load these modules
+
+```bash
+cat > /etc/modules-load.d/kube.conf <<EOF
+overlay
+br_netfilter
+EOF
 ```
 
 Add this file in every node for sysctl `10-kube.conf`
@@ -225,6 +236,8 @@ net.ipv4.tcp_wmem=4096 65536 16777216
 # ip_forward and tcp keepalive for iptables
 net.ipv4.tcp_keepalive_time=600
 net.ipv4.ip_forward=1
+net.bridge.bridge-nf-call-iptables=1
+net.bridge.bridge-nf-call-ip6tables=1
 
 # monitor file system events
 fs.inotify.max_user_instances=8192
@@ -233,7 +246,63 @@ fs.inotify.max_user_watches=1048576
 
 Reboot.
 
-### Install k3s server
+## The Easy Way
+
+We will use k3sup and kube-vip to install k3s masters and agents with embedded etcd.
+Prepare a master node and had the ip of the servers into `/etc/hosts`
+
+```bash
+10.0.40.4 k3s-1
+10.0.40.5 k3s-2
+10.0.40.6 k3s-3
+```
+
+Install a first master with this command
+
+```bash
+k3sup install --ip=10.0.40.4 --user=root --k3s-version=v1.20.4+k3s1 --local-path=$HOME/.kube/config --context default --cluster --tls-san 10.0.40.3 --k3s-extra-args="--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10 --node-taint node-role.kubernetes.io/master=true:NoSchedule"
+```
+
+Connect to the master node k3s-1 and install kube-vip
+
+```bash
+curl -s https://kube-vip.io/manifests/rbac.yaml > /var/lib/rancher/k3s/server/manifests/kube-vip-rbac.yaml
+export VIP=10.0.40.3
+export INTERFACE=eth0
+crictl pull docker.io/plndr/kube-vip:0.3.3
+alias kube-vip="ctr run --rm --net-host docker.io/plndr/kube-vip:0.3.3 vip /kube-vip"
+
+kube-vip manifest daemonset \
+                  --arp \
+                  --interface $INTERFACE \
+                  --address $VIP \
+                  --controlplane \
+                  --leaderElection \
+                  --taint \
+                  --inCluster | tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml
+
+ping $VIP
+```
+
+The VIP should reply to the ping. Then you re good to go. Replace the ip into your kubeconfig file with the VIP IP.
+
+Add other masters
+
+```bash
+k3sup join --ip=10.0.40.5 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1 --server --k3s-extra-args="--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10 --node-taint node-role.kubernetes.io/master=true:NoSchedule"
+
+k3sup join --ip=10.0.40.6 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1 --server --k3s-extra-args="--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10 --node-taint node-role.kubernetes.io/master=true:NoSchedule"
+```
+
+Add a worker node
+
+```bash
+k3sup join --ip=10.0.40.7 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
+k3sup join --ip=10.0.40.8 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
+```
+
+## The Hard Way
+### Install k3s server 
 
 On each master node ($IP_MASTER1 and $IP_MASTER2) to install k3s using containerd as container manager.
 
@@ -290,9 +359,8 @@ curl -sfL https://get.k3s.io | K3S_URL=https://$IP_LB:6443 K3S_TOKEN=<token> sh 
 
 MetalLB provides a network load-balancer implementation. In short, it allows you to create Kubernetes services of type "LoadBalancer" in clusters that don't run on a cloud provider. Installation instructions are [here](https://metallb.universe.tf/installation/).
 
-```kubectl
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/namespace.yaml
-kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.5/manifests/metallb.yaml
+```bash
+scp apps/kube-system/metallb/metallb.yaml root@10.0.40.4:/var/lib/rancher/k3s/server/manifests/
 # On first install only
 kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 ```

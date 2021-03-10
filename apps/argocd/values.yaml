@@ -617,6 +617,9 @@ argo-cd:
         - type: helm
           url: https://vmware-tanzu.github.io/helm-charts
           name: vmware-tanzu
+        - type: helm
+          url: https://bitnami-labs.github.io/sealed-secrets
+          name: sealed-secrets
 
     ## Annotations to be added to ArgoCD ConfigMap
     configAnnotations: {}

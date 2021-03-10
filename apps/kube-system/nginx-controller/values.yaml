@@ -173,7 +173,10 @@ controller:
   ## Node tolerations for server scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations: []
+  tolerations:
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+      effect: "NoSchedule"
   #  - key: "key"
   #    operator: "Equal|Exists"
   #    value: "value"
@@ -244,6 +247,7 @@ controller:
   ##
   nodeSelector:
     kubernetes.io/os: linux
+    node-role.kubernetes.io/master: 'true'
 
   ## Liveness and readiness probe values
   ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -588,7 +592,7 @@ controller:
 
 ## Rollback limit
 ##
-revisionHistoryLimit: 10
+revisionHistoryLimit: 3
 
 ## Default 404 backend
 ##
@@ -636,7 +640,10 @@ defaultBackend:
   ## Node tolerations for server scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations: []
+  tolerations:
+    - key: "node-role.kubernetes.io/master"
+      operator: "Exists"
+      effect: "NoSchedule"
   #  - key: "key"
   #    operator: "Equal|Exists"
   #    value: "value"
@@ -657,7 +664,8 @@ defaultBackend:
   ## Node labels for default backend pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector: {}
+  nodeSelector: 
+    node-role.kubernetes.io/master: 'true'
 
   ## Annotations to be added to default backend pods
   ##

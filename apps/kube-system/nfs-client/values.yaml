@@ -14,7 +14,7 @@ image:
 nfs:
   server: 10.0.40.2
   path: /mnt/vault/Kubernetes
-  mountOptions:
+  mountOptions: [ "nfsvers=4", "nolock" ]
 
 # For creating the StorageClass automatically:
 storageClass:
@@ -38,7 +38,7 @@ storageClass:
   reclaimPolicy: Delete
 
   # When set to false your PVs will not be archived by the provisioner upon deletion of the PVC.
-  archiveOnDelete: true
+  archiveOnDelete: false
 
   # Set access mode - ReadWriteOnce, ReadOnlyMany or ReadWriteMany
   accessModes: ReadWriteOnce
@@ -72,12 +72,12 @@ resources:
     cpu: 100m
     memory: 128Mi
 
-nodeSelector: {}
+nodeSelector:
+  node-role.kubernetes.io/master: 'true'
 
 tolerations:
-  - key: CriticalAddonsOnly
-    operator: Exists
-  - key: node-role.kubernetes.io/master
-    operator: Exists
+  - key: "node-role.kubernetes.io/master"
+    operator: "Exists"
+    effect: "NoSchedule"
 
 affinity: {}
