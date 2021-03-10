@@ -1,5 +1,5 @@
 ---
-# helm install -n botkube infracloudio/botkube -f values.yaml --set communications.slack.token=''
+# helm install -n botkube botkube infracloudio/botkube -f values.yaml --set communications.slack.token=''
 # Default values for BotKube.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.

@@ -190,6 +190,8 @@ swapoff -a
 rc-update del swap boot
 ```
 
+### General Pre-setup
+
 Load these modules
 
 ```bash
@@ -255,6 +257,8 @@ Prepare a master node and had the ip of the servers into `/etc/hosts`
 10.0.40.4 k3s-1
 10.0.40.5 k3s-2
 10.0.40.6 k3s-3
+10.0.40.7 k3s-w-1
+10.0.40.8 k3s-w-2
 ```
 
 Install a first master with this command

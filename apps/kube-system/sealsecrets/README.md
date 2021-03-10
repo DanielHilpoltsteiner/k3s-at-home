@@ -7,7 +7,7 @@ Bitnami released a solution to this problem, [SealSecrets](https://github.com/bi
 ## Install the controller with helm
 
 ```bash
-helm install -n kube-system sealed-secrets sealed-secrets/sealed-secrets -f values.yaml
+helm install -n kube-system sealed-secrets-controller sealed-secrets/sealed-secrets -f values.yaml
 ```
 ## Install the CLI tool `kubeseal`
 ### OSX

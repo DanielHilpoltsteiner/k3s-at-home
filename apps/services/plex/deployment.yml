@@ -41,6 +41,11 @@ spec:
         env:
         - name: TZ
           value: Europe/Berlin
+        - name: PLEX_CLAIM
+          valueFrom:
+            secretKeyRef:
+              name: plex-secret
+              key: claim-token
         volumeMounts:
         - name: config
           mountPath: /config
@@ -55,7 +60,7 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: longhorn-pvc-plex
+          claimName: nfs-pvc-plex
       - name: transcode
         emptyDir: {}
       - name: tv

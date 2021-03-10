@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: longhorn-pvc-plex
+  name: nfs-pvc-plex
   namespace: services
 spec:
-  storageClassName: longhorn
+  storageClassName: nfs-client
+  volumeName: nfs-pv-plex
   accessModes:
   - ReadWriteOnce
   resources:
