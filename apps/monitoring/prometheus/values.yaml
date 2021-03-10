@@ -492,8 +492,9 @@ nodeExporter:
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
   tolerations:
-    - key: "CriticalAddonsOnly"
+    - key: "node-role.kubernetes.io/master"
       operator: "Exists"
+      effect: "NoSchedule"
 
   ## Node labels for node-exporter pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
@@ -803,7 +804,7 @@ server:
     ## Prometheus server data Persistent Volume existing claim name
     ## Requires server.persistentVolume.enabled: true
     ## If defined, PVC must be created manually before volume will be bound
-    existingClaim: "longhorn-pvc-prometheus"
+    existingClaim: "nfs-pvc-prometheus"
 
     ## Prometheus server data Persistent Volume mount root path
     ##
