@@ -7,6 +7,8 @@ metadata:
   namespace: ldap
   labels:
     app: phpldapadmin
+  annotations:
+    configmap.reloader.stakater.com/reload: "phpldapadmin-config"
 spec:
   replicas: 1
   selector:
@@ -27,7 +29,7 @@ spec:
           protocol: TCP
         envFrom:
         - configMapRef:
-            name: phpldapadmin
+            name: phpldapadmin-config
         livenessProbe:
             httpGet:
               path: /
