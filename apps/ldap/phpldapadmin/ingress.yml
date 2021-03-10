@@ -8,6 +8,7 @@ metadata:
     app: phpldapadmin
   annotations:
     kubernetes.io/ingress.class: nginx
+spec:
   rules:
     - host: ldap-admin.home-lab.io
       http:
