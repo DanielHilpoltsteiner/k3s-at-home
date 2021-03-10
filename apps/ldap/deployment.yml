@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: openldap
-        image: ebrianne/openldap:2.4.57
+        image: bitnami/openldap:2.4.57
         imagePullPolicy: "IfNotPresent"
         env:
           - name: LDAP_ADMIN_USERNAME
