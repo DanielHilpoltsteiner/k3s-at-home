@@ -1,0 +1,18 @@
+---
+# Source: phpldapadmin/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpldapadmin
+  namespace: ldap
+  labels:
+    app: phpldapadmin
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: http
+    protocol: TCP
+    name: http
+  selector:
+    app: phpldapadmin

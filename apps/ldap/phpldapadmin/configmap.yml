@@ -1,0 +1,11 @@
+# Source: phpldapadmin/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: phpldapadmin
+  namespace: ldap
+  labels:
+    app: phpldapadmin
+data:
+  PHPLDAPADMIN_HTTPS: "false"
+  PHPLDAPADMIN_TRUST_PROXY_SSL: "true"
