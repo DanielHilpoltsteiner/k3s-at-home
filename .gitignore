@@ -2,3 +2,4 @@ secrets.yml
 secret.yml
 charts/
 Chart.lock
+*.ldif
