@@ -51,6 +51,9 @@ data:
         - domain: bitwarden.technolab.duckdns.org
           subject: "user:ebrianne"
           policy: two_factor
+        - domain: bitwarden.technolab.duckdns.org
+          subject: "user:mengqing"
+          policy: two_factor
 
     session:
       name: authelia_session

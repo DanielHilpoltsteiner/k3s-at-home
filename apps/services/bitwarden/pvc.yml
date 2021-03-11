@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: longhorn-pvc-bitwarden
+  name: nfs-pvc-bitwarden
   namespace: services
 spec:
-  storageClassName: longhorn
+  storageClassName: nfs-client
+  volumeName: nfs-pv-bitwarden
   accessModes:
     - ReadWriteOnce
   resources:
