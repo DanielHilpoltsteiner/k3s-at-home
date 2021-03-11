@@ -24,45 +24,45 @@ spec:
         imagePullPolicy: "IfNotPresent"
         args: ["--copy-service", "--loglevel", "debug"]
         env:
-          - name: LDAP_OPENLDAP_UID
-            value: "1000"
-          - name: LDAP_OPENLDAP_GID
-            value: "1000"
-          - name: LDAP_ORGANISATION
-            value: "KubeOrg"
-          - name: LDAP_DOMAIN
-            value: "example.com"
-          - name: LDAP_ADMIN_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: adminpassword
-                name: openldap-secret
-          - name: LDAP_CONFIG_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                key: configpassword
-                name: openldap-secret
-          - name: LDAP_ADDITIONAL_MODULES
-            value: memberof
-          - name: LDAP_ADDITIONAL_SCHEMAS
-            value: openldap
-          - name: LDAP_FORCE_RECONFIGURE
-            value: "true"
-          - name: LDAP_TLS
-            value: "false"
+        - name: LDAP_OPENLDAP_UID
+          value: "1000"
+        - name: LDAP_OPENLDAP_GID
+          value: "1000"
+        - name: LDAP_ORGANISATION
+          value: "KubeOrg"
+        - name: LDAP_DOMAIN
+          value: "example.com"
+        - name: LDAP_ADMIN_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: adminpassword
+              name: openldap-secret
+        - name: LDAP_CONFIG_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: configpassword
+              name: openldap-secret
+        - name: LDAP_ADDITIONAL_MODULES
+          value: memberof
+        - name: LDAP_ADDITIONAL_SCHEMAS
+          value: openldap
+        - name: LDAP_FORCE_RECONFIGURE
+          value: "true"
+        - name: LDAP_TLS
+          value: "false"
         ports:
-          - name: tcp-ldap
-            containerPort: 389
+        - name: tcp-ldap
+          containerPort: 389
         volumeMounts:
-          - name: config
-            mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom/base.ldif
-            subPath: base.ldif
+        - name: config
+          mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom/base.ldif
+          subPath: base.ldif
         resources: {}
       volumes:
-        - name: config
-          secret:
-            secretName: openldap-secret
-            items:
-              - key: base.ldif
-                path: base.ldif
+      - name: config
+        secret:
+          secretName: openldap-secret
+          items:
+            - key: base.ldif
+              path: base.ldif
           
