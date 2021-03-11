@@ -173,31 +173,31 @@ spec:
         - name: nextcloud-config
           mountPath: /var/www/html/config/apps.config.php
           subPath: apps.config.php
-      - name: nextcloud-exporter
-        image: xperimental/nextcloud-exporter:v0.4.0
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: NEXTCLOUD_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-secret
-              key: nextcloud-username
-        - name: NEXTCLOUD_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: nextcloud-secret
-              key: nextcloud-exporter-password
-        - name: NEXTCLOUD_SERVER
-          value: http://localhost
-        - name: NEXTCLOUD_TIMEOUT
-          value: "5s"
-        resources:
-          limits:
-            memory: "100Mi"
-            cpu: "100m"
-        ports:
-        - name: metrics
-          containerPort: 9205
+      # - name: nextcloud-exporter
+      #   image: xperimental/nextcloud-exporter:v0.4.0
+      #   imagePullPolicy: IfNotPresent
+      #   env:
+      #   - name: NEXTCLOUD_USERNAME
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: nextcloud-secret
+      #         key: nextcloud-username
+      #   - name: NEXTCLOUD_PASSWORD
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: nextcloud-secret
+      #         key: nextcloud-exporter-password
+      #   - name: NEXTCLOUD_SERVER
+      #     value: http://localhost
+      #   - name: NEXTCLOUD_TIMEOUT
+      #     value: "5s"
+      #   resources:
+      #     limits:
+      #       memory: "100Mi"
+      #       cpu: "100m"
+      #   ports:
+      #   - name: metrics
+      #     containerPort: 9205
       volumes:
       - name: nextcloud-root
         persistentVolumeClaim:

@@ -40,4 +40,4 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: longhorn-pvc-heimdall
+          claimName: nfs-pvc-heimdall

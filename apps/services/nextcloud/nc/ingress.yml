@@ -11,8 +11,6 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     nginx.ingress.kubernetes.io/proxy-body-size: 1G
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/server-snippet: |-
       server_tokens off;
       proxy_hide_header X-Powered-By;
