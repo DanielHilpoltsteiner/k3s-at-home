@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: longhorn-pvc-harbor-registry
+  name: nfs-pvc-harbor-registry
   namespace: harbor
 spec:
-  storageClassName: longhorn
+  storageClassName: nfs-client
+  volumeName: nfs-pv-harbor-registry
   accessModes:
     - ReadWriteOnce
   resources:

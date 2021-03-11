@@ -197,7 +197,7 @@ persistence:
     registry:
       # Use the existing PVC which must be created manually before bound,
       # and specify the "subPath" if the PVC is shared with other components
-      existingClaim: "longhorn-pvc-harbor-registry"
+      existingClaim: "nfs-pvc-harbor-registry"
       # Specify the "storageClass" used to provision the volume. Or the default
       # StorageClass will be used(the default).
       # Set it to "-" to disable dynamic provisioning
@@ -212,7 +212,7 @@ persistence:
       accessMode: ReadWriteOnce
       size: 5Gi
     jobservice:
-      existingClaim: "longhorn-pvc-harbor-jobservice"
+      existingClaim: ""
       storageClass: ""
       subPath: ""
       accessMode: ReadWriteOnce
@@ -335,10 +335,10 @@ imagePullSecrets:
 # and chartmuseum): "RollingUpdate" or "Recreate"
 # Set it as "Recreate" when "RWM" for volumes isn't supported
 updateStrategy:
-  type: RollingUpdate
+  type: Recreate
 
 # debug, info, warning, error or fatal
-logLevel: info
+logLevel: debug
 
 # The initial password of Harbor admin. Change it from portal after launching Harbor
 harborAdminPassword: "Harbor12345"
@@ -450,7 +450,7 @@ jobservice:
   replicas: 1
   # set the service account to be used, default if left empty
   serviceAccountName: ""
-  maxJobWorkers: 10
+  maxJobWorkers: 3
   # The logger for jobs: "file", "database" or "stdout"
   jobLogger:
     - stdout
@@ -573,7 +573,7 @@ clair:
 
 trivy:
   # enabled the flag to enable Trivy scanner
-  enabled: false
+  enabled: true
   image:
     # repository the repository for Trivy adapter image
     repository: goharbor/trivy-adapter-photon
@@ -592,7 +592,7 @@ trivy:
   # ignoreUnfixed the flag to display only fixed vulnerabilities
   ignoreUnfixed: false
   # insecure the flag to skip verifying registry certificate
-  insecure: false
+  insecure: true
   # gitHubToken the GitHub access token to download Trivy DB
   #
   # Trivy DB contains vulnerability information from NVD, Red Hat, and many other upstream vulnerability databases.

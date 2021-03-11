@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-harbor-registry
+spec:
+  storageClassName: ""
+  claimRef:
+    name: nfs-pvc-harbor-registry
+    namespace: harbor
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: 10.0.40.2
+    path: "/mnt/vault/Kubernetes/pvc/harbor"

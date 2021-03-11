@@ -13,7 +13,7 @@ image:
 
 nfs:
   server: 10.0.40.2
-  path: /mnt/vault/Kubernetes
+  path: /mnt/vault/Kubernetes/pvc
   mountOptions: [ "nfsvers=4", "nolock" ]
 
 # For creating the StorageClass automatically:
@@ -25,7 +25,7 @@ storageClass:
 
   # Set StorageClass as the default StorageClass
   # Ignored if storageClass.create is false
-  defaultClass: false
+  defaultClass: true
 
   # Set a StorageClass name
   # Ignored if storageClass.create is false
@@ -38,7 +38,7 @@ storageClass:
   reclaimPolicy: Delete
 
   # When set to false your PVs will not be archived by the provisioner upon deletion of the PVC.
-  archiveOnDelete: false
+  archiveOnDelete: true
 
   # Set access mode - ReadWriteOnce, ReadOnlyMany or ReadWriteMany
   accessModes: ReadWriteOnce

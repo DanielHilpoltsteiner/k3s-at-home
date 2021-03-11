@@ -49,16 +49,16 @@ deschedulerPolicy:
     RemovePodsViolatingInterPodAntiAffinity:
       enabled: false
     LowNodeUtilization:
-      enabled: false
+      enabled: true
       params:
         nodeResourceUtilizationThresholds:
           thresholds:
             cpu: 20
             memory: 20
-            pods: 20
+            pods: 15
           targetThresholds:
-            cpu: 50
-            memory: 50
+            cpu: 70
+            memory: 70
             pods: 50
 
 priorityClassName: system-cluster-critical
