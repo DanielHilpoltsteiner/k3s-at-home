@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: nfs-pv-gitea
+  name: nfs-pv-grafana
 spec:
   storageClassName: ""
   claimRef:
-    name: nfs-pvc-gitea
-    namespace: services
+    name: nfs-pvc-grafana
+    namespace: grafana
   capacity:
-    storage: 10Gi
+    storage: 5Gi
   accessModes:
     - ReadWriteOnce
   nfs:
     server: 10.0.40.2
-    path: "/mnt/vault/Kubernetes/pvc/gitea"
+    path: "/mnt/vault/Kubernetes/pvc/grafana"

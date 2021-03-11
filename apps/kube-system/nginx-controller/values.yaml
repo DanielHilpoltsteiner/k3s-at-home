@@ -664,7 +664,7 @@ defaultBackend:
   ## Node labels for default backend pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector: 
+  nodeSelector:
     node-role.kubernetes.io/master: 'true'
 
   ## Annotations to be added to default backend pods

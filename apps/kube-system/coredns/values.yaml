@@ -167,7 +167,7 @@ affinity: {}
 
 # Node labels for pod assignment
 # Ref: https://kubernetes.io/docs/user-guide/node-selection/
-nodeSelector: 
+nodeSelector:
   node-role.kubernetes.io/master: 'true'
 
 # expects input structure as per specification https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#toleration-v1-core
@@ -177,10 +177,10 @@ nodeSelector:
 #     operator: Equal
 #     value: master
 #     effect: NoSchedule
-tolerations: 
-  - effect: NoSchedule
-    key: node-role.kubernetes.io/master
-    operator: Exists
+tolerations:
+- effect: NoSchedule
+  key: node-role.kubernetes.io/master
+  operator: Exists
 
 # https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
 podDisruptionBudget: {}

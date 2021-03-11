@@ -19,10 +19,10 @@ command_user="etcd:etcd"
 supervise_daemon_args="--chdir $ETCD_DATA_DIR"
 
 depend() {
-	need net
+    need net
 }
 
 start_pre() {
-	checkpath -d -m 0775 -o "$command_user" "$LOGPATH"
-	checkpath -d -m 0700 -o "$command_user" "$ETCD_DATA_DIR"
+    checkpath -d -m 0775 -o "$command_user" "$LOGPATH"
+    checkpath -d -m 0700 -o "$command_user" "$ETCD_DATA_DIR"
 }

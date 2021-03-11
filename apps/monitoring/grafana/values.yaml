@@ -1,4 +1,5 @@
 ---
+# helm install -n grafana grafana grafana/grafana -f values.yaml
 image:
   repository: grafana/grafana
   tag: 7.4.3
@@ -30,7 +31,7 @@ resources:
 
 persistence:
   enabled: true
-  existingClaim: longhorn-pvc-grafana
+  existingClaim: nfs-pvc-grafana
 
 initChownData:
   enabled: true

@@ -63,6 +63,5 @@ spec:
         secret:
           secretName: openldap-secret
           items:
-            - key: base.ldif
-              path: base.ldif
-          
+          - key: base.ldif
+            path: base.ldif

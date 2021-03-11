@@ -75,5 +75,5 @@ kubectl get secret --namespace grafana grafana -o jsonpath="{.data.admin-passwor
 Modify `values.yaml` and run
 
 ```bash
-helm upgrade grafana --namespace prometheus grafana/grafana -f values.yaml
+helm upgrade grafana --namespace grafana grafana/grafana -f values.yaml
 ```

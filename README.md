@@ -9,7 +9,7 @@
 The distribution of choice is [k3s](https://k3s.io/) as it is lightweight and contains all of the features that are used for a homelab case.
 I chose to do a [HA installation](https://rancher.com/docs/k3s/latest/en/installation/ha/) with 2 master nodes and 3 worker nodes. I use proxmox as the hypervisor layer and Ubuntu Server 20.04.
 
-### Create a Load Balancer (LB) (only needed for the hard way, kube-vip is used otherwise) 
+### Create a Load Balancer (LB) (only needed for the hard way, kube-vip is used otherwise)
 
 The setup of a load balancer is on the long run very useful, it allows to add more master nodes with time. You can chose any distribution you like that allow for TCP/UDP load balancing: [nginx](https://www.nginx.com/), [traefik](https://doc.traefik.io/traefik/), [haproxy](http://www.haproxy.org/)
 
@@ -182,7 +182,7 @@ etcdctl member list -w table
 
 A little bit of preparation before starting k3s.
 
-```bash 
+```bash
 apk add iptables cni-plugins open-iscsi nfs-utils sudo
 rc-service cgroups start
 rc-update add cgroups boot
@@ -306,7 +306,7 @@ k3sup join --ip=10.0.40.8 --server-user=root --server-host=10.0.40.3 --user=root
 ```
 
 ## The Hard Way
-### Install k3s server 
+### Install k3s server
 
 On each master node ($IP_MASTER1 and $IP_MASTER2) to install k3s using containerd as container manager.
 
