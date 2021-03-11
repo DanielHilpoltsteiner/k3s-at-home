@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nextcloud
+  namespace: services
   labels:
     app: nextcloud
 spec:
@@ -200,7 +201,7 @@ spec:
       volumes:
       - name: nextcloud-root
         persistentVolumeClaim:
-          claimName: longhorn-pvc-nextcloud
+          claimName: nfs-pvc-nextcloud
       - name: nextcloud-config
         configMap:
           name: nextcloud-config

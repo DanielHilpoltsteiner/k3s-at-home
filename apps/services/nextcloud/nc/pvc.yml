@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: longhorn-pvc-nextcloud
+  name: nfs-pvc-nextcloud
   namespace: services
 spec:
-  storageClassName: longhorn
+  storageClassName: nfs-client
+  volumeName: nfs-pv-nextcloud
   accessModes:
     - ReadWriteOnce
   resources:
