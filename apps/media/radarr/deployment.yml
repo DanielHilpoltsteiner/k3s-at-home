@@ -32,13 +32,7 @@ spec:
           value: "65534"
         - name: TZ
           value: "Europe/Berlin"
-        resources:
-          requests:
-            memory: "100Mi"
-            cpu: "100m"
-          limits:
-            memory: "300Mi"
-            cpu: 1
+        resources: {}
         volumeMounts:
         - name: config
           mountPath: /config
