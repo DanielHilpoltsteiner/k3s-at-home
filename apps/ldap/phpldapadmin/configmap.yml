@@ -7,6 +7,6 @@ metadata:
   labels:
     app: phpldapadmin
 data:
-  PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+  PHPLDAPADMIN_LDAP_HOSTS: "openldap:1389"
   PHPLDAPADMIN_HTTPS: "false"
   PHPLDAPADMIN_TRUST_PROXY_SSL: "true"
