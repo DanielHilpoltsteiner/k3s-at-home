@@ -61,7 +61,7 @@ spec:
       volumes:
         - name: config
           secret:
-            name: openldap-secret
+            secretName: openldap-secret
             items:
               - key: base.ldif
                 path: base.ldif
