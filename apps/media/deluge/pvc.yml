@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: longhorn-pvc-deluge
+  name: nfs-pvc-deluge
   namespace: media
 spec:
-  storageClassName: longhorn
+  storageClassName: nfs-client
+  volumeName: nfs-pv-deluge
   accessModes:
   - ReadWriteOnce
   resources:

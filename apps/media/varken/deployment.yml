@@ -200,4 +200,4 @@ spec:
       volumes:
       - name: varken-volume
         persistentVolumeClaim:
-          claimName: longhorn-pvc-varken
+          claimName: nfs-pvc-varken

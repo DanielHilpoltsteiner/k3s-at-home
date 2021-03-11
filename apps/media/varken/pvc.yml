@@ -2,10 +2,11 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: longhorn-pvc-varken
+  name: nfs-pvc-varken
   namespace: media
 spec:
-  storageClassName: longhorn
+  storageClassName: nfs-client
+  volumeName: nfs-pv-varken
   accessModes:
     - ReadWriteOnce
   resources:

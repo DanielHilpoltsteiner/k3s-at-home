@@ -44,4 +44,4 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: longhorn-pvc-ombi
+          claimName: nfs-pvc-ombi

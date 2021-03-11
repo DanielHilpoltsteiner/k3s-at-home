@@ -47,4 +47,4 @@ spec:
       volumes:
       - name: config
         persistentVolumeClaim:
-          claimName: longhorn-pvc-jackett
+          claimName: nfs-pvc-jackett
