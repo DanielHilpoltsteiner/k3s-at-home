@@ -198,7 +198,7 @@ argo-cd:
 
     image:
       repository: quay.io/dexidp/dex
-      tag: v2.26.0
+      tag: v2.28.0
       imagePullPolicy: IfNotPresent
     initImage:
       repository:
