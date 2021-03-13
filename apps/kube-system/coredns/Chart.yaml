@@ -2,9 +2,9 @@
 apiVersion: v2
 type: application
 name: coredns
-version: 1.14.1
+version: 1.14.3
 appVersion: 1.8.0
 dependencies:
   - name: coredns
     repository: https://coredns.github.io/helm
-    version: 1.14.1
+    version: 1.14.3
