@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+type: application
+name: bitwarden
+version: 2.0.0 # unused
+appVersion: 1.18.0 # unused
+dependencies:
+  - name: bitwardenrs
+    repository: https://k8s-at-home.com/charts/
+    version: 2.0.0

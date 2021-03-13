@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+  name: bitwarden
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/ebrianne/k3s-at-home.git
+    targetRevision: HEAD
+    path: apps/services/bitwarden/
+    helm:
+      releaseName: bitwarden
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: services
+
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
