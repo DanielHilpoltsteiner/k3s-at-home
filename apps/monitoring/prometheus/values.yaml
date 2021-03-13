@@ -440,7 +440,7 @@ prometheus:
     ##
     image:
       repository: quay.io/prometheus/node-exporter
-      tag: v1.1.1
+      tag: v1.1.2
       pullPolicy: IfNotPresent
 
     ## Specify if a Pod Security Policy for node-exporter must be created
