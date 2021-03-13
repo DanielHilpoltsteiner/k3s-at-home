@@ -1,1 +1,0 @@
-helm install -n kube-system coredns coredns/coredns -f values.yaml
