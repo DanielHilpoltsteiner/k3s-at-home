@@ -56,8 +56,8 @@ initContainers:
 # SecurityContext to use for the Velero deployment. Optional.
 # Set fsGroup for `AWS IAM Roles for Service Accounts`
 # see more informations at: https://docs.aws.amazon.com/eks/latest/userguide/iam-roles-for-service-accounts.html
-securityContext:
-  fsGroup: 1337
+securityContext: {}
+  # fsGroup: 1337
 
 # Pod priority class name to use for the Velero deployment. Optional.
 priorityClassName: ""
@@ -220,8 +220,10 @@ rbac:
 serviceAccount:
   server:
     create: true
-    name:
+    name: velero
     annotations:
+
+cleanUpCRDs: true
 
 # Info about the secret to be used by the Velero deployment, which
 # should contain credentials for the cloud provider IAM account you've
@@ -235,7 +237,7 @@ credentials:
   name:
   # Name of a pre-existing secret (if any) in the Velero namespace
   # that should be used to get IAM account credentials. Optional.
-  existingSecret: velero-cloud-credentials
+  existingSecret: "velero-cloud-credentials"
   # Data to be stored in the Velero secret, if `useSecret` is true and `existingSecret` is empty.
   # As of the current Velero release, Velero only uses one secret key/value at a time.
   # The key must be named `cloud`, and the value corresponds to the entire content of your IAM credentials file.
