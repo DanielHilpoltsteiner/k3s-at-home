@@ -106,7 +106,7 @@ coredns:
     - name: ready
     # Required to query kubernetes API for data
     - name: kubernetes
-      parameters: cluster.local in-addr.arpa ip6.arpa
+      parameters: svc.cluster.local in-addr.arpa ip6.arpa
       configBlock: |-
         pods insecure
         fallthrough in-addr.arpa ip6.arpa
@@ -121,6 +121,18 @@ coredns:
     - name: loop
     - name: reload
     - name: loadbalance
+  - zones:
+    - zone: home-lab.io.
+    port: 53
+    plugins:
+    - name: errors
+    - name: log
+    - name: forward
+      parameters: . /etc/resolv.conf
+    - name: cache
+      parameters: 30
+    - name: loop
+
 
   # Complete example with all the options:
   # - zones:                 # the `zones` block can be left out entirely, defaults to "."
