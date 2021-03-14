@@ -46,6 +46,10 @@ spec:
             secretKeyRef:
               name: plex-secret
               key: claim-token
+        - name: PLEX_UID
+          value: "1001"
+        - name: PLEX_GID
+          value: "1001"
         volumeMounts:
         - name: config
           mountPath: /config
@@ -57,6 +61,7 @@ spec:
           mountPath: /data/movies
         - name: transcode
           mountPath: /transcode
+        resources: {}
       volumes:
       - name: config
         persistentVolumeClaim:
