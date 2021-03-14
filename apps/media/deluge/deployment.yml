@@ -35,7 +35,7 @@ spec:
         securityContext:
           capabilities:
             add: ["NET_ADMIN"]
-        image: ebrianne/docker-deluge-openvpn:v1.0.2
+        image: ebrianne/docker-deluge-openvpn:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8112
