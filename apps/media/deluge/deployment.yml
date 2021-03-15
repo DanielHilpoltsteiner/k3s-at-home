@@ -77,13 +77,7 @@ spec:
             secretKeyRef:
               name: deluge-secret
               key: OPENVPN_PASSWORD
-        resources:
-          requests:
-            memory: "200Mi"
-            cpu: "100m"
-          limits:
-            memory: "500Mi"
-            cpu: 1
+        resources: {}
         volumeMounts:
         - name: config
           mountPath: /config

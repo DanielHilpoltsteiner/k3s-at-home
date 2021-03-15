@@ -44,10 +44,6 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 2
-        resources:
-          requests:
-            memory: "10Mi"
-            cpu: "10m"
-          limits:
-            memory: "50Mi"
-            cpu: "50m"
+        resources: {}
+      nodeSelector:
+        kubernetes.io/arch: arm64
