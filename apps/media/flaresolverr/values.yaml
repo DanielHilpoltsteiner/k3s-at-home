@@ -1,20 +1,24 @@
 ---
-# helm install -n media flaresolverr k8s-at-home/flaresolverr -f values.yaml
-image:
-  repository: flaresolverr/flaresolverr
-  pullPolicy: IfNotPresent
-  tag: v1.2.3
+flaresolverr:
+  # helm install -n media flaresolverr k8s-at-home/flaresolverr -f values.yaml
+  image:
+    repository: flaresolverr/flaresolverr
+    pullPolicy: IfNotPresent
+    tag: v1.2.3
 
-strategy:
-  type: Recreate
+  strategy:
+    type: Recreate
 
-env:
-  TZ: "Europe/Berlin"
-  LOG_LEVEL: "info"
+  env:
+    TZ: "Europe/Berlin"
+    LOG_LEVEL: "info"
 
-service:
-  port:
-    port: 8191
+  service:
+    port:
+      port: 8191
 
-ingress:
-  enabled: false
+  ingress:
+    enabled: false
+
+  nodeSelector:
+    kubernetes.io/arch: arm64

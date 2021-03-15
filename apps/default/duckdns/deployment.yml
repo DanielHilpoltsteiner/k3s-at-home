@@ -32,10 +32,6 @@ spec:
               key: duckdns-api-key
         - name: DUCKDNS_DOMAINS
           value: technolab
-        resources:
-          requests:
-            memory: "20Mi"
-            cpu: "10m"
-          limits:
-            memory: "50Mi"
-            cpu: "50m"
+        resources: {}
+      nodeSelector:
+        kubernetes.io/arch: arm64
