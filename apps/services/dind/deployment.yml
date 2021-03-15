@@ -27,7 +27,7 @@ spec:
         - --host=tcp://0.0.0.0:2375
         - --tls=false
         - --experimental
-        - --insecure-registry=harbor.home-lab.io
+        - --insecure-registry=http://harbor.home-lab.io
         - --registry-mirror=http://harbor.home-lab.io
         env:
         - name: DOCKER_TLS_CERTDIR
