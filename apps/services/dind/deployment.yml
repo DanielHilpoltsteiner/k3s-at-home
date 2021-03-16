@@ -28,7 +28,6 @@ spec:
         - --tls=false
         - --experimental
         - --insecure-registry=http://harbor.home-lab.io
-        - --registry-mirror=http://harbor.home-lab.io
         env:
         - name: DOCKER_TLS_CERTDIR
           value: ""
