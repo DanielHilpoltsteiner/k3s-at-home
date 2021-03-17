@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: firefly
+  namespace: default
+  labels:
+    app: firefly
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: firefly
+  template:
+    metadata:
+      labels:
+        app: firefly
+    spec:
+      containers:
+      - name: firefly
+        image: jc5x/firefly-iii:version-5.4.6
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: APP_ENV
+          value: "local"
+        - name: APP_KEY
+          valueFrom:
+            secretKeyRef:
+              name: firefly-secrets
+              key: app_key
+        - name: DB_HOST
+          value: "10.0.40.11"
+        - name: DB_CONNECTION
+          value: pgsql
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_DATABASE
+          value: "firefly"
+        - name: DB_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: firefly-secrets
+              key: db_username
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: firefly-secrets
+              key: db_password
+        - name: TRUSTED_PROXIES
+          value: "**"
+        - name: APP_URL
+          value: http://firefly.home-lab.io
+        ports:
+        - containerPort: 8080
+          name: firefly
+        volumeMounts:
+        - mountPath: "/var/www/html/firefly-iii/storage/upload"
+          name: firefly-upload
+        resources: {}
+      volumes:
+      - name: firefly-upload
+        persistentVolumeClaim:
+          claimName: nfs-pvc-firefly
