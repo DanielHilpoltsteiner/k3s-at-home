@@ -178,6 +178,7 @@ spec:
         volumeMounts:
         - name: nextcloud-root
           mountPath: /var/www/html
+          subPath: html
         resources: {}
       # - name: nextcloud-exporter
       #   image: xperimental/nextcloud-exporter:v0.4.0
