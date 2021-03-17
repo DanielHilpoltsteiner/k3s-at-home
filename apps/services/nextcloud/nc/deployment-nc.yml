@@ -100,10 +100,6 @@ spec:
           value: "localhost"
         - name: REDIS_HOST_PORT
           value: "6379"
-        - name: PHP_MEMORY_LIMIT
-          value: "512M"
-        - name: PHP_UPLOAD_LIMIT
-          value: "2G"
         livenessProbe:
           httpGet:
             path: /status.php
