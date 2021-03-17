@@ -56,6 +56,7 @@ spec:
           subPath: redis.conf
         - name: redis-data
           mountPath: /data
+        resources: {}
       - name: nextcloud
         image: ebrianne/nextcloud:21.0.0-apache
         imagePullPolicy: IfNotPresent
@@ -169,6 +170,15 @@ spec:
         - name: nextcloud-config
           mountPath: /var/www/html/config/apps.config.php
           subPath: apps.config.php
+        resources: {}
+      - name: nextcloud-cron
+        image: ebrianne/nextcloud:21.0.0-apache
+        imagePullPolicy: IfNotPresent
+        command: ["/cron.sh"]
+        volumeMounts:
+        - name: nextcloud-root
+          mountPath: /var/www/html
+        resources: {}
       # - name: nextcloud-exporter
       #   image: xperimental/nextcloud-exporter:v0.4.0
       #   imagePullPolicy: IfNotPresent
@@ -187,10 +197,7 @@ spec:
       #     value: http://localhost
       #   - name: NEXTCLOUD_TIMEOUT
       #     value: "5s"
-      #   resources:
-      #     limits:
-      #       memory: "100Mi"
-      #       cpu: "100m"
+      #   resources: {}
       #   ports:
       #   - name: metrics
       #     containerPort: 9205
