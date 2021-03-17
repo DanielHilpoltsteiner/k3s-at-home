@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ebrianne/k3s-at-home.git
     targetRevision: HEAD
-    path: apps/default/firefly/
+    path: apps/default/firefly-iii/
 
   destination:
     server: https://kubernetes.default.svc
