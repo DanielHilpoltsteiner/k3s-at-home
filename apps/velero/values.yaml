@@ -124,16 +124,17 @@ velero:
       # `configuration.provider` will be used instead.
       provider: aws
       # bucket is the name of the bucket to store backups in. Required.
-      bucket: hh-homelab-truenas-backup
+      bucket: velero
       # caCert defines a base64 encoded CA bundle to use when verifying TLS connections to the provider.
       caCert:
       # prefix is the directory under which all Velero data should be stored within the bucket. Optional.
-      prefix: velero-backup
+      prefix:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config:
-        s3Url: https://s3-eu-central-1.amazonaws.com/
-        region: eu-central-1
+        s3ForcePathStyle: true
+        s3Url: http://10.0.40.2:9000
+        region: "eu-central-1"
       #  region:
       #  s3ForcePathStyle:
       #  s3Url:
@@ -151,14 +152,14 @@ velero:
     # https://velero.io/docs/v1.5/api-types/volumesnapshotlocation/
     volumeSnapshotLocation:
       # name is the name of the volume snapshot location where snapshots are being taken. Required.
-      name: default
+      name: aws
       # provider is the name for the volume snapshot provider. If omitted
       # `configuration.provider` will be used instead.
-      provider: aws
+      provider:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config:
-        region: eu-central-1
+        region: "eu-central-1"
     #    region:
     #    apitimeout:
     #    resourceGroup:
@@ -200,7 +201,7 @@ velero:
     logFormat: text
 
     # Set true for backup all pod volumes without having to apply annotation on the pod when used restic Default: false. Other option: false.
-    defaultVolumesToRestic:
+    defaultVolumesToRestic: false
 
   ##
   ## End of backup/snapshot location settings.
@@ -315,7 +316,13 @@ velero:
   #       ttl: "240h"
   #       includedNamespaces:
   #       - foo
-  schedules: {}
+  schedules:
+    bi-daily-backup:
+      labels:
+        app: velero
+      schedule: "0 6,18 * * *"
+      template:
+        ttl: "72h"
 
   # Velero ConfigMaps.
   # Eg:
