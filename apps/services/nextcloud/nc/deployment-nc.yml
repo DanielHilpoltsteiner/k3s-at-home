@@ -179,6 +179,35 @@ spec:
         - name: nextcloud-root
           mountPath: /var/www/html
           subPath: html
+        - name: nextcloud-root
+          mountPath: /var/www/html/config
+          subPath: config
+        - name: nextcloud-root
+          mountPath: /var/www/html/custom_apps
+          subPath: custom_apps
+        - name: nextcloud-root
+          mountPath: /var/www/html/themes
+          subPath: themes
+        - name: nextcloud-data
+          mountPath: /data
+        - name: nextcloud-config
+          mountPath: /var/www/html/config/redis.config.php
+          subPath: redis.config.php
+        - name: nextcloud-config
+          mountPath: /var/www/html/config/custom.config.php
+          subPath: custom.config.php
+        - name: nextcloud-config
+          mountPath: /var/www/html/config/.htaccess
+          subPath: .htaccess
+        - name: nextcloud-config
+          mountPath: /var/www/html/config/apache-pretty-urls.config.php
+          subPath: apache-pretty-urls.config.php
+        - name: nextcloud-config
+          mountPath: /var/www/html/config/apcu.config.php
+          subPath: apcu.config.php
+        - name: nextcloud-config
+          mountPath: /var/www/html/config/apps.config.php
+          subPath: apps.config.php
         resources: {}
       # - name: nextcloud-exporter
       #   image: xperimental/nextcloud-exporter:v0.4.0
