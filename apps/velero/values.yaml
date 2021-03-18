@@ -133,8 +133,8 @@ velero:
       # for details of required/optional fields for your provider.
       config:
         s3ForcePathStyle: true
-        s3Url: http://10.0.40.2:9000
-        region: "eu-central-1"
+        s3Url: http://10.0.40.2:9001
+        region: minio
       #  region:
       #  s3ForcePathStyle:
       #  s3Url:
@@ -159,7 +159,7 @@ velero:
       # Additional provider-specific configuration. See link above
       # for details of required/optional fields for your provider.
       config:
-        region: "eu-central-1"
+        region: default
     #    region:
     #    apitimeout:
     #    resourceGroup:
