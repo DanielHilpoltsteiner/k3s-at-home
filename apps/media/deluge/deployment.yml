@@ -58,7 +58,7 @@ spec:
         - name: CREATE_TUN_DEVICE
           value: "true"
         - name: LOCAL_NETWORK
-          value: "10.96.0.0/16,10.69.0.0/16"
+          value: "10.96.0.0/16"
         - name: ENABLE_UFW
           value: "true"
         - name: UFW_ALLOW_GW_NET
