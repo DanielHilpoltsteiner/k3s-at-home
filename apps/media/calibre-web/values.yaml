@@ -1,0 +1,59 @@
+---
+calibre-web:
+  # helm install -n media calibre-web ./ -f values.yaml
+  #
+  # IMPORTANT NOTE
+  #
+  # This chart inherits from our common library chart. You can check the default values/options here:
+  # https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+  #
+
+  image:
+    repository: linuxserver/calibre-web
+    pullPolicy: IfNotPresent
+    tag: version-0.6.11
+
+  strategy:
+    type: Recreate
+
+  env:
+    TZ: Europe/Berlin
+    PUID: "1001"
+    PGID: "1001"
+    # UMASK:
+    DOCKER_MODS: "linuxserver/calibre-web:calibre"
+
+  service:
+    port:
+      port: 8083
+
+  ingress:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    hosts:
+      - host: calibre-web.home-lab.io
+        paths:
+          - path: /
+
+  persistence:
+    config:
+      enabled: false
+      emptyDir: false
+
+    books:
+      enabled: false
+      emptyDir: false
+
+  additionalVolumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: nfs-pvc-calibre-web
+
+  additionalVolumeMounts:
+    - name: data
+      mountPath: /config
+      subPath: config
+    - name: data
+      mountPath: /books
+      subPath: books
