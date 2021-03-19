@@ -1,0 +1,191 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: services
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dns-access
+  namespace: services
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          namespace: kube-system
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          namespace: kube-system
+    ports:
+    - port: 53
+      protocol: UDP
+    - port: 53
+      protocol: TCP
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-ingress-access
+  namespace: services
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          namespace: ingress-nginx
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          namespace: ingress-nginx
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-egress-to-external-db
+  namespace: services
+spec:
+  podSelector:
+    matchLabels: {}
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - ipBlock:
+        cidr: 10.0.40.11/32
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-authelia-to-ldap
+  namespace: services
+spec:
+  podSelector:
+    matchLabels:
+      app: authelia
+  policyTypes:
+  - Egress
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          namespace: ldap
+    - podSelector:
+        matchLabels:
+          app.kubernetes.io/name: openldap
+    ports:
+    - protocol: TCP
+      port: 389
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-code-server-to-internet
+  namespace: services
+spec:
+  podSelector:
+    matchLabels:
+      app: code-server
+  policyTypes:
+  - Egress
+  egress:
+  - {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dind-to-code-server
+  namespace: services
+spec:
+  podSelector:
+    matchLabels:
+      app: dind
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels:
+          app: code-server
+    ports:
+    - protocol: TCP
+      port: 2375
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-to-dind
+  namespace: services
+spec:
+  podSelector:
+    matchLabels:
+      app: dind
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 192.168.10.0/24
+    - ipBlock:
+        cidr: 10.0.20.0/24
+    ports:
+    - protocol: TCP
+      port: 2375
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-plex-to-internet
+  namespace: services
+spec:
+  podSelector:
+    matchLabels:
+      app: plex
+  policyTypes:
+  - Egress
+  egress:
+  - {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-external-to-plex
+  namespace: services
+spec:
+  podSelector:
+    matchLabels:
+      app: plex
+  policyTypes:
+  - Ingress
+  ingress:
+  - from:
+    - ipBlock:
+        cidr: 0.0.0.0/0
+    ports:
+    - protocol: TCP
+      port: 32400
