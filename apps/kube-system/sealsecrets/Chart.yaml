@@ -7,4 +7,4 @@ appVersion: v0.15.0 # unused
 dependencies:
   - name: sealed-secrets
     repository: https://bitnami-labs.github.io/sealed-secrets
-    version: 1.15.0-r2
+    version: 1.15.0-r3
