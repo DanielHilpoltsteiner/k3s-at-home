@@ -203,3 +203,17 @@ spec:
   - Egress
   egress:
   - {}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-dind-to-internet
+  namespace: services
+spec:
+  podSelector:
+    matchLabels:
+      app: dind
+  policyTypes:
+  - Egress
+  egress:
+  - {}
