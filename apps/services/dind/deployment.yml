@@ -38,21 +38,8 @@ spec:
         volumeMounts:
         - name: dind-storage
           mountPath: /var/lib/docker
-        - mountPath: /lib/modules
-          name: modules
-          readOnly: true
-        - mountPath: /sys/fs/cgroup
-          name: cgroup
         resources: {}
       terminationGracePeriodSeconds: 30
       volumes:
       - name: dind-storage
         emptyDir: {}
-      - name: modules
-        hostPath:
-          path: /lib/modules
-          type: Directory
-      - name: cgroup
-        hostPath:
-          path: /sys/fs/cgroup
-          type: Directory
