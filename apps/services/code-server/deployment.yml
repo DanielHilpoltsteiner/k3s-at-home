@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: code-server
-        image: ebrianne/code-server:v3.9.0
+        image: ebrianne/code-server:v3.9.2
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8443
