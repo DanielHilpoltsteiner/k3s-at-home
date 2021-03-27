@@ -21,7 +21,25 @@ spec:
       labels:
         app: code-server
     spec:
+      terminationGracePeriodSeconds: 30
       containers:
+      - name: dind
+        image: docker:19.03.15-dind
+        imagePullPolicy: IfNotPresent
+        args:
+        - --host=tcp://0.0.0.0:2375
+        - --tls=false
+        - --experimental
+        - --insecure-registry=http://harbor.home-lab.io
+        env:
+        - name: DOCKER_TLS_CERTDIR
+          value: ""
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: dind-storage
+          mountPath: /var/lib/docker
+        resources: {}
       - name: code-server
         image: ebrianne/code-server:v3.9.2
         imagePullPolicy: IfNotPresent
@@ -40,9 +58,13 @@ spec:
               name: code-server-secret
               key: sudo_password
         - name: DOCKER_HOST
-          value: "tcp://dind:2375"
+          value: "tcp://localhost:2375"
         - name: DOCKER_CLI_EXPERIMENTAL
           value: "enabled"
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         resources:
           requests:
             memory: "256Mi"
@@ -75,3 +97,5 @@ spec:
       - name: config
         persistentVolumeClaim:
           claimName: nfs-pvc-code-server
+      - name: dind-storage
+        emptyDir: {}

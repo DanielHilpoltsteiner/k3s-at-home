@@ -2,18 +2,6 @@
 
 ## Install cert-manager using Helm
 
-Create a namespace for cert-manager
-
-```bash
-kubectl create namespace cert-manager
-```
-
-Create the CRDs for cert-manager
-
-```bash
-kubectl apply -f https://github.com/jetstack/cert-manager/releases/download/v1.2.0/cert-manager.crds.yaml
-```
-
 Install cert-manager with Helm
 
 ```bash
@@ -21,7 +9,9 @@ helm install \
  cert-manager jetstack/cert-manager \
  --namespace cert-manager \
  --version v1.2.0 \
- --set 'extraArgs={--dns01-recursive-nameservers=8.8.8.8:53\,1.1.1.1:53}'
+ --set 'extraArgs={--dns01-recursive-nameservers=8.8.8.8:53\,1.1.1.1:53}' \
+ --create-namespace \
+ --set installCRDs=true
 ```
 ## Install cert-manager duckdns webhook
 
@@ -39,7 +29,6 @@ Install the helm chart for cert-manager-webhook-duckdns
 ```bash
 helm install cert-manager-webhook-duckdns \
 --namespace cert-manager \
---set duckdns.domain='<domain>' \
 --set duckdns.token='<token>' \
 --set clusterIssuer.production.create=true \
 --set clusterIssuer.staging.create=true \

@@ -119,26 +119,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: allow-dind-to-code-server
-  namespace: services
-spec:
-  podSelector:
-    matchLabels:
-      app: dind
-  policyTypes:
-  - Ingress
-  ingress:
-  - from:
-    - podSelector:
-        matchLabels:
-          app: code-server
-    ports:
-    - protocol: TCP
-      port: 2375
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
   name: allow-external-to-services
   namespace: services
 spec:
@@ -194,20 +174,6 @@ spec:
   podSelector:
     matchLabels:
       app: nextcloud
-  policyTypes:
-  - Egress
-  egress:
-  - {}
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: allow-dind-to-internet
-  namespace: services
-spec:
-  podSelector:
-    matchLabels:
-      app: dind
   policyTypes:
   - Egress
   egress:
