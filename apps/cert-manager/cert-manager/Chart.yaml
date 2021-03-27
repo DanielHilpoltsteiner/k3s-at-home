@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 type: application
-name: argocd
+name: cert-manager
 version: v1.2.0
 appVersion: v1.2.0
 dependencies:

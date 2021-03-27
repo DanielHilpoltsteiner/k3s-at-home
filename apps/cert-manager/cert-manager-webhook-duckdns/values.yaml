@@ -1,0 +1,18 @@
+cert-manager-webhook-duckdns:
+  secret:
+    existingSecret: true
+    existingSecretName: "duckdns-token"
+
+  clusterIssuer:
+    email: eldwan35@gmail.com
+    staging:
+      create: true
+    production:
+      create: true
+
+  image:
+    repository: ebrianne/cert-manager-webhook-duckdns
+    tag: v1.2.2
+    pullPolicy: IfNotPresent
+
+  logLevel: 2
