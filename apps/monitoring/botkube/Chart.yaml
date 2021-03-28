@@ -2,9 +2,9 @@
 apiVersion: v2
 type: application
 name: botkube
-version: v0.12.0 # unused
-appVersion: v0.12.0 # unused
+version: v0.12.1
+appVersion: v0.12.0
 dependencies:
   - name: botkube
-    repository: https://infracloudio.github.io/charts
-    version: v0.12.0
+    repository: https://ebrianne.github.io/helm-charts
+    version: v0.12.1
