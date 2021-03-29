@@ -11,6 +11,10 @@ spec:
     repoURL: https://github.com/ebrianne/k3s-at-home.git
     targetRevision: HEAD
     path: apps/default/duckdns/
+    helm:
+      releaseName: duckdns-go
+      valueFiles:
+        - values.yaml
 
   destination:
     server: https://kubernetes.default.svc
