@@ -7,4 +7,4 @@ appVersion: v0.12.0
 dependencies:
   - name: botkube
     repository: https://ebrianne.github.io/helm-charts
-    version: v0.12.1
+    version: v0.12.2
