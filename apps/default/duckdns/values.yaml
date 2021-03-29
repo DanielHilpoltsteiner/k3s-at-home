@@ -9,7 +9,7 @@ duckdns-go:
 
   image:
     repository: ebrianne/duckdns-go
-    tag: v1.0.2
+    tag: v1.0.3
     pullPolicy: IfNotPresent
     pullSecret: {}
 
