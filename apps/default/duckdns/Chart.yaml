@@ -2,9 +2,9 @@
 apiVersion: v2
 type: application
 name: duckdns-go
-version: v1.0.4
+version: v1.0.5
 appVersion: v1.0.2
 dependencies:
   - name: duckdns-go
     repository: https://ebrianne.github.io/helm-charts
-    version: v1.0.4
+    version: v1.0.5
