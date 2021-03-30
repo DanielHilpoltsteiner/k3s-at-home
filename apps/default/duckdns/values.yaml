@@ -44,10 +44,10 @@ duckdns-go:
     kubernetes.io/arch: arm64
 
   tolerations:
-    - key: "arch"
-      operator: "Equal"
-      value: "arm64"
-      effect: "NoSchedule"
+  - key: "arch"
+    operator: "Equal"
+    value: "arm64"
+    effect: "NoSchedule"
 
   affinity: {}
     # An affinity stanza to be applied to the Deployment.
