@@ -40,14 +40,14 @@ duckdns-go:
       cpu: 100m
       memory: 128Mi
 
-  nodeSelector:
-    kubernetes.io/arch: arm64
+  nodeSelector: {}
+    # kubernetes.io/arch: arm64
 
-  tolerations:
-  - key: "arch"
-    operator: "Equal"
-    value: "arm64"
-    effect: "NoSchedule"
+  tolerations: []
+    # - key: "arch"
+    #   operator: "Equal"
+    #   value: "arm64"
+    #   effect: "NoSchedule"
 
   affinity: {}
     # An affinity stanza to be applied to the Deployment.
