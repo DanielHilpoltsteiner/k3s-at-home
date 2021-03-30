@@ -43,13 +43,11 @@ duckdns-go:
   nodeSelector:
     kubernetes.io/arch: arm64
 
-  tolerations: []
-    # A list of tolerations to be applied to the Deployment.
-    # Example:
-    #   tolerations:
-    #   - key: "node-role.kubernetes.io/infra-worker"
-    #     operator: "Exists"
-    #     effect: "NoSchedule"
+  tolerations:
+    - key: "arch"
+      operator: "Equal"
+      value: "arm64"
+      effect: "NoSchedule"
 
   affinity: {}
     # An affinity stanza to be applied to the Deployment.

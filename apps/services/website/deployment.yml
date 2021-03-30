@@ -44,6 +44,17 @@ spec:
             port: 8080
           initialDelaySeconds: 5
           periodSeconds: 2
-        resources: {}
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 100m
+            memory: 128Mi
       nodeSelector:
         kubernetes.io/arch: arm64
+      tolerations:
+      - key: "arch"
+        operator: "Equal"
+        value: "arm64"
+        effect: "NoSchedule"
