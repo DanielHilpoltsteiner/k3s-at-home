@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+type: application
+name: local-path-provisioner
+version: 0.0.19
+appVersion: "v0.0.19"
+dependencies:
+  - name: local-path-provisioner
+    repository: https://ebrianne.github.io/helm-charts
+    version: 0.0.19

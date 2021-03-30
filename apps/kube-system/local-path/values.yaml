@@ -1,0 +1,23 @@
+local-path-provisioner:
+  replicaCount: 2
+
+  image:
+    repository: rancher/local-path-provisioner
+    tag: v0.0.19
+    pullPolicy: IfNotPresent
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  tolerations:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+    operator: Exists
+
+  nodeSelector:
+    node-role.kubernetes.io/master: "true"
