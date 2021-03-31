@@ -119,13 +119,13 @@ argo-cd:
 
     priorityClassName: ""
 
-    resources: {}
-    #  limits:
-    #    cpu: 500m
-    #    memory: 512Mi
-    #  requests:
-    #    cpu: 250m
-    #    memory: 256Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 500m
+        memory: 256Mi
 
     serviceAccount:
       create: true
@@ -313,13 +313,13 @@ argo-cd:
       fsGroup: 1000
       runAsNonRoot: true
 
-    resources: {}
-    #  limits:
-    #    cpu: 200m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 100m
-    #    memory: 64Mi
+    resources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 200m
+        memory: 128i
 
     volumeMounts: []
     volumes: []
@@ -429,13 +429,13 @@ argo-cd:
       #   drop:
       #     - all
 
-    resources: {}
-    #  limits:
-    #    cpu: 100m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 50m
-    #    memory: 64Mi
+    resources:
+      limits:
+        cpu: 200m
+        memory: 128Mi
+      requests:
+        cpu: 200m
+        memory: 128Mi
 
     ## Certificate configuration
     certificate:
@@ -620,6 +620,9 @@ argo-cd:
         - type: helm
           url: https://bitnami-labs.github.io/sealed-secrets
           name: sealed-secrets
+        - type: helm
+          url: https://falcosecurity.github.io/charts
+          name: falcosecurity
 
     ## Annotations to be added to ArgoCD ConfigMap
     configAnnotations: {}
@@ -761,9 +764,9 @@ argo-cd:
     replicas: 1
 
     autoscaling:
-      enabled: false
+      enabled: true
       minReplicas: 1
-      maxReplicas: 5
+      maxReplicas: 4
       targetCPUUtilizationPercentage: 50
       targetMemoryUtilizationPercentage: 50
 
@@ -834,13 +837,13 @@ argo-cd:
       #   drop:
       #     - all
 
-    resources: {}
-    #  limits:
-    #    cpu: 50m
-    #    memory: 128Mi
-    #  requests:
-    #    cpu: 10m
-    #    memory: 64Mi
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 500m
+        memory: 256Mi
 
     ## Repo server service configuration
     service:
@@ -866,21 +869,21 @@ argo-cd:
     ## Repo server service account
     ## If create is set to true, make sure to uncomment the name and update the rbac section below
     serviceAccount:
-      create: false
-      #  name: argocd-repo-server
+      create: true
+      name: argocd-repo-server
       ## Annotations applied to created service account
       annotations: {}
 
     ## Repo server rbac rules
-    # rbac:
-    #   - apiGroups:
-    #     - argoproj.io
-    #     resources:
-    #     - applications
-    #     verbs:
-    #     - get
-    #     - list
-    #     - watch
+    rbac:
+      - apiGroups:
+          - argoproj.io
+        resources:
+          - applications
+        verbs:
+          - get
+          - list
+          - watch
 
     ## Use init containers to configure custom tooling
     ## https://argoproj.github.io/argo-cd/operator-manual/custom_tools/
