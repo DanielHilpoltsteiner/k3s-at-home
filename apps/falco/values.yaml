@@ -14,19 +14,42 @@ falco:
     enabled: true
     socket: /run/containerd/containerd.sock
 
+  resources: {}
+
   timezone: Europe/Berlin
 
   falco:
-    jsonOutput: true
+    logLevel: info
+    priority: debug
+    logStderr: true
+    logSyslog: true
 
+    jsonOutput: true
     jsonIncludeOutputProperty: true
+
+    syslogOutput:
+      enabled: false
+
+    stdoutOutput:
+      enabled: false
 
     httpOutput:
       enabled: true
       url: "http://falco-falcosidekick:2801/"
 
+    syscallEventDrops:
+      actions:
+        - alert
+      rate: 100
+      max_burst: 1000
+
+    webserver:
+      enabled: false
+
     grpc:
       enabled: false
+
+  customRules: {}
 
 falcosidekick:
   replicaCount: 1
