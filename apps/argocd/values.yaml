@@ -312,13 +312,13 @@ argo-cd:
       fsGroup: 1000
       runAsNonRoot: true
 
-    resources:
-      limits:
-        cpu: 200m
-        memory: 128Mi
-      requests:
-        cpu: 200m
-        memory: 128i
+    resources: {}
+      # limits:
+      #   cpu: 200m
+      #   memory: 128Mi
+      # requests:
+      #   cpu: 200m
+      #   memory: 128Mi
 
     volumeMounts: []
     volumes: []
