@@ -35,7 +35,7 @@ argo-cd:
       imagePullPolicy: IfNotPresent
 
     # If changing the number of replicas you must pass the number as ARGOCD_CONTROLLER_REPLICAS as an environment variable
-    replicas: 1
+    replicas: 2
 
     # Deploy the application as a StatefulSet instead of a Deployment, this is required for HA capability.
     # This is a feature flag that will become the default in chart version 3.x
@@ -59,9 +59,8 @@ argo-cd:
     ## Environment variables to pass to argocd-controller
     ##
     env:
-      []
-      # - name: "ARGOCD_CONTROLLER_REPLICAS"
-      #   value: ""
+      - name: "ARGOCD_CONTROLLER_REPLICAS"
+        value: "2"
 
     ## Annotations to be added to controller pods
     ##
@@ -122,10 +121,10 @@ argo-cd:
     resources:
       limits:
         cpu: 500m
-        memory: 256Mi
+        memory: 512Mi
       requests:
         cpu: 500m
-        memory: 256Mi
+        memory: 512Mi
 
     serviceAccount:
       create: true
