@@ -14,8 +14,19 @@ falco:
     enabled: true
     socket: /run/containerd/containerd.sock
 
-  grpc:
-    enabled: false
+  timezone: Europe/Berlin
+
+  falco:
+    jsonOutput: true
+
+    jsonIncludeOutputProperty: true
+
+    httpOutput:
+      enabled: true
+      url: "http://falco-falcosidekick:2801/"
+
+    grpc:
+      enabled: false
 
 falcosidekick:
   replicaCount: 1
