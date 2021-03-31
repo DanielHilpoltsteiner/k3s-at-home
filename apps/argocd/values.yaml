@@ -623,6 +623,20 @@ argo-cd:
           url: https://falcosecurity.github.io/charts
           name: falcosecurity
 
+      resource.exclusions: |
+        - apiGroups:
+          - "velero.io"
+          kinds:
+          - Backup
+          clusters:
+          - "*"
+        - apiGroups:
+          - "cert-manager.io"
+          kinds:
+          - Certificate
+          clusters:
+          - "*"
+
     ## Annotations to be added to ArgoCD ConfigMap
     configAnnotations: {}
 
