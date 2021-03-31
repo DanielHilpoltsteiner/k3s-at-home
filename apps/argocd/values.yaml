@@ -118,13 +118,13 @@ argo-cd:
 
     priorityClassName: ""
 
-    resources:
-      limits:
-        cpu: 500m
-        memory: 512Mi
-      requests:
-        cpu: 500m
-        memory: 512Mi
+    resources: {}
+      # limits:
+      #   cpu: 2000m
+      #   memory: 512Mi
+      # requests:
+      #   cpu: 2000m
+      #   memory: 512Mi
 
     serviceAccount:
       create: true
