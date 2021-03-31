@@ -20,7 +20,7 @@ falco:
 
   falco:
     logLevel: info
-    priority: debug
+    priority: alert
     logStderr: true
     logSyslog: true
 
@@ -39,6 +39,7 @@ falco:
 
     syscallEventDrops:
       actions:
+        - log
         - alert
       rate: 100
       max_burst: 1000
