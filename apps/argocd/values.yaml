@@ -428,13 +428,13 @@ argo-cd:
       #   drop:
       #     - all
 
-    resources:
-      limits:
-        cpu: 200m
-        memory: 128Mi
-      requests:
-        cpu: 200m
-        memory: 128Mi
+    resources: {}
+      # limits:
+      #   cpu: 200m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 200m
+      #   memory: 256Mi
 
     ## Certificate configuration
     certificate:
@@ -602,7 +602,7 @@ argo-cd:
           url: https://codecentric.github.io/helm-charts
           name: codecentric
         - type: helm
-          url:     https://nextcloud.github.io/helm/
+          url: https://nextcloud.github.io/helm/
           name: nextcloud
         - type: helm
           url: https://weaveworks.github.io/kured
@@ -836,13 +836,13 @@ argo-cd:
       #   drop:
       #     - all
 
-    resources:
-      limits:
-        cpu: 500m
-        memory: 256Mi
-      requests:
-        cpu: 500m
-        memory: 256Mi
+    resources: {}
+      # limits:
+      #   cpu: 500m
+      #   memory: 256Mi
+      # requests:
+      #   cpu: 500m
+      #   memory: 256Mi
 
     ## Repo server service configuration
     service:
