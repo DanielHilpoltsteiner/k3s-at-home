@@ -39,8 +39,7 @@ falco:
 
     syscallEventDrops:
       actions:
-        - log
-        - alert
+        - ignore
       rate: 100
       max_burst: 1000
 
