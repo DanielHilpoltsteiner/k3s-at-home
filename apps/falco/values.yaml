@@ -1,0 +1,54 @@
+falco:
+  image:
+    registry: docker.io
+    repository: falcosecurity/falco
+    tag: 0.27.0
+    pullPolicy: IfNotPresent
+    pullSecrets: []
+
+  docker:
+    enabled: false
+    socket: /var/run/docker.sock
+
+  containerd:
+    enabled: true
+    socket: /run/containerd/containerd.sock
+
+  grpc:
+    enabled: false
+
+falcosidekick:
+  replicaCount: 1
+
+  image:
+    repository: falcosecurity/falcosidekick
+    tag: 2.21.0
+    pullPolicy: IfNotPresent
+
+  config:
+    existingSecret: "falcosidekick-secret"
+
+  ingress:
+    enabled: false
+
+  webui:
+    enabled: true
+
+    image:
+      repository: falcosecurity/falcosidekick-ui
+      tag: "v0.2.0"
+      pullPolicy: IfNotPresent
+
+    retention: 50
+
+    service:
+      type: ClusterIP
+      port: 2802
+
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: nginx
+      hosts:
+        - host: falco.home-lab.io
+          paths: ["/ui", "/events", "/healthz", "/ws"]
