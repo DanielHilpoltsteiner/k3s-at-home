@@ -483,7 +483,7 @@ harbor:
     controller:
       image:
         repository: goharbor/harbor-registryctl
-        tag: v2.2.0
+        tag: v2.2.1
 
       # resources:
       #  requests:
