@@ -20,7 +20,7 @@ falco:
 
   falco:
     logLevel: info
-    priority: alert
+    priority: critical
     logStderr: true
     logSyslog: true
 
