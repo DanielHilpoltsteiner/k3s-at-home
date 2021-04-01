@@ -47,9 +47,9 @@ falco:
       enabled: false
 
     grpc:
-      enabled: true
+      enabled: false
     grpcOutput:
-      enabled: true
+      enabled: false
 
   customRules: {}
 
@@ -98,6 +98,7 @@ falcosidekick:
           paths: ["/ui", "/events", "/healthz", "/ws"]
 
 falco-exporter:
+  enabled: false
   image:
     repository: falcosecurity/falco-exporter
     tag: 0.5.0

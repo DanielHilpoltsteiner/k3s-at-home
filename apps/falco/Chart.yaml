@@ -14,3 +14,4 @@ dependencies:
   - name: falco-exporter
     repository: https://falcosecurity.github.io/charts
     version: 0.5.1
+    condition: falco-exporter.enabled
