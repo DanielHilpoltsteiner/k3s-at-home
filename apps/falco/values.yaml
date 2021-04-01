@@ -47,7 +47,7 @@ falco:
       enabled: false
 
     grpc:
-      enabled: false
+      enabled: true
 
   customRules: {}
 
@@ -94,3 +94,37 @@ falcosidekick:
       hosts:
         - host: falco.home-lab.io
           paths: ["/ui", "/events", "/healthz", "/ws"]
+
+falco-exporter:
+  image:
+    repository: falcosecurity/falco-exporter
+    tag: 0.5.0
+    pullPolicy: IfNotPresent
+
+  falco:
+    grpcUnixSocketPath: "unix:///var/run/falco/falco.sock"
+    grpcTimeout: 3m
+
+  podSecurityContext:
+    fsGroup: 2000
+
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
+
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
