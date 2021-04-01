@@ -1,7 +1,7 @@
 falco:
   image:
     registry: docker.io
-    repository: falcosecurity/falco
+    repository: falcosecurity/falco-no-driver
     tag: 0.27.0
     pullPolicy: IfNotPresent
     pullSecrets: []
@@ -17,6 +17,9 @@ falco:
   resources: {}
 
   timezone: Europe/Berlin
+
+  ebpf:
+    enabled: true
 
   falco:
     logLevel: info
@@ -48,6 +51,8 @@ falco:
 
     grpc:
       enabled: false
+      unixSocketPath: ""
+
     grpcOutput:
       enabled: false
 
@@ -60,6 +65,39 @@ falco:
 
   scc:
     create: false
+
+  extraInitContainers:
+    - name: driver-loader
+      image: falcosecurity/falco-driver-loader:0.27.0
+      imagePullPolicy: IfNotPresent
+      volumeMounts:
+        - mountPath: /host/proc
+          name: proc-fs
+          readOnly: true
+        - mountPath: /host/boot
+          name: boot-fs
+          readOnly: true
+        - mountPath: /host/lib/modules
+          name: lib-modules
+        - mountPath: /host/usr
+          name: usr-fs
+          readOnly: true
+        - mountPath: /host/etc
+          name: etc-fs
+          readOnly: true
+        - mountPath: /root/.falco
+          name: driver-fs
+      env:
+        - name: FALCO_BPF_PROBE
+          value:
+
+  extraVolumes:
+    - name: driver-fs
+      emptyDir: {}
+
+  extraVolumeMounts:
+    - mountPath: /root/.falco
+      name: driver-fs
 
 falcosidekick:
   replicaCount: 1
@@ -105,7 +143,7 @@ falco-exporter:
     pullPolicy: IfNotPresent
 
   falco:
-    grpcUnixSocketPath: "unix:///var/run/falco/falco.sock"
+    grpcUnixSocketPath: ""
     grpcTimeout: 3m
 
   podSecurityContext:
