@@ -20,7 +20,7 @@ falco:
 
   falco:
     logLevel: info
-    priority: critical
+    priority: notice
     logStderr: true
     logSyslog: true
 
@@ -51,6 +51,14 @@ falco:
 
   customRules: {}
 
+  tolerations:
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+
+  scc:
+    create: false
+
 falcosidekick:
   replicaCount: 1
 
@@ -73,7 +81,7 @@ falcosidekick:
       tag: "v0.2.0"
       pullPolicy: IfNotPresent
 
-    retention: 50
+    retention: 100
 
     service:
       type: ClusterIP
