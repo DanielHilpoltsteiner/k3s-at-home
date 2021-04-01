@@ -339,7 +339,7 @@ harbor:
     type: Recreate
 
   # debug, info, warning, error or fatal
-  logLevel: debug
+  logLevel: info
 
   # The initial password of Harbor admin. Change it from portal after launching Harbor
   harborAdminPassword: "Harbor12345"
@@ -433,7 +433,7 @@ harbor:
     # Secret is used when core server communicates with other components.
     # If a secret key is not specified, Helm will generate one.
     # Must be a string of 16 chars.
-    secret: ""
+    secret: "H79zbeQPnVzcvEkH"
     # Fill the name of a kubernetes secret if you want to use your own
     # TLS certificate and private key for token encryption/decryption.
     # The secret must contain keys named:
@@ -442,7 +442,7 @@ harbor:
     # The default key pair will be used if it isn't set
     secretName: ""
     # The XSRF key. Will be generated automatically if it isn't specified
-    xsrfKey: ""
+    xsrfKey: "ClorMueyYmIHnEN87xG6JGJxRJjq9PSH"
 
   jobservice:
     image:
@@ -467,7 +467,7 @@ harbor:
     # Secret is used when job service communicates with other components.
     # If a secret key is not specified, Helm will generate one.
     # Must be a string of 16 chars.
-    secret: ""
+    secret: "raF9Z0QJnVer7GhJ"
 
   registry:
     # set the service account to be used, default if left empty
@@ -500,7 +500,7 @@ harbor:
     # See: https://github.com/docker/distribution/blob/master/docs/configuration.md#http
     # If a secret key is not specified, Helm will generate one.
     # Must be a string of 16 chars.
-    secret: ""
+    secret: "KeyZIiKStgbNOz0z"
     # If true, the registry returns relative URLs in Location headers. The client is responsible for resolving the correct URL.
     relativeurls: false
     credentials:
