@@ -647,13 +647,13 @@ prometheus:
     global:
       ## How frequently to scrape targets by default
       ##
-      scrape_interval: 5m
+      scrape_interval: 30s
       ## How long until a scrape request times out
       ##
-      scrape_timeout: 30s
+      scrape_timeout: 60s
       ## How frequently to evaluate rules
       ##
-      evaluation_interval: 1m
+      evaluation_interval: 5m
     ## https://prometheus.io/docs/prometheus/latest/configuration/configuration/#remote_write
     ##
     remoteWrite: []
