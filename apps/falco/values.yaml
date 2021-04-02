@@ -34,7 +34,7 @@ falco:
       enabled: false
 
     stdoutOutput:
-      enabled: false
+      enabled: true
 
     httpOutput:
       enabled: true
@@ -43,8 +43,9 @@ falco:
     syscallEventDrops:
       actions:
         - ignore
-      rate: 100
-      max_burst: 1000
+        - log
+      rate: 1000
+      max_burst: 10000
 
     webserver:
       enabled: false
