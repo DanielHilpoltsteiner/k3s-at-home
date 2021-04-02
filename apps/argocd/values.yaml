@@ -43,8 +43,8 @@ argo-cd:
 
     ## Argo controller commandline flags
     args:
-      statusProcessors: "20"
-      operationProcessors: "10"
+      statusProcessors: "10"
+      operationProcessors: "5"
       appResyncPeriod: "180"
 
     ## Argo controller log format: text|json
@@ -54,7 +54,9 @@ argo-cd:
 
     ## Additional command line arguments to pass to argocd-controller
     ##
-    extraArgs: []
+    extraArgs:
+      - --repo-server-timeout-seconds
+      - "500"
 
     ## Environment variables to pass to argocd-controller
     ##
@@ -774,10 +776,10 @@ argo-cd:
   repoServer:
     name: repo-server
 
-    replicas: 1
+    replicas: 2
 
     autoscaling:
-      enabled: true
+      enabled: false
       minReplicas: 1
       maxReplicas: 4
       targetCPUUtilizationPercentage: 50
@@ -794,7 +796,9 @@ argo-cd:
 
     ## Environment variables to pass to argocd-repo-server
     ##
-    env: []
+    env:
+      - name: "ARGOCD_EXEC_TIMEOUT"
+        value: "5m"
 
     ## Argo repoServer log format: text|json
     logFormat: text
