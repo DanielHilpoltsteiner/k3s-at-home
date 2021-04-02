@@ -201,7 +201,7 @@ velero:
     logFormat: text
 
     # Set true for backup all pod volumes without having to apply annotation on the pod when used restic Default: false. Other option: false.
-    defaultVolumesToRestic: false
+    defaultVolumesToRestic: true
 
   ##
   ## End of backup/snapshot location settings.
@@ -276,7 +276,11 @@ velero:
     # Resource requests/limits to specify for the Restic daemonset deployment. Optional.
     resources: {}
     # Tolerations to use for the Restic daemonset. Optional.
-    tolerations: []
+    tolerations:
+      - key: "arch"
+        operator: "Equal"
+        value: "arm64"
+        effect: "NoSchedule"
 
     # Annotations to set for the Restic daemonset. Optional.
     annotations: {}
