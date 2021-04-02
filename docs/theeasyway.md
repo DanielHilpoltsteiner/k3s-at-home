@@ -9,6 +9,7 @@ Prepare a master node and had the ip of the servers into `/etc/hosts`
 10.0.40.6 k3s-3
 10.0.40.7 k3s-w-1
 10.0.40.8 k3s-w-2
+10.0.40.9 k3s-rpi3
 ```
 
 Install a first master with this command
@@ -53,4 +54,5 @@ Add a worker node
 ```bash
 k3sup join --ip=10.0.40.7 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
 k3sup join --ip=10.0.40.8 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
+k3sup join --ip=10.0.40.9 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
 ```

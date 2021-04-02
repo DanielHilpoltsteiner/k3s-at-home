@@ -19,6 +19,7 @@ Edit the `nginx.conf` in the stream section with:
         upstream k3s_servers {
             server $IP_MASTER1:6443;
             server $IP_MASTER2:6443;
+            server $IP_MASTER3:6443;
         }
 
         server {

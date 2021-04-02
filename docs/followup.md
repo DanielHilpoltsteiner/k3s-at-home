@@ -45,7 +45,7 @@ helm install ingress-nginx ingress-nginx/ingress-nginx -n ingress-nginx -f value
 
 The default backend is disabled by default in the helm chart. You can install it by adding `--set defaultBackend.enabled=true`.
 
-### Deploy a service
+<!-- ### Deploy a service
 
 Let's deploy a simple website using nginx docker image. Deploy it by running:
 
@@ -156,4 +156,4 @@ Cleanup the deployement
 ```bash
 kubectl delete -f https://raw.githubusercontent.com/ebrianne/kubernetes-stack/gh-pages/example/deploy-tls.yml
 ```
-It may throw an error as it deletes the namespace first and then tries to delete the other ressources of the namespace that does not exist anymore, but this is fine.
+It may throw an error as it deletes the namespace first and then tries to delete the other ressources of the namespace that does not exist anymore, but this is fine. -->

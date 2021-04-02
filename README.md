@@ -9,7 +9,7 @@
 ## Installation of Kubernetes using k3s
 
 The distribution of choice is [k3s](https://k3s.io/) as it is lightweight and contains all of the features that are used for a homelab case.
-I chose to do a [HA installation](https://rancher.com/docs/k3s/latest/en/installation/ha/) with 2 master nodes and 3 worker nodes. I use proxmox as the hypervisor layer and Ubuntu Server 20.04.
+I chose to do a [HA installation](https://rancher.com/docs/k3s/latest/en/installation/ha/) with 3 master nodes and 3 worker nodes (mixed-arch). I use [Proxmox](https://www.proxmox.com/en/) as the hypervisor layer and Ubuntu Server 20.04.
 
 # Table of Contents
 1. [Preparation](./docs/prereq.md)
