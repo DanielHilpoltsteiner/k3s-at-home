@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: tautulli
-        image: linuxserver/tautulli:v2.6.10-ls5
+        image: linuxserver/tautulli:version-v2.6.10
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8181

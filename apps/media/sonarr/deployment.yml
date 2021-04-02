@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: sonarr
-        image: linuxserver/sonarr:3.0.4.1026-ls12
+        image: linuxserver/sonarr:version-3.0.6.1196
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8989

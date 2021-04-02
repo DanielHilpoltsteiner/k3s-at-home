@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: ombi
-        image: linuxserver/ombi:v4.0.767-ls22
+        image: linuxserver/ombi:version-v4.0.767
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3579
