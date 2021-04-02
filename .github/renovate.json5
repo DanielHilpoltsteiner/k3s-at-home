@@ -88,7 +88,7 @@
     //version-<major>.<minor>.<patch>.<any>
     {
       "matchDatasources": ["docker"],
-      "versioning": "regex:^version-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+.\\d+)$",
+      "versioning": "regex:^version-(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+).\\d+$",
       "matchPackageNames": ["linuxserver/radarr","linuxserver/lidarr","linuxserver/sonarr"]
      },
      //version-v<major>.<minor>.<patch>
