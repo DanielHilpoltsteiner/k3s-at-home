@@ -13,11 +13,11 @@ descheduler:
 
   resources:
     requests:
-      cpu: 500m
+      cpu: 300m
       memory: 256Mi
-    # limits:
-    #   cpu: 100m
-    #   memory: 128Mi
+    limits:
+      cpu: 300m
+      memory: 256Mi
 
   nameOverride: ""
   fullnameOverride: ""
@@ -54,13 +54,9 @@ descheduler:
         params:
           nodeResourceUtilizationThresholds:
             thresholds:
-              cpu: 20
-              memory: 20
-              pods: 15
+              "memory": 20
             targetThresholds:
-              cpu: 70
-              memory: 70
-              pods: 50
+              "memory": 60
 
   priorityClassName: system-cluster-critical
 
