@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
       - name: lidarr
-        image: linuxserver/lidarr:version-0.7.2.1878
+        image: linuxserver/lidarr:version-0.8.0.1928
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8686
