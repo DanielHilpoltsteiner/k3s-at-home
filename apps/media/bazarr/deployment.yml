@@ -17,7 +17,8 @@ spec:
     metadata:
       labels:
         app: bazarr
-
+      annotations:
+        backup.velero.io/backup-volumes-excludes: movies,tv
     spec:
       containers:
       - name: bazarr
