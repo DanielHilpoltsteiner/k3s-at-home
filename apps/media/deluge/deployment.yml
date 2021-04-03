@@ -6,8 +6,6 @@ metadata:
   namespace: media
   labels:
     app: deluge
-  annotations:
-    backup.velero.io/backup-volumes: config
 spec:
   replicas: 1
   strategy:
@@ -19,6 +17,8 @@ spec:
     metadata:
       labels:
         app: deluge
+      annotations:
+        backup.velero.io/backup-volumes-excludes: downloads
     spec:
       initContainers:
       - name: sysctl-ipv6

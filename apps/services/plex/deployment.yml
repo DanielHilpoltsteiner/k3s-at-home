@@ -17,6 +17,8 @@ spec:
     metadata:
       labels:
         app: plex
+      annotations:
+        backup.velero.io/backup-volumes-excludes: transcode,tv,music,movies
     spec:
       containers:
       - name: plex

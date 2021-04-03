@@ -6,8 +6,6 @@ metadata:
   namespace: services
   labels:
     app: code-server
-  annotations:
-    backup.velero.io/backup-volumes: config
 spec:
   replicas: 1
   strategy:

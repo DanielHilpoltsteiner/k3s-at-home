@@ -843,7 +843,8 @@ prometheus:
 
     ## Annotations to be added to Prometheus server pods
     ##
-    podAnnotations: {}
+    podAnnotations:
+      backup.velero.io/backup-volumes-excludes: storage-volume
       # iam.amazonaws.com/role: prometheus
 
     ## Labels to be added to Prometheus server pods

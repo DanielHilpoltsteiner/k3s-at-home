@@ -126,7 +126,7 @@ duplicati:
   affinity: {}
 
   # -- Key-value pairs to add as pod annotations
-  podAnnotations: {}
-
+  podAnnotations:
+    backup.velero.io/backup-volumes-excludes: source,backups
   # -- Key-value pairs to add as deployment annotations
   deploymentAnnotations: {}

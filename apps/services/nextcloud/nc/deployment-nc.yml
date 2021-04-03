@@ -17,6 +17,8 @@ spec:
     metadata:
       labels:
         app: nextcloud
+      annotations:
+        backup.velero.io/backup-volumes-excludes: nextcloud-data
     spec:
       securityContext:
         fsGroup: 33
