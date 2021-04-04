@@ -62,6 +62,12 @@ rancher:
       nginx.ingress.kubernetes.io/proxy-connect-timeout: "30"
       nginx.ingress.kubernetes.io/proxy-read-timeout: "1800"
       nginx.ingress.kubernetes.io/proxy-send-timeout: "1800"
+      kubernetes.io/ingress.allow-http: "false"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/auth-url: "http://authelia.services.svc.cluster.local/api/verify"
+      nginx.ingress.kubernetes.io/auth-signin: "https://authelia.technolab.duckdns.org/"
+      nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
 
     # configurationSnippet - Add additional Nginx configuration. This example statically sets a header on the ingress.
     # configurationSnippet: |
