@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: jackett
-        image: linuxserver/jackett:version-v0.17.838
+        image: linuxserver/jackett:version-v0.17.841
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9117
