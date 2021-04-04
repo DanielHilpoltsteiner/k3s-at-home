@@ -624,6 +624,9 @@ argo-cd:
         - type: helm
           url: https://falcosecurity.github.io/charts
           name: falcosecurity
+        - type: helm
+          url: https://releases.rancher.com/server-charts/stable
+          name: rancher-stable
 
       resource.exclusions: |
         - apiGroups:
