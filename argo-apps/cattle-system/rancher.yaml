@@ -1,0 +1,26 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  namespace: argocd
+  name: rancher
+spec:
+  project: default
+
+  source:
+    repoURL: https://github.com/ebrianne/k3s-at-home.git
+    targetRevision: HEAD
+    path: apps/cattle-system
+    helm:
+      releaseName: rancher
+      valueFiles:
+        - values.yaml
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cattle-system
+
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: true
