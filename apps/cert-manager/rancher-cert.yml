@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: rancher-technolab-duckdns-org
+  namespace: cattle-system
+spec:
+  dnsNames:
+  - 'rancher.technolab.duckdns.org'
+  issuerRef:
+    name: cert-manager-webhook-duckdns-production
+    kind: ClusterIssuer
+  secretName: tls-rancher-ingress
