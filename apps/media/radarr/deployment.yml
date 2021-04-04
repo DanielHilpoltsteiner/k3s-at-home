@@ -17,8 +17,6 @@ spec:
     metadata:
       labels:
         app: radarr
-      annotations:
-        backup.velero.io/backup-volumes-excludes: movies,downloads
     spec:
       containers:
       - name: radarr

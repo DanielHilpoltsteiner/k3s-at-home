@@ -201,7 +201,7 @@ velero:
     logFormat: text
 
     # Set true for backup all pod volumes without having to apply annotation on the pod when used restic Default: false. Other option: false.
-    defaultVolumesToRestic: true
+    defaultVolumesToRestic: false
 
   ##
   ## End of backup/snapshot location settings.
@@ -321,10 +321,10 @@ velero:
   #       includedNamespaces:
   #       - foo
   schedules:
-    bi-daily-backup:
+    daily-backup:
       labels:
         app: velero
-      schedule: "0 6,18 * * *"
+      schedule: "0 4 * * *"
       template:
         ttl: "72h"
 

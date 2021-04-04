@@ -17,8 +17,6 @@ spec:
     metadata:
       labels:
         app: deluge
-      annotations:
-        backup.velero.io/backup-volumes-excludes: downloads
     spec:
       initContainers:
       - name: sysctl-ipv6

@@ -17,8 +17,6 @@ spec:
     metadata:
       labels:
         app: lidarr
-      annotations:
-        backup.velero.io/backup-volumes-excludes: downloads,music
     spec:
       containers:
       - name: lidarr
