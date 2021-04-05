@@ -46,7 +46,7 @@ harbor:
       annotations:
         # ingress.kubernetes.io/ssl-redirect: "true"
         # ingress.kubernetes.io/proxy-body-size: "0"
-        kubernetes.io/ingress.class: nginx
+        kubernetes.io/ingress.class: nginx-internal
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
         # nginx.ingress.kubernetes.io/ssl-redirect: "true"
     clusterIP:

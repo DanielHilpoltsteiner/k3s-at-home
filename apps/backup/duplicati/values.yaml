@@ -71,7 +71,7 @@ duplicati:
     enabled: true
     # -- Ingress annotations
     annotations:
-      kubernetes.io/ingress.class: nginx
+      kubernetes.io/ingress.class: nginx-internal
     # -- Custom labels
     labels: {}
     # -- Ingress path

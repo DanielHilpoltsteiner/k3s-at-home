@@ -30,7 +30,7 @@ calibre-web:
   ingress:
     enabled: true
     annotations:
-      kubernetes.io/ingress.class: nginx
+      kubernetes.io/ingress.class: nginx-internal
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
     hosts:
       - host: calibre-web.home-lab.io

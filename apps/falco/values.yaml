@@ -131,7 +131,7 @@ falcosidekick:
     ingress:
       enabled: true
       annotations:
-        kubernetes.io/ingress.class: nginx
+        kubernetes.io/ingress.class: nginx-internal
       hosts:
         - host: falco.home-lab.io
           paths: ["/ui", "/events", "/healthz", "/ws"]
