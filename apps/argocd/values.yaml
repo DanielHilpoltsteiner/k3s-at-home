@@ -57,6 +57,8 @@ argo-cd:
     extraArgs:
       - --repo-server-timeout-seconds
       - "500"
+      - --kubectl-parallelism-limit
+      - "5"
 
     ## Environment variables to pass to argocd-controller
     ##
@@ -349,7 +351,7 @@ argo-cd:
   server:
     name: server
 
-    replicas: 1
+    replicas: 2
 
     autoscaling:
       enabled: false
@@ -795,7 +797,11 @@ argo-cd:
 
     ## Additional command line arguments to pass to argocd-repo-server
     ##
-    extraArgs: []
+    extraArgs:
+      - --parallelismlimit
+      - "2"
+      - --repo-cache-expiration
+      - "5h"
 
     ## Environment variables to pass to argocd-repo-server
     ##
