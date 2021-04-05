@@ -12,7 +12,7 @@ spec:
     targetRevision: HEAD
     path: apps/kube-system/nginx-controller-internal/
     helm:
-      releaseName: ingress-nginx
+      releaseName: ingress-nginx-internal
       valueFiles:
         - values.yaml
 
