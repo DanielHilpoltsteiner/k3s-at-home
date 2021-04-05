@@ -30,13 +30,7 @@ spec:
         volumeMounts:
         - name: config
           mountPath: /config
-        resources:
-          requests:
-            memory: "50Mi"
-            cpu: "10m"
-          limits:
-            memory: "128Mi"
-            cpu: "100m"
+        resources: {}
       volumes:
       - name: config
         persistentVolumeClaim:
