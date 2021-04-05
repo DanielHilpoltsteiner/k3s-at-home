@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 type: application
-name: rancher-backup-operator
+name: rancher-backup
 version: 0.0.0
 appVersion: 0.0.0
 dependencies:
@@ -12,4 +12,4 @@ dependencies:
   - name: rancher-backup
     repository: https://charts.rancher.io
     version: 1.0.301
-    condition: rancher-backup-operator.enabled
+    condition: rancher-backup.enabled

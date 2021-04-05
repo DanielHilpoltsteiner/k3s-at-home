@@ -1,7 +1,7 @@
 rancher-backup-crd:
   enabled: true
 
-rancher-backup-operator:
+rancher-backup:
   enabled: true
 
   image:
@@ -13,12 +13,12 @@ rancher-backup-operator:
     enabled: true
     ## credentialSecretName if set, should be the name of the Secret containing AWS credentials.
     ## To use IAM Role, don't set this field
-    credentialSecretName: ""
-    credentialSecretNamespace: ""
+    credentialSecretName: "minio-creds"
+    credentialSecretNamespace: "cattle-resources-system"
     region: ""
     bucketName: "rancher"
     folder: ""
-    endpoint: "http://10.0.40.2:9001"
+    endpoint: "10.0.40.2:9001"
     endpointCA: ""
     insecureTLSSkipVerify: true
 
