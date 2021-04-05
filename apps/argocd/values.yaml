@@ -629,6 +629,9 @@ argo-cd:
         - type: helm
           url: https://releases.rancher.com/server-charts/stable
           name: rancher-stable
+        - type: helm
+          url: https://charts.rancher.io
+          name: rancher-chart
 
       resource.exclusions: |
         - apiGroups:
