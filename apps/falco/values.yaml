@@ -119,7 +119,7 @@ falcosidekick:
 
     image:
       repository: falcosecurity/falcosidekick-ui
-      tag: "v0.2.0"
+      tag: "v1.0.0"
       pullPolicy: IfNotPresent
 
     retention: 100
