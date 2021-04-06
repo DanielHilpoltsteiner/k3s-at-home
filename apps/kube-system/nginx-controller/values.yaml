@@ -145,7 +145,7 @@ ingress-nginx:
 
     ## DaemonSet or Deployment
     ##
-    kind: Deployment
+    kind: DaemonSet
 
     ## Annotations to be added to the controller Deployment or DaemonSet
     ##
@@ -161,23 +161,23 @@ ingress-nginx:
 
     # The update strategy to apply to the Deployment or DaemonSet
     ##
-    updateStrategy: {}
-    #  rollingUpdate:
-    #    maxUnavailable: 1
-    #  type: RollingUpdate
+    updateStrategy:
+      rollingUpdate:
+        maxUnavailable: 1
+      type: RollingUpdate
 
     # minReadySeconds to avoid killing pods before we are ready
     ##
-    minReadySeconds: 0
+    minReadySeconds: 30
 
 
     ## Node tolerations for server scheduling to nodes with taints
     ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
     ##
     tolerations:
-    # - key: "node-role.kubernetes.io/master"
-    #   operator: "Exists"
-    #   effect: "NoSchedule"
+      - key: "node-role.kubernetes.io/master"
+        operator: "Exists"
+        effect: "NoSchedule"
     #  - key: "key"
     #    operator: "Equal|Exists"
     #    value: "value"
@@ -248,7 +248,7 @@ ingress-nginx:
     ##
     nodeSelector:
       kubernetes.io/os: linux
-      # node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/master: 'true'
 
     ## Liveness and readiness probe values
     ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -276,7 +276,7 @@ ingress-nginx:
     ##
     podAnnotations: {}
 
-    replicaCount: 3
+    replicaCount: 2
 
     minAvailable: 1
 
@@ -605,7 +605,7 @@ ingress-nginx:
     image:
       repository: ebrianne/default-http-backend
       tag: "latest"
-      pullPolicy: Always
+      pullPolicy: IfNotPresent
       # nobody user -> uid 65534
       runAsUser: 101
       runAsNonRoot: true
