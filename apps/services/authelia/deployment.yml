@@ -27,6 +27,7 @@ spec:
         - containerPort: 6379
           name: redis
           protocol: TCP
+        resources: {}
       - name: authelia
         image: authelia/authelia:4.27.4
         imagePullPolicy: IfNotPresent
@@ -80,13 +81,24 @@ spec:
             cpu: "1000m"
             memory: 512Mi
           requests:
-            cpu: "100m"
+            cpu: "200m"
+            memory: 256Mi
         volumeMounts:
         - mountPath: /config
           name: config-volume
         - mountPath: /app/secrets
           name: secrets
           readOnly: true
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - authelia
+            topologyKey: "kubernetes.io/hostname"
       volumes:
       - name: config-volume
         configMap:
