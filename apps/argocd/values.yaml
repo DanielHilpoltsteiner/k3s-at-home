@@ -13,7 +13,7 @@ argo-cd:
   global:
     image:
       repository: argoproj/argocd
-      tag: v1.8.7
+      tag: v2.0.0
       imagePullPolicy: IfNotPresent
     securityContext: {}
     #  runAsUser: 999
@@ -31,7 +31,7 @@ argo-cd:
 
     image:
       repository: argoproj/argocd
-      tag: v1.8.7
+      tag: v2.0.0
       imagePullPolicy: IfNotPresent
 
     # If changing the number of replicas you must pass the number as ARGOCD_CONTROLLER_REPLICAS as an environment variable
@@ -362,7 +362,7 @@ argo-cd:
 
     image:
       repository: argoproj/argocd
-      tag: v1.8.7
+      tag: v2.0.0
       imagePullPolicy: IfNotPresent
 
     ## Additional command line arguments to pass to argocd-server
@@ -795,7 +795,7 @@ argo-cd:
 
     image:
       repository: argoproj/argocd
-      tag: v1.8.7
+      tag: v2.0.0
       imagePullPolicy: IfNotPresent
 
     ## Additional command line arguments to pass to argocd-repo-server
