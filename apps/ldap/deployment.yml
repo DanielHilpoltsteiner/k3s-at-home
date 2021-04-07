@@ -58,6 +58,16 @@ spec:
           mountPath: /container/service/slapd/assets/config/bootstrap/ldif/custom/base.ldif
           subPath: base.ldif
         resources: {}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - openldap
+            topologyKey: "kubernetes.io/hostname"
       volumes:
       - name: config
         secret:
