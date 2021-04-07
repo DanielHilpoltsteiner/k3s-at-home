@@ -21,6 +21,9 @@ sealed-secrets-controller:
       # controller.service.labels: Extra labels to be added to controller service
       labels: {}
 
+  commandArgs:
+    - "--update-status"
+
   # namespace: Namespace to deploy the controller.
   namespace: ""
 
