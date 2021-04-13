@@ -1,7 +1,7 @@
 kured:
   image:
-    repository: weaveworks/kured
-    tag: 1.6.1
+    repository: ebrianne/kured
+    tag: v1.6.1
     pullPolicy: IfNotPresent
     pullSecrets: []
 
@@ -77,4 +77,3 @@ kured:
 
   nodeSelector:
     kubernetes.io/os: linux
-    kubernetes.io/arch: amd64
