@@ -496,6 +496,10 @@ prometheus:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
         effect: "NoSchedule"
+      - key: "arch"
+        operator: "Equal"
+        value: "arm64"
+        effect: "NoSchedule"
 
     ## Node labels for node-exporter pod assignment
     ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
