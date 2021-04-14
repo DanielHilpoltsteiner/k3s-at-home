@@ -6,4 +6,4 @@ appVersion: "1.6.1"
 dependencies:
   - name: kured
     repository: https://weaveworks.github.io/kured
-    version: 2.4.2
+    version: 2.4.3
