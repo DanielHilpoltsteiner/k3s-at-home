@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: nextcould-exporter-metrics
+  name: nextcloud-exporter-metrics
   namespace: services
   labels:
     app: nextcloud-exporter
