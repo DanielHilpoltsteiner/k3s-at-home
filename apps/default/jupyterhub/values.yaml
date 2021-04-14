@@ -1,0 +1,33 @@
+jupyterhub:
+  # proxy relates to the proxy pod, the proxy-public service, and the autohttps
+  # pod and proxy-http service.
+  proxy:
+    secretToken: "6c8fed8f8d339f6afeeb00a67186e87fe567b334862c58b079e9c7d5dc83ab9f"
+
+  singleuser:
+    defaultUrl: "/lab"
+    extraEnv:
+      EDITOR: "nano"
+    image:
+      # Get the latest image tag at:
+      # https://hub.docker.com/r/jupyter/datascience-notebook/tags/
+      # Inspect the Dockerfile at:
+      # https://github.com/jupyter/docker-stacks/tree/master/datascience-notebook/Dockerfile
+      name: jupyter/datascience-notebook
+      tag: python-3.8.8
+    storage:
+      dynamic:
+        storageClass: nfs-client
+      capacity: 5Gi
+    cpu:
+      limit: 4
+      guarantee: 1
+    memory:
+      limit: 4G
+      guarantee: 512M
+
+  ingress:
+    annotations:
+      kubernetes.io/ingress.class: nginx-internal
+    hosts:
+      - jupyterhub.home-lab.io
