@@ -1,0 +1,63 @@
+---
+- name: Install some packages
+  community.general.apk:
+    name: wget,curl,git,zsh,shadow,htop,iptables,cni-plugins,open-iscsi,nfs-utils,sudo
+    state: present
+
+- name: Add overlay to /etc/modules-load.d/
+  copy:
+    content: "overlay"
+    dest: /etc/modules-load.d/overlay.conf
+    mode: 0600
+
+- name: Add br_netfilter to /etc/modules-load.d/
+  copy:
+    content: "br_netfilter"
+    dest: /etc/modules-load.d/br_netfilter.conf
+    mode: 0600
+
+- name: Load overlay
+  modprobe:
+    name: overlay
+    state: present
+    
+- name: Load br_netfilter
+  modprobe:
+    name: br_netfilter
+    state: present
+
+- name: Copy kube sysctl file
+  template:
+    src: kube.conf.j2
+    dest: /etc/sysctl.d/kube.conf
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Disable IPv6
+  sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: "1"
+    state: present
+    reload: yes
+
+- name: Start cgroups
+  ansible.builtin.service: 
+    name: cgroups
+    state: started
+    runlevel: boot
+    enabled: yes
+
+- name: Remove swap
+  shell: |
+    swapoff -a
+
+- name: Stop swap service
+  ansible.builtin.service: 
+    name: swap
+    state: stopped
+    enabled: no
+
+- name: Remove swap service from boot
+  shell: |
+    rc-update del swap boot

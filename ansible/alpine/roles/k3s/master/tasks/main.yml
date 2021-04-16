@@ -1,0 +1,23 @@
+
+---
+- name: Create master server with k3s "{{k3s_version}}" using k3sup
+  command: 
+  args:
+    argv:
+    - k3sup 
+    - install 
+    - --ip
+    - "{{ item }}"
+    - --user
+    - "{{ ansible_user }}" 
+    - --k3s-version
+    - "{{ k3s_version }}"
+    - --local-path
+    - $HOME/.kube/config 
+    - --context 
+    - default 
+    - --cluster 
+    - --tls-san 
+    - "{{ tls_san }}"
+    - --k3s-extra-args="--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr="{{ cluster-cidr }}" --service-cidr="{{ service-cidr }}" --cluster-dns="{{ cluster_dns }}" --node-taint "{{ master-taint }}""
+  with_items: "{{ groups['master'] }}"
