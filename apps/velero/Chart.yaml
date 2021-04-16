@@ -7,4 +7,4 @@ appVersion: 1.5.3 # unused
 dependencies:
   - name: velero
     repository: https://vmware-tanzu.github.io/helm-charts
-    version: 2.17.1
+    version: 2.17.2
