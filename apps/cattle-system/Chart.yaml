@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 type: application
-name: argocd
+name: rancher
 version: 2.5.7
 appVersion: v2.5.7
 dependencies:
