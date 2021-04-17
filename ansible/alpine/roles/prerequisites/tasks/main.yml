@@ -1,7 +1,7 @@
 ---
 - name: Install some packages
   community.general.apk:
-    name: wget,curl,git,zsh,shadow,htop,iptables,cni-plugins,open-iscsi,nfs-utils,sudo
+    name: htop,iptables,cni-plugins,open-iscsi,nfs-utils,sudo
     state: present
 
 - name: Add overlay to /etc/modules-load.d/

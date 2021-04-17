@@ -5,10 +5,10 @@
   roles:
     - role: prerequisites
 
-# - hosts: master
-#   become: yes
-#   roles:
-#     - role: k3s/master
+- hosts: master
+  become: yes
+  roles:
+    - role: k3s/master
 
 # - hosts: node
 #   become: yes
