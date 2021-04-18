@@ -1,0 +1,25 @@
+- name: Check if k3sup is available
+  stat:
+    path: /usr/local/bin/k3sup
+  register: k3sup_stat_result
+
+- name: Install k3sup if not available
+  get_url:
+    url: https://get.k3sup.dev
+    dest: /tmp/get_k3sup.sh
+    mode: 0755
+  when: k3sup_stat_result.stat.exists == false
+  register: fetch_k3sup
+
+- name: Install k3sup binary
+  when: "fetch_k3sup is succeeded and k3sup_stat_result.stat.exists == false"
+  become: yes
+  become_user: "{{ localhost_user }}"
+  shell: |
+    sh /tmp/get_k3sup.sh
+
+- name: Cleanup
+  file:
+    path: "/tmp/get_k3sup.sh"
+    state: absent
+  when: k3sup_stat_result.stat.exists == false

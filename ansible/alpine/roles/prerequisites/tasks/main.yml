@@ -1,7 +1,7 @@
 ---
 - name: Install some packages
   community.general.apk:
-    name: htop,iptables,cni-plugins,open-iscsi,nfs-utils,sudo
+    name: curl,htop,iptables,cni-plugins,open-iscsi,nfs-utils,sudo
     state: present
 
 - name: Add overlay to /etc/modules-load.d/
@@ -20,7 +20,7 @@
   modprobe:
     name: overlay
     state: present
-    
+    - 
 - name: Load br_netfilter
   modprobe:
     name: br_netfilter
@@ -42,7 +42,7 @@
     reload: yes
 
 - name: Start cgroups
-  ansible.builtin.service: 
+  service: 
     name: cgroups
     state: started
     runlevel: boot
@@ -53,11 +53,7 @@
     swapoff -a
 
 - name: Stop swap service
-  ansible.builtin.service: 
+  service: 
     name: swap
     state: stopped
     enabled: no
-
-- name: Remove swap service from boot
-  shell: |
-    rc-update del swap boot

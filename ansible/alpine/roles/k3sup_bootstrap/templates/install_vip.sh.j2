@@ -1,0 +1,15 @@
+export PATH=/usr/local/bin/:${PATH}
+curl -s https://kube-vip.io/manifests/rbac.yaml > /var/lib/rancher/k3s/server/manifests/kube-vip-rbac.yaml
+export VIP={{ vip_ip }}
+export INTERFACE={{ interface }}
+crictl pull docker.io/plndr/kube-vip:{{ kube_vip_tag }}
+alias kube-vip="ctr run --rm --net-host docker.io/plndr/kube-vip:{{ kube_vip_tag }} vip /kube-vip"
+
+kube-vip manifest daemonset \
+                  --arp \
+                  --interface $INTERFACE \
+                  --address $VIP \
+                  --controlplane \
+                  --leaderElection \
+                  --taint \
+                  --inCluster | tee /var/lib/rancher/k3s/server/manifests/kube-vip.yaml

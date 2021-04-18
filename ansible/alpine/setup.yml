@@ -5,12 +5,21 @@
   roles:
     - role: prerequisites
 
-- hosts: master
+- hosts: localhost
+  connection: local
+  roles:
+    - role: k3sup_install
+
+- hosts: master_bootstrap
+  roles:
+    - role: k3sup_bootstrap
+      
+- hosts: masters
   become: yes
   roles:
     - role: k3s/master
 
-# - hosts: node
-#   become: yes
-#   roles:
-#     - role: k3s/node
+- hosts: workers
+  become: yes
+  roles:
+    - role: k3s/worker

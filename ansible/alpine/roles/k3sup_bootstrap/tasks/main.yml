@@ -1,0 +1,39 @@
+---
+- name: Check if k3s is already installed
+  stat:
+    path: /usr/local/bin/k3s-uninstall.sh
+  register: k3s_stat_result
+
+- name: Create bootstrap master server running k3s {{ k3s_version }} using k3sup
+  local_action: command k3sup install --ip {{ master_ip }} --user {{ ansible_user }} --k3s-version {{ k3s_version }} --local-path $HOME/.kube/config --context k3s-test  --cluster --tls-san {{ tls_san }} --k3s-extra-args '--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr {{ cluster_cidr }} --service-cidr {{ service_cidr }} --cluster-dns {{ cluster_dns }} --node-taint {{ master_taint }}'
+  when: k3s_stat_result.stat.exists == false
+
+- name: Generate kube-vip script on bootstrap master server
+  template:
+    src: install_vip.sh.j2
+    dest: /tmp/install_vip.sh
+    owner: root
+    group: root
+    mode: 0770
+
+- name: run kube-vip script
+  become: yes
+  shell: |
+    sh /tmp/install_vip.sh
+  register: output_kube_vip
+
+- name: print kube-vip script output
+  debug: 
+    msg: "{{ output_kube_vip }}"
+
+- name: Wait that the VIP at {{ vip_ip }} is up and running
+  local_action: shell ansible -u {{ localhost_user }} -m ping {{ vip_ip }}
+  register: result
+  until: result.rc == 0
+  retries: 30
+  delay: 10
+
+- name: Cleanup
+  file:
+    path: "/tmp/install_vip.sh"
+    state: absent
