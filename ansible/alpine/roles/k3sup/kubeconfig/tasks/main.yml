@@ -1,0 +1,14 @@
+---
+- name: Create Kubernetes kubeconfig directory
+  file:
+    path: ".kube/"
+    state: directory
+
+- name: Copy kubeconfig to home directory
+  delegate_to: "{{ groups['masters'][0] }}"
+  when: http_api_result is succeeded
+  fetch:
+    src: /etc/rancher/k3s/k3s.yaml
+    dest: ".kube/config-test"
+    flat: yes
+  run_once: yes

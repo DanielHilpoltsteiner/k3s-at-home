@@ -10,6 +10,7 @@
   roles:
     - role: k3sup/install
     - role: k3sup/bootstrap
+    - role: k3sup/kubeconfig
       
 - hosts: masters[0]
   roles:
