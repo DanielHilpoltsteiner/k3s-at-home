@@ -44,15 +44,15 @@ The VIP should reply to the ping. Then you re good to go. Replace the ip into yo
 Add other masters
 
 ```bash
-k3sup join --ip=10.0.40.5 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1 --server --k3s-extra-args="--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10 --node-taint node-role.kubernetes.io/master=true:NoSchedule"
+k3sup join --ip 10.0.40.5 --server-ip 10.0.40.3 --user root --k3s-version v1.20.4+k3s1 --server --k3s-extra-args "--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr 10.69.0.0/16 --service-cidr 10.96.0.0/16 --cluster-dns 10.96.0.10 --node-taint node-role.kubernetes.io/master=true:NoSchedule"
 
-k3sup join --ip=10.0.40.6 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1 --server --k3s-extra-args="--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr=10.69.0.0/16 --service-cidr=10.96.0.0/16 --cluster-dns=10.96.0.10 --node-taint node-role.kubernetes.io/master=true:NoSchedule"
+k3sup join --ip 10.0.40.6 --server-ip 10.0.40.3 --user root --k3s-version v1.20.4+k3s1 --server --k3s-extra-args "--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr 10.69.0.0/16 --service-cidr 10.96.0.0/16 --cluster-dns 10.96.0.10 --node-taint node-role.kubernetes.io/master=true:NoSchedule"
 ```
 
 Add a worker node
 
 ```bash
-k3sup join --ip=10.0.40.7 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
-k3sup join --ip=10.0.40.8 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
-k3sup join --ip=10.0.40.9 --server-user=root --server-host=10.0.40.3 --user=root --k3s-version=v1.20.4+k3s1
+k3sup join --ip 10.0.40.7 --server-ip 10.0.40.3 --user root --k3s-version v1.20.4+k3s1
+k3sup join --ip 10.0.40.8 --server-ip 10.0.40.3 --user root --k3s-version v1.20.4+k3s1
+k3sup join --ip 10.0.40.9 --server-ip 10.0.40.3 --user root --k3s-version v1.20.4+k3s1
 ```

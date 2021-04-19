@@ -1,12 +1,12 @@
 ---
 - name: Check for k3s uninstall script
   stat:
-    path: /usr/local/bin/k3s-uninstall.sh
+    path: /usr/local/bin/k3s-agent-uninstall.sh
   register: k3s_stat_result
 
 - name: Uninstall k3s with the uninstall script
   shell: |
-    sh /usr/local/bin/k3s-uninstall.sh
+    sh /usr/local/bin/k3s-agent-uninstall.sh
   when: k3s_stat_result.stat.exists == true
 
 - name: Cleanup
@@ -15,7 +15,6 @@
     state: absent
   with_items:
     - /usr/local/bin/k3s
-    - "{{ systemd_dir }}/k3s"
     - "{{ systemd_dir }}/k3s-agent"
     - /etc/rancher/k3s
     - /var/lib/rancher/k3s
@@ -23,6 +22,22 @@
     - /etc/modules-load.d/br_netfilter.conf
     - /etc/sysctl.d/kube.conf
     
+- name: Re-enable swap in fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^# (.+?\sswap\s+sw\s+.*)$'
+    replace: '\1'
+
+- name: Start swap service
+  service: 
+    name: swap
+    state: started
+    enabled: yes
+
+- name: Enable SWAP
+  shell: |
+    swapon -a
+
 - name: Reboot the machine
   reboot:
     reboot_timeout: 3600

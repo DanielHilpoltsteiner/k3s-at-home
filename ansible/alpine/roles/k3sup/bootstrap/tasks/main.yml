@@ -1,0 +1,31 @@
+---
+- name: Check if k3s is already installed
+  delegate_to: "{{ k3s.bootstrap_master_ip }}"
+  stat:
+    path: /usr/local/bin/k3s-uninstall.sh
+  register: k3s_stat_result
+
+- name: Create bootstrap master server at {{ k3s.bootstrap_master_ip }} to run k3s {{ k3s.version }} using k3sup
+  shell:
+    cmd: k3sup install --ip {{ k3s.bootstrap_master_ip }} --user {{ k3s.user }} --k3s-version {{ k3s.version }} --cluster --tls-san {{ k3s.tls_san }} --k3s-extra-args '--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr {{ k3s.cluster_cidr }} --service-cidr {{ k3s.service_cidr }} --cluster-dns {{ k3s.cluster_dns }} --node-taint {{ k3s.master_taint }}'
+  when: k3s_stat_result.stat.exists == false
+  register: bootstrap
+  failed_when: "bootstrap.rc not in [ 0, 1 ]"
+
+- name: Wait that the master is up
+  uri:
+    url: "https://{{ k3s.bootstrap_master_ip }}:6443"
+    method: GET
+    validate_certs: False
+    status_code: 401
+    body_format: json
+  register: http_api_result
+  retries: 6
+  delay: 15
+  until: http_api_result is not failed
+  when: bootstrap is succeeded
+
+- name: Debug report of API availability
+  debug: 
+    msg: "{{ http_api_result }}"
+  when: http_api_result is failed

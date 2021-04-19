@@ -8,18 +8,18 @@
 - hosts: localhost
   connection: local
   roles:
-    - role: k3sup_install
-
-- hosts: master_bootstrap
-  roles:
-    - role: k3sup_bootstrap
+    - role: k3sup/install
+    - role: k3sup/bootstrap
       
-- hosts: masters
-  become: yes
+- hosts: masters[0]
+  roles:
+    - role: k3s/kube-vip
+    - role: k3s/metallb
+      
+- hosts: masters[1:]
   roles:
     - role: k3s/master
 
 - hosts: workers
-  become: yes
   roles:
     - role: k3s/worker

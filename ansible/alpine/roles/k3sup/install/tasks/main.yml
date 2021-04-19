@@ -3,7 +3,7 @@
     path: /usr/local/bin/k3sup
   register: k3sup_stat_result
 
-- name: Install k3sup if not available
+- name: Create k3sup script if not available
   get_url:
     url: https://get.k3sup.dev
     dest: /tmp/get_k3sup.sh

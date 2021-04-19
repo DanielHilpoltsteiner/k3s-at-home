@@ -20,7 +20,7 @@
   modprobe:
     name: overlay
     state: present
-    - 
+ 
 - name: Load br_netfilter
   modprobe:
     name: br_netfilter
@@ -57,3 +57,9 @@
     name: swap
     state: stopped
     enabled: no
+
+- name: Disable swap in fstab
+  replace:
+    path: /etc/fstab
+    regexp: '^([^#].*?\sswap\s+sw\s+.*)$'
+    replace: '# \1'

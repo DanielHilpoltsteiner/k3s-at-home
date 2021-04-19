@@ -1,0 +1,9 @@
+---
+- name: Adding masters to the cluster
+  local_action: shell k3sup join --ip {{ inventory_hostname }} --server-ip {{ kube_vip.ip }} --user {{ k3s.user }} --k3s-version {{ k3s.version }} --server --k3s-extra-args '--write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable coredns --disable metrics-server --disable local-storage --cluster-cidr {{ k3s.cluster_cidr }} --service-cidr {{ k3s.service_cidr }} --cluster-dns {{ k3s.cluster_dns }} --node-taint {{ k3s.master_taint }}'
+  register: master_joined
+
+- name: Debug report of master joined
+  debug: 
+    msg: "{{ master_joined }}"
+  when: master_joined is failed

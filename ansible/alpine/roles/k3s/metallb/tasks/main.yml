@@ -1,0 +1,32 @@
+---
+- name: Add metal-lb namespace to /var/lib/rancher/k3s/server/manifests/
+  get_url:
+    url: https://raw.githubusercontent.com/metallb/metallb/{{ metallb.tag }}/manifests/namespace.yaml
+    dest: /var/lib/rancher/k3s/server/manifests/metallb-namespace.yaml
+    owner: root
+    group: root
+    mode: 0664
+  when: not ansible_check_mode
+
+- name: Add metal-lb manifest to /var/lib/rancher/k3s/server/manifests/
+  get_url:
+    url: https://raw.githubusercontent.com/metallb/metallb/{{ metallb.tag }}/manifests/metallb.yaml
+    dest: /var/lib/rancher/k3s/server/manifests/metallb.yaml
+    owner: root
+    group: root
+    mode: 0664
+  when: not ansible_check_mode
+
+- name: Create generic secret
+  shell: |
+    kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+  register: metallb_secret
+
+- name: Add metallb configmap to /var/lib/rancher/k3s/server/manifests/
+  template:
+    src: metallb-configmap.yml.j2
+    dest: /var/lib/rancher/k3s/server/manifests/metallb-configmap.yaml
+    owner: root
+    group: root
+    mode: 0664
+  when: not ansible_check_mode

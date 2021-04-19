@@ -1,0 +1,9 @@
+---
+- name: Add worker nodes to the cluster
+  local_action: shell k3sup join --ip {{ inventory_hostname }} --server-ip {{ kube_vip.ip }} --user {{ k3s.user }} --k3s-version {{ k3s.version }}
+  register: worker_joined
+
+- name: Debug report of worker joined
+  debug: 
+    msg: "{{ worker_joined }}"
+  when: worker_joined is failed

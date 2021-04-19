@@ -1,0 +1,27 @@
+---
+- name: Generate kube-vip script on bootstrap master server {{ k3s.bootstrap_master_ip }}
+  template:
+    src: install_vip.sh.j2
+    dest: /tmp/install_vip.sh
+    owner: root
+    group: root
+    mode: 0770
+
+- name: run kube-vip script
+  become: yes
+  shell:
+    cmd: /tmp/install_vip.sh
+  register: output_kube_vip
+
+- name: Wait that the VIP at {{ kube_vip.ip }} is up and running
+  local_action: shell ansible -u {{ localhost_user }} -m ping {{ kube_vip.ip }}
+  register: result
+  until: result.rc == 0
+  retries: 30
+  delay: 10
+  when: not ansible_check_mode
+
+- name: Cleanup
+  file:
+    path: "/tmp/install_vip.sh"
+    state: absent

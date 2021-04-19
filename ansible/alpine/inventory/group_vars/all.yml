@@ -1,14 +1,24 @@
 ---
-k3s_version: v1.20.5+k3s1
+ansible_python_interpreter: /usr/bin/python3
 ansible_user: root
 localhost_user: ebrianne
 systemd_dir: /etc/init.d
-master_ip: "{{ groups['master_bootstrap'][0] }}"
-vip_ip: "{{ groups['vip'][0] }}"
-kube_vip_tag: 0.3.3
-interface: eth0
-tls_san: 10.0.40.59
-cluster_cidr: 10.69.0.0/16
-cluster_dns: 10.96.0.10
-service_cidr: 10.96.0.0/16
-master_taint: node-role.kubernetes.io/master=true:NoSchedule
+
+kube_vip:
+  tag: 0.3.3
+  ip: "{{ groups['vip'][0] }}"
+  interface: eth0
+  
+k3s:
+  bootstrap_master_ip: "{{ groups['masters'][0] }}"
+  version: v1.20.5+k3s1
+  user: root
+  tls_san: "{{ kube_vip.ip }}"
+  cluster_cidr: 10.69.0.0/16
+  cluster_dns: 10.96.0.10
+  service_cidr: 10.96.0.0/16
+  master_taint: node-role.kubernetes.io/master=true:NoSchedule
+
+metallb:
+  tag: v0.9.6
+  ip_range: 10.0.40.65-10.0.40.70
