@@ -4,6 +4,17 @@ ansible_user: root
 localhost_user: ebrianne
 systemd_dir: /etc/init.d
 
+proxmox:
+  masters: 
+    number: 2
+    ram: 2G
+    disk: 10G
+  workers:
+    number: 1
+    ram: 2G
+    disk: 10G
+  dist: alpine
+
 kube_vip:
   tag: 0.3.3
   ip: "{{ groups['vip'][0] }}"
