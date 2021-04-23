@@ -43,8 +43,8 @@ argo-cd:
 
     ## Argo controller commandline flags
     args:
-      statusProcessors: "10"
-      operationProcessors: "5"
+      statusProcessors: "20"
+      operationProcessors: "10"
       appResyncPeriod: "180"
 
     ## Argo controller log format: text|json
@@ -58,7 +58,7 @@ argo-cd:
       - --repo-server-timeout-seconds
       - "500"
       - --kubectl-parallelism-limit
-      - "5"
+      - "20"
 
     ## Environment variables to pass to argocd-controller
     ##
@@ -802,9 +802,9 @@ argo-cd:
     ##
     extraArgs:
       - --parallelismlimit
-      - "2"
+      - "5"
       - --repo-cache-expiration
-      - "5h"
+      - "12h"
 
     ## Environment variables to pass to argocd-repo-server
     ##
