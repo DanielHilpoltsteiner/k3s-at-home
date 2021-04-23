@@ -34,11 +34,11 @@ duckdns-go:
 
   resources:
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 500m
+      memory: 100Mi
     requests:
       cpu: 100m
-      memory: 128Mi
+      memory: 50Mi
 
   nodeSelector:
     kubernetes.io/arch: arm64
