@@ -4,3 +4,9 @@
   become: yes
   roles:
     - role: maintenance/apt
+      
+- hosts: alpine
+  gather_facts: yes
+  become: yes
+  roles:
+    - role: maintenance/apk
