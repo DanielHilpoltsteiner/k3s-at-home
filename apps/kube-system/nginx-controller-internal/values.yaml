@@ -175,9 +175,9 @@ ingress-nginx:
     ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
     ##
     tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-        effect: "NoSchedule"
+    # - key: "node-role.kubernetes.io/master"
+    #   operator: "Exists"
+    #   effect: "NoSchedule"
     #  - key: "key"
     #    operator: "Equal|Exists"
     #    value: "value"
@@ -248,7 +248,7 @@ ingress-nginx:
     ##
     nodeSelector:
       kubernetes.io/os: linux
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/worker: 'true'
 
     ## Liveness and readiness probe values
     ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -642,9 +642,9 @@ ingress-nginx:
     ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
     ##
     tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-        effect: "NoSchedule"
+    # - key: "node-role.kubernetes.io/master"
+    #   operator: "Exists"
+    #   effect: "NoSchedule"
     #  - key: "key"
     #    operator: "Equal|Exists"
     #    value: "value"
@@ -666,7 +666,7 @@ ingress-nginx:
     ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
     ##
     nodeSelector:
-      node-role.kubernetes.io/master: 'true'
+      node-role.kubernetes.io/worker: 'true'
 
     ## Annotations to be added to default backend pods
     ##
