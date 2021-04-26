@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+type: application
+name: ingress-monitor-controller
+version: v1.0.103
+appVersion: v1.0.103
+dependencies:
+  - name: ingressmonitorcontroller
+    repository: https://github.com/stakater/IngressMonitorController
+    version: v1.0.103
