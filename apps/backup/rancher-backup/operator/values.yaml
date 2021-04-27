@@ -18,6 +18,7 @@ rancher-backup:
     endpoint: "10.0.40.2:9001"
     endpointCA: ""
     insecureTLSSkipVerify: true
+    useSSL: false
 
   ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
   ## If persistence is enabled, operator will create a PVC with mountPath /var/lib/backups
