@@ -1,0 +1,11 @@
+---
+apiVersion: v2
+type: application
+name: rancher-backup-crd
+version: 0.0.0
+appVersion: 0.0.0
+dependencies:
+  - name: rancher-backup-crd
+    repository: https://charts.rancher.io
+    version: 1.0.301
+    condition: rancher-backup-crd.enabled
