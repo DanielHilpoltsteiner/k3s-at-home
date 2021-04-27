@@ -1,0 +1,10 @@
+---
+apiVersion: resources.cattle.io/v1
+kind: Backup
+metadata:
+  name: s3-default-recurring-backup
+spec:
+  resourceSetName: rancher-resource-set
+  encryptionConfigSecretName: encryptionconfig
+  schedule: "@every 1h"
+  retentionCount: 10
