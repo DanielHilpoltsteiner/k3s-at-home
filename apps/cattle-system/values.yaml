@@ -43,7 +43,7 @@ rancher:
   #   value: "1.0"
 
   # Fully qualified name to reach your Rancher server
-  hostname: rancher.technolab.duckdns.org
+  hostname: rancher.technolab.cloud
 
   ## Optional array of imagePullSecrets containing private registry credentials
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/

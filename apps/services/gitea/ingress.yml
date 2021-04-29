@@ -17,7 +17,7 @@ metadata:
     app: gitea
 spec:
   rules:
-  - host: gitea.technolab.duckdns.org
+  - host: gitea.technolab.cloud
     http:
       paths:
       - path: /
@@ -26,5 +26,5 @@ spec:
           servicePort: 3000
   tls:
   - hosts:
-    - gitea.technolab.duckdns.org
-    secretName: services-technolab-duckdns-org-tls
+    - gitea.technolab.cloud
+    secretName: services-technolab-cloudflare-org-tls

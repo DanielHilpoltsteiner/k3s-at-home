@@ -14,7 +14,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
 spec:
   rules:
-  - host: authelia.technolab.duckdns.org
+  - host: authelia.technolab.cloud
     http:
       paths:
       - path: /
@@ -23,5 +23,5 @@ spec:
           servicePort: 9091
   tls:
   - hosts:
-    - authelia.technolab.duckdns.org
-    secretName: services-technolab-duckdns-org-tls
+    - authelia.technolab.cloud
+    secretName: services-technolab-cloudflare-org-tls

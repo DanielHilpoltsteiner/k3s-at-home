@@ -14,7 +14,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
 spec:
   rules:
-  - host: ebrianne.technolab.duckdns.org
+  - host: ebrianne.technolab.cloud
     http:
       paths:
       - path: /
@@ -23,5 +23,5 @@ spec:
           servicePort: 8080
   tls:
   - hosts:
-    - ebrianne.technolab.duckdns.org
-    secretName: services-technolab-duckdns-org-tls
+    - ebrianne.technolab.cloud
+    secretName: services-technolab-cloudflare-org-tls

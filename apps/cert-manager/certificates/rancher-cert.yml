@@ -6,8 +6,8 @@ metadata:
   namespace: cattle-system
 spec:
   dnsNames:
-  - 'rancher.technolab.duckdns.org'
+  - 'rancher.technolab.cloud'
   issuerRef:
-    name: cert-manager-webhook-duckdns-production
+    name: cloudflare-issuer-production
     kind: ClusterIssuer
   secretName: tls-rancher-ingress

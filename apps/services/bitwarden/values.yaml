@@ -165,12 +165,12 @@ bitwardenrs:
       nginx.ingress.kubernetes.io/enable-modsecurity: "true"
       nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     hosts:
-    - host: bitwarden.technolab.duckdns.org
+    - host: bitwarden.technolab.cloud
       paths: ["/"]
     tls:
     - hosts:
-      - bitwarden.technolab.duckdns.org
-      secretName: services-technolab-duckdns-org-tls
+      - bitwarden.technolab.cloud
+      secretName: services-technolab-cloudflare-org-tls
 
   resources:
     # We usually recommend not to specify default resources and to leave this as a conscious

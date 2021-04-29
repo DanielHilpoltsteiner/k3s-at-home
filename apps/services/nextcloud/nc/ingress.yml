@@ -38,7 +38,7 @@ metadata:
       }
 spec:
   rules:
-  - host: nextcloud.technolab.duckdns.org
+  - host: nextcloud.technolab.cloud
     http:
       paths:
       - path: "/"
@@ -47,5 +47,5 @@ spec:
           servicePort: 8080
   tls:
   - hosts:
-    - nextcloud.technolab.duckdns.org
-    secretName: services-technolab-duckdns-org-tls
+    - nextcloud.technolab.cloud
+    secretName: services-technolab-cloudflare-org-tls
