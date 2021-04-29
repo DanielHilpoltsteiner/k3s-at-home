@@ -21,7 +21,23 @@ spec:
         backend:
           serviceName: nginx-website
           servicePort: 8080
+  - host: www.technolab.cloud
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-website
+          servicePort: 8080
+  - host: technolab.cloud
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: nginx-website
+          servicePort: 8080
   tls:
   - hosts:
     - ebrianne.technolab.cloud
+    - technolab.cloud
+    - www.technolab.cloud
     secretName: services-technolab-cloudflare-org-tls
