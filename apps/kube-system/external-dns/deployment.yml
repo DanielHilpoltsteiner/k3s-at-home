@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns
+  namespace: kube-system
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns
+  template:
+    metadata:
+      labels:
+        app: external-dns
+    spec:
+      serviceAccountName: external-dns
+      containers:
+      - name: external-dns
+        image: k8s.gcr.io/external-dns/external-dns:v0.7.6
+        args:
+        - --source=ingress
+        - --domain-filter=technolab.cloud
+        - --zone-id-filter=0ffc4d9b52f75751e4dab83abb5c048b
+        - --provider=cloudflare
+        - --cloudflare-proxied
+        env:
+        - name: CF_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              key: cloudflare-api-token
+              name: external-dns-cloudflare
+        - name: CF_API_EMAIL
+          valueFrom:
+            secretKeyRef:
+              key: cloudflare-email
+              name: external-dns-cloudflare
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+          limits:
+            cpu: 500m
+            memory: 200Mi
