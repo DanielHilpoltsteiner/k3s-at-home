@@ -9,7 +9,7 @@ data:
     <?php
         $CONFIG = array (
           'overwriteprotocol' => 'https',
-          'overwrite.cli.url' => 'https://nextcloud.technolab.duckdns.org',
+          'overwrite.cli.url' => 'https://nextcloud.technolab.cloud',
           'filelocking.enabled' => 'true',
           'loglevel' => '2',
           'enable_previews' => false,
@@ -17,7 +17,7 @@ data:
           'trusted_domains' =>
           array (
             0 => 'localhost',
-            1 => 'nextcloud.technolab.duckdns.org'
+            1 => 'nextcloud.technolab.cloud'
           ),
           'trusted_proxies' =>
           array (
