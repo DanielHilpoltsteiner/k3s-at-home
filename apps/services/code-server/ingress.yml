@@ -16,7 +16,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
 spec:
   rules:
-  - host: code-server.technolab.cloud
+  - host: codeserver.technolab.cloud
     http:
       paths:
       - path:
@@ -25,5 +25,5 @@ spec:
           servicePort: 8443
   tls:
   - hosts:
-    - code-server.technolab.cloud
+    - codeserver.technolab.cloud
     secretName: services-technolab-cloudflare-org-tls

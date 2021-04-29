@@ -19,7 +19,7 @@ data:
 
     theme: dark
 
-    default_redirection_url: https://ebrianne.technolab.duckdns.org
+    default_redirection_url: https://ebrianne.technolab.cloud
 
     totp:
       issuer: authelia.com
@@ -45,13 +45,13 @@ data:
     access_control:
       default_policy: deny
       rules:
-        - domain: code-server.technolab.duckdns.org
+        - domain: codeserver.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
-        - domain: bitwarden.technolab.duckdns.org
+        - domain: bitwarden.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
-        - domain: bitwarden.technolab.duckdns.org
+        - domain: bitwarden.technolab.cloud
           subject: "user:mengqing"
           policy: two_factor
 
@@ -61,7 +61,7 @@ data:
       expiration: 24h
       inactivity: 1h
       remember_me_duration: 24h
-      domain: technolab.duckdns.org
+      domain: technolab.cloud
 
       redis:
         host: localhost
