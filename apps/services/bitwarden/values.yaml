@@ -15,7 +15,7 @@ bitwardenrs:
   fullnameOverride: ""
 
   bitwardenrs:
-    domain: "https://bitwarden.technolab.duckdns.org"
+    domain: "https://bitwarden.technolab.cloud"
     signupsAllowed: false
     gui:
       # If you set a different port here, you must also provide it under env
