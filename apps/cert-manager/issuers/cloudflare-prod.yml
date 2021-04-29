@@ -14,7 +14,7 @@ spec:
     - dns01:
         cloudflare:
           email: eldwan35@gmail.com
-          apiKeySecretRef:
+          apiTokenSecretRef:
             name: cloudflare-api-token-secret
             key: api-token
       selector:
