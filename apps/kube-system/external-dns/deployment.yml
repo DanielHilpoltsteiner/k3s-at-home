@@ -27,6 +27,7 @@ spec:
         - --cloudflare-proxied
         - --registry=txt
         - --txt-owner-id=technolab-external-dns
+        - --txt-prefix=txt
         env:
         - name: CF_API_TOKEN
           valueFrom:
