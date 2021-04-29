@@ -25,6 +25,8 @@ spec:
         - --zone-id-filter=0ffc4d9b52f75751e4dab83abb5c048b
         - --provider=cloudflare
         - --cloudflare-proxied
+        - --registry=txt
+        - --txt-owner-id=technolab-external-dns
         env:
         - name: CF_API_TOKEN
           valueFrom:
