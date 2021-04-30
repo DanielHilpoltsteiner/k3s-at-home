@@ -376,7 +376,7 @@ spec:
       containers:
       - args:
         - --port=7472
-        - --config=config
+        - --config=config-arp
         image: metallb/controller:v0.9.6
         imagePullPolicy: Always
         name: controller
