@@ -13,6 +13,8 @@ metadata:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
     nginx.ingress.kubernetes.io/enable-modsecurity: "true"
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    external-dns.alpha.kubernetes.io/hostname: gitea.technolab.cloud
+    external-dns.alpha.kubernetes.io/target: technolab.cloud
   labels:
     app: gitea
 spec:
