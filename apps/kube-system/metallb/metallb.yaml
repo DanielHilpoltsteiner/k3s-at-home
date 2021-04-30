@@ -292,7 +292,7 @@ spec:
       containers:
       - args:
         - --port=7472
-        - --config=config-bgp
+        - --config=config-arp
         env:
         - name: METALLB_NODE_NAME
           valueFrom:
@@ -376,7 +376,7 @@ spec:
       containers:
       - args:
         - --port=7472
-        - --config=config-bgp
+        - --config=config-arp
         image: metallb/controller:v0.9.6
         imagePullPolicy: Always
         name: controller
