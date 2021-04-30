@@ -23,7 +23,7 @@ spec:
       - name: external-dns
         image: bitnami/external-dns:0.7.6-debian-10-r91
         args:
-        - --log-level=info
+        - --log-level=debug
         - --log-format=text
         - --dry-run
         - --namespace=services
