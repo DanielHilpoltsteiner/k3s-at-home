@@ -133,7 +133,7 @@ spec:
         - --secure-port=4443
         - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
         - --kubelet-use-node-status-port
-        image: k8s.gcr.io/metrics-server/metrics-server:v0.4.3
+        image: k8s.gcr.io/metrics-server/metrics-server:v0.4.4
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -165,10 +165,6 @@ spec:
         kubernetes.io/os: linux
       priorityClassName: system-cluster-critical
       serviceAccountName: metrics-server
-      tolerations:
-      - key: "node-role.kubernetes.io/master"
-        operator: "Exists"
-        effect: "NoSchedule"
       volumes:
       - emptyDir: {}
         name: tmp-dir
