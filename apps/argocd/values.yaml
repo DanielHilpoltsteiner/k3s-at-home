@@ -632,6 +632,12 @@ argo-cd:
         - type: helm
           url: https://charts.rancher.io
           name: rancher-chart
+        - type: helm
+          url: https://charts.drone.io
+          name: drone
+        - type: helm
+          url: https://charts.gitlab.io/
+          name: gitlab
 
       resource.exclusions: |
         - apiGroups:
