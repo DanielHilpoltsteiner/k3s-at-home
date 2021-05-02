@@ -18,16 +18,16 @@ drone:
   # Drone server does not interact with the Kubernetes API server
   automountServiceAccountToken: false
 
-  podSecurityContext:
-    fsGroup: 2000
+  podSecurityContext: {}
+    # fsGroup: 2000
 
-  securityContext:
-    capabilities:
-      drop:
-      - ALL
-    readOnlyRootFilesystem: true
-    runAsNonRoot: true
-    runAsUser: 1000
+  securityContext: {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
   ## Add extra annotations to the Drone server pods here. See below example for
   ## Prometheus scrape annotations.
