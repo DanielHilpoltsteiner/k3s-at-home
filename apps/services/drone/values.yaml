@@ -245,5 +245,6 @@ drone:
     ##
     # DRONE_GOGS_SERVER:
 
+    DRONE_LOGS_DEBUG: true
     DRONE_LOGS_COLOR: true
     DRONE_LOGS_PRETTY: true
