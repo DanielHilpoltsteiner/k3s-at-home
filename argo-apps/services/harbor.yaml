@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ebrianne/k3s-at-home.git
     targetRevision: HEAD
-    path: apps/harbor/
+    path: apps/services/harbor/
     helm:
       releaseName: harbor
       valueFiles:
@@ -18,7 +18,7 @@ spec:
 
   destination:
     server: https://kubernetes.default.svc
-    namespace: harbor
+    namespace: services
 
   syncPolicy:
     automated:

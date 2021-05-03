@@ -6,7 +6,7 @@ spec:
   storageClassName: ""
   claimRef:
     name: nfs-pvc-harbor
-    namespace: harbor
+    namespace: services
   capacity:
     storage: 10Gi
   accessModes:
