@@ -22,8 +22,6 @@ spec:
       - name: nginx-website
         image: harbor.technolab.cloud/library/nginx-website:v1.0.0
         imagePullPolicy: IfNotPresent
-        imagePullSecrets:
-        - name: reg-creds
         securityContext:
           capabilities:
             drop:
@@ -53,6 +51,8 @@ spec:
           limits:
             cpu: 100m
             memory: 128Mi
+      imagePullSecrets:
+      - name: reg-creds
       nodeSelector:
         kubernetes.io/arch: arm64
       tolerations:
