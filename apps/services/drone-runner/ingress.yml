@@ -1,0 +1,33 @@
+---
+# Source: drone-runner-kube/charts/drone-runner-kube/templates/ingress.yaml
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: drone-runner-kube
+  namespace: services
+  labels:
+    helm.sh/chart: drone-runner-kube-0.1.5
+    app.kubernetes.io/name: drone-runner-kube
+    app.kubernetes.io/instance: drone-runner-kube
+    app.kubernetes.io/component: drone-runner-kube
+    app.kubernetes.io/version: "1.0.0-beta.6"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    kubernetes.io/ingress.allow-http: "false"
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  tls:
+    - hosts:
+        - "drone.technolab.cloud"
+      secretName: services-technolab-cloudflare-org-tls
+  rules:
+    - host: "drone.technolab.cloud"
+      http:
+        paths:
+          - path: /runner
+            backend:
+              serviceName: drone-runner-kube
+              servicePort: 3000
