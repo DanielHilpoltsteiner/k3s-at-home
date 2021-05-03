@@ -22,6 +22,8 @@ spec:
       - name: nginx-website
         image: harbor.technolab.cloud/library/nginx-website:v1.0.0
         imagePullPolicy: IfNotPresent
+        imagePullSecrets:
+        - name: reg-creds
         securityContext:
           capabilities:
             drop:
