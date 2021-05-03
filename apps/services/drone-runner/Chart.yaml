@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+type: application
+name: drone-runner-kube
+version: 0.1.5
+appVersion: 1.0.0
+dependencies:
+  - name: drone-runner-kube
+    repository: https://charts.drone.io
+    version: 0.1.5
