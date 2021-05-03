@@ -195,7 +195,7 @@ drone:
     ## If you are using self-hosted GitHub or GitLab, you'll need to set this to true.
     ## Ref: https://docs.drone.io/installation/reference/drone-git-always-auth/
     ##
-    DRONE_GIT_ALWAYS_AUTH: false
+    DRONE_GIT_ALWAYS_AUTH: true
 
     ## ===================================================================================
     ##                         Provider Directives (select ONE)
@@ -245,6 +245,6 @@ drone:
     ##
     # DRONE_GOGS_SERVER:
 
-    DRONE_LOGS_DEBUG: true
+    DRONE_LOGS_DEBUG: false
     DRONE_LOGS_COLOR: true
     DRONE_LOGS_PRETTY: true
