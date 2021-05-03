@@ -14,7 +14,7 @@ drone-runner-kube:
   ## For small or experimental deployments of the Kubernetes runner, 1 replica will suffice.
   ## For production cases, 2-3 are recommended. This does not grant additional parallelism,
   ## but does ensure that upgrades, config changes, and disruptions are handled more gracefully.
-  replicaCount: 2
+  replicaCount: 1
 
   ## When the runner receives a SIGTERM/SIGINT (config update, upgrade, etc), it will wait until
   ## all jobs that particular pod has spawned complete. It is for this reason that you'll want
@@ -44,7 +44,7 @@ drone-runner-kube:
     port: 3000
 
   ingress:
-    enabled: true
+    enabled: false
     annotations:
       kubernetes.io/ingress.class: nginx
       kubernetes.io/ingress.allow-http: "false"
@@ -52,12 +52,12 @@ drone-runner-kube:
       nginx.ingress.kubernetes.io/enable-modsecurity: "true"
       nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     hosts:
-    - host: drone.technolab.cloud
+    - host: drone-runner.technolab.cloud
       paths:
-      - "/runner"
+      - "/"
     tls:
     - hosts:
-      - drone.technolab.cloud
+      - drone-runner.technolab.cloud
       secretName: services-technolab-cloudflare-org-tls
 
   resources: {}

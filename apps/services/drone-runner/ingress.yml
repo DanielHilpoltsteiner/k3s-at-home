@@ -21,13 +21,13 @@ metadata:
 spec:
   tls:
     - hosts:
-        - "drone.technolab.cloud"
+        - "drone-runner.technolab.cloud"
       secretName: services-technolab-cloudflare-org-tls
   rules:
-    - host: "drone.technolab.cloud"
+    - host: "drone-runner.technolab.cloud"
       http:
         paths:
-          - path: /runner
+          - path: /
             backend:
               serviceName: drone-runner-kube
               servicePort: 3000
