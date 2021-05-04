@@ -39,7 +39,7 @@ grafana:
 
     image:
       repository: busybox
-      tag: "1.33.0"
+      tag: "1.33.1"
       sha: ""
       pullPolicy: IfNotPresent
 
