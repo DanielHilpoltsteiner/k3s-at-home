@@ -1,131 +1,50 @@
 ---
 duplicati:
-  # Default values for duplicati.
-  # This is a YAML-formatted file.
-  # Declare variables to be passed into your templates.
-
   image:
-    # -- Image repository
     repository: linuxserver/duplicati
-    # -- Image tag. Possible values listed [here](https://hub.docker.com/r/linuxserver/duplicati/tags/).
     tag: version-v2.0.5.1-2.0.5.1_beta_2020-01-18
-    # -- Image pull policy
     pullPolicy: IfNotPresent
 
-  # -- Specifies the strategy used to replace old Pods by new ones
-  strategyType: Recreate
+  strategy:
+    type: Recreate
 
-  # Probes configuration
-  probes:
-    liveness:
-      # -- Specify liveness `initialDelaySeconds` parameter for the deployment
-      initialDelaySeconds: 60
-      # -- Specify liveness `failureThreshold` parameter for the deployment
-      failureThreshold: 5
-      # -- Specify liveness `timeoutSeconds` parameter for the deployment
-      timeoutSeconds: 10
-    readiness:
-      # -- Specify readiness `initialDelaySeconds` parameter for the deployment
-      initialDelaySeconds: 60
-      # -- Specify readiness `failureThreshold` parameter for the deployment
-      failureThreshold: 5
-      # -- Specify readiness `timeoutSeconds` parameter for the deployment
-      timeoutSeconds: 10
-
-  nameOverride: ""
-  fullnameOverride: ""
-
-  # -- Timezone the duplicati instance should run as, e.g. 'America/New_York'
-  timezone: Europe/Berlin
-  # -- Process userID the duplicati instance should run as
-  puid: 1001
-  # -- Process groupID the duplicati instance should run as
-  pgid: 1001
-  # -- Optionally specify any CLI variables you want to launch the app with
-  cliArgs: ""
+  env:
+    TZ: Europe/Berlin
+    PUID: 1001
+    PGID: 1001
 
   service:
-    # -- Kubernetes service type for the duplicati GUI
+    enabled: true
     type: ClusterIP
-    # -- Kubernetes port where the duplicati GUI is exposed
-    port: 8200
-    ## Specify the nodePort value for the LoadBalancer and NodePort service types.
-    ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
-    ##
-    # nodePort:
-
-    # -- Service annotations for the duplicati GUI
-    annotations: {}
-    # -- Custom labels
-    labels: {}
-    # -- Loadbalance IP for the duplicati GUI
-    loadBalancerIP:
-    # -- List of IP CIDRs allowed access to load balancer (if supported)
-    # loadBalancerSourceRanges: []
-
-    ## Set the externalTrafficPolicy in the Service to either Cluster or Local
-    # externalTrafficPolicy: Cluster
+    port:
+      port: 8200
 
   ingress:
-    # -- Enables Ingress
     enabled: true
-    # -- Ingress annotations
     annotations:
       kubernetes.io/ingress.class: nginx-internal
-    # -- Custom labels
-    labels: {}
-    # -- Ingress path
-    path: /
-    # -- Ingress accepted hostnames
     hosts:
-      - duplicati.home-lab.io
-    # -- Ingress TLS configuration
+    - host: duplicati.home-lab.io
+      paths:
+      - path: /
+        pathType: Prefix
     tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - chart-example.local
 
   persistence:
     config:
       enabled: true
       existingClaim: nfs-pvc-duplicati
+      emptyDir:
+        enabled: false
+      mountPath: /config
     source:
       enabled: true
       existingClaim: nfs-pvc-duplicati-source
+      emptyDir:
+        enabled: false
+      mountPath: /source
     backups:
       enabled: false
-    # -- Optionally add multiple existing claims
-    extraExistingClaimMounts: []
-      # - name: external-mount
-      #   mountPath: /srv/external-mount
-      ## A manually managed Persistent Volume and Claim
-      ## If defined, PVC must be created manually before volume will be bound
-      #   existingClaim:
-      #   readOnly: true
-
-  # -- CPU/Memory resource requests/limits
-  resources: {}
-    # We usually recommend not to specify default resources and to leave this as a conscious
-    # choice for the user. This also increases chances charts run on environments with little
-    # resources, such as Minikube. If you do want to specify resources, uncomment the following
-    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-    # limits:
-    #  cpu: 100m
-    #  memory: 128Mi
-    # requests:
-    #  cpu: 100m
-    #  memory: 128Mi
-
-  # -- Node labels for pod assignment
-  nodeSelector: {}
-
-  # -- Toleration labels for pod assignment
-  tolerations: []
-
-  # -- Affinity settings for pod assignment
-  affinity: {}
-
-  # -- Key-value pairs to add as pod annotations
-  podAnnotations: {}
-  # -- Key-value pairs to add as deployment annotations
-  deploymentAnnotations: {}
+      emptyDir:
+        enabled: false
+      mountPath: /backups
