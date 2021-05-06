@@ -100,7 +100,7 @@ rancher:
   rancherImage: rancher/rancher
   # rancher/rancher image tag. https://hub.docker.com/r/rancher/rancher/tags/
   # Defaults to .Chart.appVersion
-  rancherImageTag: v2.5.7
+  rancherImageTag: v2.5.8
 
   # Override imagePullPolicy for rancher server images
   # options: Always, Never, IfNotPresent
