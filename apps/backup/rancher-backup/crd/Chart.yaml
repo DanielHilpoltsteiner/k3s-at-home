@@ -7,5 +7,5 @@ appVersion: 0.0.0
 dependencies:
   - name: rancher-backup-crd
     repository: https://charts.rancher.io
-    version: 1.0.301
+    version: 1.0.400
     condition: rancher-backup-crd.enabled
