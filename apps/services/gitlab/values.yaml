@@ -1,0 +1,349 @@
+---
+gitlab:
+  ## The global properties are used to configure multiple charts at once.
+  ## Extended documentation at doc/charts/globals.md
+  global:
+    ## doc/installation/deployment.md#deploy-the-community-edition
+    edition: ce
+
+    ## doc/charts/globals.md#application-resource
+    application:
+      create: false
+      links: []
+      allowClusterRoles: true
+    ## doc/charts/globals.md#configure-host-settings
+    hosts:
+      domain: technolab.cloud
+      hostSuffix:
+      https: true
+      externalIP:
+      ssh: ~
+      gitlab:
+        name: gitlab.technolab.cloud
+        https: true
+
+    ## doc/charts/globals.md#configure-ingress-settings
+    ingress:
+      configureCertmanager: false
+      class: nginx
+      annotations: {}
+      enabled: true
+      tls:
+        enabled: true
+        secretName: services-technolab-cloudflare-org-tls
+      path: /
+
+    ## Initial root password for this GitLab installation
+    ## Secret created according to doc/installation/secrets.md#initial-root-password
+    ## If allowing shared-secrets generation, this is OPTIONAL.
+    initialRootPassword:
+      secret: gitlab-secrets
+      key: initial-root-password
+
+    ## doc/charts/globals.md#configure-postgresql-settings
+    psql:
+      connectTimeout:
+      password:
+        useSecret: true
+        secret: gitlab-secrets
+        key: psql-password
+        file:
+      host: 10.0.40.11
+      port: 5432
+      username: gitlab
+      database: gitlab
+      applicationName:
+      preparedStatements: false
+
+    ## doc/charts/globals.md#configure-redis-settings
+    redis:
+      image:
+        tag: 6.0
+      password:
+        enabled: true
+        secret: gitlab-secrets
+        key: redis-password
+
+    ## doc/charts/globals.md#configure-gitaly-settings
+    gitaly:
+      enabled: true
+      authToken:
+        secret: gitlab-secrets
+        key: gitaly-token
+      # serviceName:
+      internal:
+        names: ['default']
+      external: []
+      service:
+        name: gitaly
+        type: ClusterIP
+        externalPort: 8075
+        internalPort: 8075
+        tls:
+          externalPort: 8076
+          internalPort: 8076
+      tls:
+        enabled: false
+
+    praefect:
+      enabled: false
+
+    ## doc/charts/globals.md#configure-minio-settings
+    minio:
+      enabled: false
+
+    ## doc/charts/globals.md#configure-grafana-integration
+    grafana:
+      enabled: false
+
+    ## doc/charts/globals.md#configure-appconfig-settings
+    ## Rails based portions of this chart share many settings
+    appConfig:
+      ## doc/charts/globals.md#general-application-settings
+      enableUsagePing: true
+      enableSeatLink: true
+      enableImpersonation: false
+      applicationSettingsCacheSeconds: 60
+      defaultCanCreateGroup: true
+      usernameChangingEnabled: true
+      issueClosingPattern:
+      defaultTheme: 11
+      defaultProjectsFeatures:
+        issues: true
+        mergeRequests: true
+        wiki: true
+        snippets: true
+        builds: true
+        containerRegistry: false
+      webhookTimeout:
+      maxRequestDurationSeconds:
+
+      ## doc/charts/globals.md#cron-jobs-related-settings
+      cron_jobs: {}
+
+      ## doc/charts/globals.md#content-security-policy
+      contentSecurityPolicy:
+        enabled: false
+
+      ## doc/charts/globals.md#lfs-artifacts-uploads-packages-external-mr-diffs
+      object_store:
+        enabled: true
+        proxy_download: true
+        storage_options: {}
+        connection:
+          secret: gitlab-secrets
+          key: minio-connection
+      lfs:
+        enabled: true
+        proxy_download: true
+        bucket: git-lfs
+        connection: {}
+      artifacts:
+        enabled: true
+        proxy_download: true
+        bucket: gitlab-artifacts
+        connection: {}
+      uploads:
+        enabled: true
+        proxy_download: true
+        bucket: gitlab-uploads
+        connection: {}
+      packages:
+        enabled: true
+        proxy_download: true
+        bucket: gitlab-packages
+        connection: {}
+      externalDiffs:
+        enabled: false
+      terraformState:
+        enabled: false
+      dependencyProxy:
+        enabled: false
+
+      ## doc/charts/globals.md#pseudonymizer-settings
+      pseudonymizer:
+        configMap:
+        bucket: gitlab-pseudo
+        connection: {}
+      backups:
+        bucket: gitlab-backups
+        tmpBucket: gitlab-tmp
+
+      ## doc/charts/globals.md#incoming-email-settings
+      ## doc/installation/deployment.md#incoming-email
+      incomingEmail:
+        enabled: false
+
+      ## doc/charts/globals.md#service-desk-email-settings
+      ## doc/installation/deployment.md#service-desk-email
+      serviceDeskEmail:
+        enabled: false
+
+      ## doc/charts/globals.md#ldap
+      ldap:
+        # prevent the use of LDAP for sign-in via web.
+        preventSignin: true
+        servers: {}
+
+      ## doc/charts/globals.md#kas
+      gitlab_kas: {}
+
+      ## doc/charts/globals.md#omniauth
+      omniauth:
+        enabled: false
+
+      ## doc/charts/globals.md#configure-appconfig-settings
+      sentry:
+        enabled: false
+
+      smartcard:
+        enabled: false
+
+    ## End of global.appConfig
+
+    oauth:
+      gitlab-pages: {}
+
+    ## doc/charts/geo.md
+    geo:
+      enabled: false
+
+    ## doc/charts/gitlab/kas/index.md
+    kas:
+      enabled: false
+
+    ## doc/charts/globals.md#configure-gitlab-shell-settings
+    shell:
+      enabled: false
+
+    ## Rails application secrets
+    ## Secret created according to doc/installation/secrets.md#gitlab-rails-secret
+    ## If allowing shared-secrets generation, this is OPTIONAL.
+    railsSecrets:
+      secret: gitlab-secrets
+      key: rails-production
+
+    ## Rails generic setting, applicable to all Rails-based containers
+    rails:
+      bootsnap: # Enable / disable Shopify/Bootsnap cache
+        enabled: true
+
+    pages:
+      enabled: false
+
+    ## GitLab Runner
+    ## Secret created according to doc/installation/secrets.md#gitlab-runner-secret
+    ## If allowing shared-secrets generation, this is OPTIONAL.
+    runner:
+      registrationToken:
+        secret: gitlab-secrets
+        key: runner-registration-token
+
+    ## doc/installation/deployment.md#outgoing-email
+    ## Outgoing email server settings
+    smtp:
+      enabled: false
+
+    ## Timezone for containers.
+    time_zone: Europe/Berlin
+
+    antiAffinity: soft
+
+    ## doc/charts/globals.md#workhorse
+    ## Global settings related to Workhorse
+    workhorse:
+      serviceName: webservice-default
+      secret: gitlab-secrets
+      key: workhorse-token
+
+    ## doc/charts/globals.md#configure-webservice
+    webservice:
+      workerTimeout: 60
+
+    ## docs/charts/globals.md#service-accounts
+    serviceAccount:
+      enabled: false
+      create: true
+      annotations: {}
+      ## Name to be used for serviceAccount, otherwise defaults to chart fullname
+      # name:
+
+  ## End of global
+
+  upgradeCheck:
+    enabled: true
+    image: {}
+      # repository:
+      # tag:
+    securityContext:
+      # in alpine/debian/busybox based images, this is `nobody:nogroup`
+      runAsUser: 65534
+      fsGroup: 65534
+    tolerations: []
+    resources:
+      requests:
+        cpu: 50m
+
+  ## Settings for individual sub-charts under GitLab
+  ## Note: Many of these settings are configurable via globals
+  gitlab:
+    ## https://docs.gitlab.com/charts/charts/gitlab/task-runner
+    task-runner:
+      replicas: 1
+      antiAffinityLabels:
+        matchLabels:
+          app: 'gitaly'
+      backups:
+        objectStorage:
+          backend: 's3'
+          config:
+            secret: gitlab-secrets
+            key: task-runner-backup-s3-config
+
+## Installation & configuration of jetstack/cert-manager
+## See requirements.yaml for current version
+certmanager:
+  install: false
+
+## doc/charts/nginx/index.md
+## doc/architecture/decisions.md#nginx-ingress
+## Installation & configuration of charts/ingress-nginx:
+nginx-ingress:
+  enabled: false
+
+## Installation & configuration of stable/prometheus
+## See requirements.yaml for current version
+prometheus:
+  install: false
+
+## Configuration of Redis
+## doc/architecture/decisions.md#redis
+## doc/charts/redis
+redis:
+  install: true
+  existingSecret: gitlab-secrets
+  existingSecretPasswordKey: redis-password
+  usePasswordFile: true
+  cluster:
+    enabled: false
+  metrics:
+    enabled: false
+
+registry:
+  enabled: false
+
+shared-secrets:
+  enabled: false
+
+## Installation & configuration of gitlab/gitlab-runner
+## See requirements.yaml for current version
+gitlab-runner:
+  install: true
+  concurrent: 4
+  rbac:
+    create: true
+  metrics:
+    enabled: false
+  runners:
+    locked: false
+    name: "gitlab-runner"
