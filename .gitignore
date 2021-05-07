@@ -1,5 +1,7 @@
-secrets.yml
 secret.yml
+secret.yaml
+secret-*.yml
+secret-*.yaml
 charts/
 Chart.lock
 *.ldif
