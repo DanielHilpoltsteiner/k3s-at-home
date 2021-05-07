@@ -304,6 +304,12 @@ global:
       antiAffinityLabels:
         matchLabels:
           app: 'gitaly'
+      backups:
+        objectStorage:
+          config:
+            secret: gitlab-secrets
+            key: task-runner-s3-config
+
 
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
