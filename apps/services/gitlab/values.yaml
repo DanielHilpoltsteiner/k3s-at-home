@@ -53,13 +53,14 @@ global:
       useSecret: true
       secret: gitlab-secrets
       key: psql-password
-      file:
+      # file:
     host: 10.0.40.11
     port: 5432
     username: gitlab
     database: gitlab
     applicationName:
     preparedStatements: false
+
 
   ## doc/charts/globals.md#configure-redis-settings
   redis:
@@ -70,13 +71,11 @@ global:
       secret: gitlab-secrets
       key: redis-password
 
+
   ## doc/charts/globals.md#configure-gitaly-settings
   gitaly:
     enabled: true
-    authToken:
-      secret: gitlab-secrets
-      key: gitaly-token
-    # serviceName:
+    authToken: {}
     internal:
       names: ['default']
     external: []
@@ -220,19 +219,27 @@ global:
 
   ## doc/charts/globals.md#configure-gitlab-shell-settings
   shell:
-    enabled: false
+    port: 22
+    authToken: {}
+    hostKeys: {}
+    tcp:
+      proxyProtocol: false
 
   ## Rails application secrets
   ## Secret created according to doc/installation/secrets.md#gitlab-rails-secret
   ## If allowing shared-secrets generation, this is OPTIONAL.
-  railsSecrets:
-    secret: gitlab-secrets
-    key: rails-production
+  railsSecrets: {}
 
   ## Rails generic setting, applicable to all Rails-based containers
   rails:
     bootsnap: # Enable / disable Shopify/Bootsnap cache
       enabled: true
+
+  registry:
+    bucket: registry
+    certificate: {}
+    httpSecret: {}
+    notifications: {}
 
   pages:
     enabled: false
@@ -259,8 +266,6 @@ global:
   ## Global settings related to Workhorse
   workhorse:
     serviceName: webservice-default
-    secret: gitlab-secrets
-    key: workhorse-token
 
   ## doc/charts/globals.md#configure-webservice
   webservice:
@@ -299,12 +304,6 @@ global:
       antiAffinityLabels:
         matchLabels:
           app: 'gitaly'
-      backups:
-        objectStorage:
-          backend: 's3'
-          config:
-            secret: gitlab-secrets
-            key: task-runner-backup-s3-config
 
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
@@ -328,18 +327,23 @@ prometheus:
 redis:
   install: true
   existingSecret: gitlab-secrets
-  existingSecretPasswordKey: redis-password
+  existingSecretKey: redis-password
   usePasswordFile: true
   cluster:
     enabled: false
   metrics:
     enabled: false
 
+postgresql:
+  install: false
+
 registry:
   enabled: false
 
 shared-secrets:
-  enabled: false
+  enabled: true
+  rbac:
+    create: true
 
 ## Installation & configuration of gitlab/gitlab-runner
 ## See requirements.yaml for current version
@@ -348,16 +352,25 @@ gitlab-runner:
   gitlabUrl: https://gitlab.technolab.cloud/
   unregisterRunners: true
   concurrent: 4
+  logLevel: info
+  logFormat: text
   rbac:
     create: true
   metrics:
     enabled: false
   runners:
-    secret: gitlab-runner-secrets
+    secret: gitlab-secrets
     privileged: true
     locked: false
     cache:
-      secretName: gitlab-runner-secrets
+      secretName: gitlab-secrets
+      cacheType: s3
+      cachePath: "runner"
+      cacheShared: true
+      s3ServerAddress: 10.0.40.2:9001
+      s3BucketName: runners-cache
+      s3BucketLocation: minio
+      s3CacheInsecure: true
     config: |
       [[runners]]
       name = "test-runner"
