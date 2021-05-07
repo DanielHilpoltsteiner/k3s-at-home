@@ -354,6 +354,7 @@ gitlab-runner:
     enabled: false
   runners:
     secret: gitlab-runner-secrets
+    privileged: true
     locked: false
     cache:
       secretName: gitlab-runner-secrets
