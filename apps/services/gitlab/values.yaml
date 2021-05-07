@@ -54,7 +54,7 @@ global:
       secret: gitlab-secrets
       key: psql-password
       # file:
-    host: 10.0.40.11
+    host: 10.0.40.12
     port: 5432
     username: gitlab
     database: gitlab
