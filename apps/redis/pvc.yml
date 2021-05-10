@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc-redis
+  namespace: redis
+spec:
+  storageClassName: nfs-client
+  volumeName: nfs-pv-redis
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
