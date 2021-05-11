@@ -64,13 +64,14 @@ global:
 
   ## doc/charts/globals.md#configure-redis-settings
   redis:
-    image:
-      tag: 6.0
     password:
       enabled: true
       secret: gitlab-secrets
       key: redis-password
-
+    # host:
+    serviceName: redis-headless.redis
+    port: 6379
+    scheme: redis
 
   ## doc/charts/globals.md#configure-gitaly-settings
   gitaly:
@@ -310,7 +311,6 @@ global:
             secret: gitlab-secrets
             key: task-runner-s3-config
 
-
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
 certmanager:
@@ -331,14 +331,7 @@ prometheus:
 ## doc/architecture/decisions.md#redis
 ## doc/charts/redis
 redis:
-  install: true
-  existingSecret: gitlab-secrets
-  existingSecretKey: redis-password
-  usePasswordFile: true
-  cluster:
-    enabled: false
-  metrics:
-    enabled: false
+  install: false
 
 postgresql:
   install: false
@@ -354,56 +347,56 @@ shared-secrets:
 ## Installation & configuration of gitlab/gitlab-runner
 ## See requirements.yaml for current version
 gitlab-runner:
-  install: true
-  gitlabUrl: https://gitlab.technolab.cloud/
-  unregisterRunners: true
-  concurrent: 4
-  logLevel: info
-  logFormat: text
-  rbac:
-    create: true
-  metrics:
-    enabled: false
-  runners:
-    secret: gitlab-secrets
-    privileged: true
-    locked: false
-    cache:
-      secretName: gitlab-secrets
-      cacheType: s3
-      cachePath: "runner"
-      cacheShared: true
-      s3ServerAddress: 10.0.40.2:9001
-      s3BucketName: runners-cache
-      s3BucketLocation: minio
-      s3CacheInsecure: true
-    config: |
-      [[runners]]
-      name = "test-runner"
-      url = "https://gitlab.technolab.cloud/"
-      shell = "bash"
-      limit = 0
-      executor = "kubernetes"
-      [runners.cache]
-        Type = "s3"
-        Path = "runner"
-        Shared = true
-        [runners.cache.s3]
-          ServerAddress = "10.0.40.2:9001"
-          BucketName = "runners-cache"
-          BucketLocation = "minio"
-          Insecure = true
-      [runners.kubernetes]
-        image = "ubuntu:20.04"
-        namespace = "gitlab-runner"
-        privileged = true
-        pull_policy = "if-not-present"
-        dns_policy = "cluster-first"
-        poll_interval = 5
-        poll_timeout = 3600
-        cpu_limit = "1"
-        memory_limit = "1Gi"
-        service_cpu_limit = "1"
-        service_memory_limit = "1Gi"
-        helper_cpu_limit = "500m"
-        helper_memory_limit = "100Mi"
+  install: false
+  # gitlabUrl: https://gitlab.technolab.cloud/
+  # unregisterRunners: true
+  # concurrent: 4
+  # logLevel: info
+  # logFormat: text
+  # rbac:
+  #   create: true
+  # metrics:
+  #   enabled: false
+  # runners:
+  #   secret: gitlab-secrets
+  #   privileged: true
+  #   locked: false
+  #   cache:
+  #     secretName: gitlab-secrets
+  #     cacheType: s3
+  #     cachePath: "runner"
+  #     cacheShared: true
+  #     s3ServerAddress: 10.0.40.2:9001
+  #     s3BucketName: runners-cache
+  #     s3BucketLocation: minio
+  #     s3CacheInsecure: true
+  #   config: |
+  #     [[runners]]
+  #     name = "test-runner"
+  #     url = "https://gitlab.technolab.cloud/"
+  #     shell = "bash"
+  #     limit = 0
+  #     executor = "kubernetes"
+  #     [runners.cache]
+  #       Type = "s3"
+  #       Path = "runner"
+  #       Shared = true
+  #       [runners.cache.s3]
+  #         ServerAddress = "10.0.40.2:9001"
+  #         BucketName = "runners-cache"
+  #         BucketLocation = "minio"
+  #         Insecure = true
+  #     [runners.kubernetes]
+  #       image = "ubuntu:20.04"
+  #       namespace = "gitlab-runner"
+  #       privileged = true
+  #       pull_policy = "if-not-present"
+  #       dns_policy = "cluster-first"
+  #       poll_interval = 5
+  #       poll_timeout = 3600
+  #       cpu_limit = "1"
+  #       memory_limit = "1Gi"
+  #       service_cpu_limit = "1"
+  #       service_memory_limit = "1Gi"
+  #       helper_cpu_limit = "500m"
+  #       helper_memory_limit = "100Mi"
