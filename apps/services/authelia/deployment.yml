@@ -29,7 +29,7 @@ spec:
           protocol: TCP
         resources: {}
       - name: authelia
-        image: authelia/authelia:4.29.1
+        image: authelia/authelia:4.29.2
         imagePullPolicy: IfNotPresent
         env:
         - name: PUID
