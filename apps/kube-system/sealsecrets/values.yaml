@@ -2,8 +2,6 @@
 sealed-secrets:
   # helm install -n kube-system sealed-secrets-controller sealed-secrets/sealed-secrets -f values.yaml
   image:
-    repository: quay.io/bitnami/sealed-secrets-controller
-    tag: v0.15.0
     pullPolicy: IfNotPresent
 
   resources: {}
