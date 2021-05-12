@@ -1,0 +1,10 @@
+---
+apiVersion: v2
+type: application
+name: gitlab-runner
+version: 0.28.0
+appVersion: bleeding
+dependencies:
+  - name: gitlab-runner
+    repository: https://charts.gitlab.io/
+    version: 0.28.0
