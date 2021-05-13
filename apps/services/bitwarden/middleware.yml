@@ -2,13 +2,27 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: bitwarden
+  name: bitwarden-rate
   namespace: services
 spec:
   rateLimit:
     period: 1s
     average: 15
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: bitwarden-connection
+  namespace: services
+spec:
   inFlightReq:
     amount: 25
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: bitwarden-buffer
+  namespace: services
+spec:
   buffering:
     maxRequestBodyBytes: 1024000000

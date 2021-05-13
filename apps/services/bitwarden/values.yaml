@@ -152,7 +152,7 @@ bitwardenrs:
       kubernetes.io/ingress.allow-http: "false"
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
       traefik.ingress.kubernetes.io/router.tls: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: services-bitwarden@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: services-bitwarden-buffer@kubernetescrd,services-bitwarden-rate@kubernetescrd,services-bitwarden-connection@kubernetescrd
       external-dns.alpha.kubernetes.io/hostname: bitwarden.technolab.cloud
       external-dns.alpha.kubernetes.io/target: technolab.cloud
     hosts:
