@@ -134,6 +134,7 @@ ingress-nginx:
     extraArgs:
       enable-ssl-passthrough: ""
       healthz-port: 10256
+      status-port: 10256
 
     ## Additional environment variables to set
     extraEnvs: []
