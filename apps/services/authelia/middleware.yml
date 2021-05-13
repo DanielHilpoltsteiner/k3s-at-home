@@ -1,0 +1,24 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: authelia-auth
+  namespace: services
+spec:
+  forwardAuth:
+    address: http://authelia.services.svc.cluster.local/api/verify?rd=https://authelia.technolab.cloud/%23/
+    trustForwardHeader: true
+    authResponseHeaders:
+      - X-Forwarded-User
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: authelia-headers
+spec:
+  headers:
+    browserXssFilter: true
+    customFrameOptionsValue: "SAMEORIGIN"
+    customResponseHeaders:
+      Cache-Control: "no-store"
+      Pragma: "no-cache"
