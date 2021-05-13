@@ -131,7 +131,7 @@ ingress-nginx:
     ##   default-ssl-certificate: "<namespace>/<secret_name>"
     extraArgs:
       enable-ssl-passthrough: ""
-      healthz-port: 10246
+      healthz-port: 10256
 
     ## Additional environment variables to set
     extraEnvs: []
@@ -258,14 +258,14 @@ ingress-nginx:
       periodSeconds: 10
       successThreshold: 1
       timeoutSeconds: 1
-      port: 10246
+      port: 10256
     readinessProbe:
       failureThreshold: 3
       initialDelaySeconds: 10
       periodSeconds: 10
       successThreshold: 1
       timeoutSeconds: 1
-      port: 10246
+      port: 10256
 
     # Path of the health check endpoint. All requests received on the port defined by
     # the healthz-port parameter are forwarded internally to this path.
@@ -499,14 +499,14 @@ ingress-nginx:
         runAsUser: 2000
 
     metrics:
-      port: 10246
+      port: 10256
       # if this port is changed, change healthz-port: in extraArgs: accordingly
       enabled: true
 
       service:
         annotations:
           prometheus.io/scrape: "true"
-          prometheus.io/port: "10246"
+          prometheus.io/port: "10256"
 
         # clusterIP: ""
 
