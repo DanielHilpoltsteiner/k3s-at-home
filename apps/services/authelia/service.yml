@@ -8,6 +8,7 @@ spec:
   selector:
     app: authelia
   ports:
-  - protocol: TCP
+  - name: http
+    protocol: TCP
     port: 80
     targetPort: 9091

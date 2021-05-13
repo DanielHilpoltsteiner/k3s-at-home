@@ -20,7 +20,7 @@ spec:
       - path: /
         backend:
           serviceName: authelia
-          servicePort: 9091
+          servicePort: http
   tls:
   - hosts:
     - authelia.technolab.cloud
