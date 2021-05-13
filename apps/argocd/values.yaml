@@ -638,6 +638,9 @@ argo-cd:
         - type: helm
           url: https://charts.gitlab.io/
           name: gitlab
+        - type: helm
+          url: https://helm.traefik.io/traefik
+          name: traefik
 
       resource.exclusions: |
         - apiGroups:
