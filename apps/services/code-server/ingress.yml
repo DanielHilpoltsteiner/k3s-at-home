@@ -7,13 +7,11 @@ metadata:
   name: code-server
   namespace: services
   annotations:
-    kubernetes.io/ingress.class: nginx
+    kubernetes.io/ingress.class: traefik
     kubernetes.io/ingress.allow-http: "false"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/auth-url: "http://authelia.services.svc.cluster.local/api/verify"
-    nginx.ingress.kubernetes.io/auth-signin: "https://authelia.technolab.cloud/"
-    nginx.ingress.kubernetes.io/enable-modsecurity: "true"
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: services-authelia-auth@kubernetescrd,services-authelia-headers@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: codeserver.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:

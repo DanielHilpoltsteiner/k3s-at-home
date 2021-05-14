@@ -1,0 +1,9 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nc-buffer
+  namespace: services
+spec:
+  buffering:
+    maxRequestBodyBytes: 1024000000
