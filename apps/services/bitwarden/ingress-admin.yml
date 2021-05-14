@@ -22,7 +22,7 @@ spec:
       - path: /admin
         backend:
           serviceName: bitwarden-bitwardenrs
-          servicePort: 8443
+          servicePort: http
   tls:
   - hosts:
     - bitwarden.technolab.cloud

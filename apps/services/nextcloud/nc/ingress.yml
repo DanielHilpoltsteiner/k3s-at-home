@@ -22,7 +22,7 @@ spec:
       - path: "/"
         backend:
           serviceName: nextcloud
-          servicePort: 8080
+          servicePort: http
   tls:
   - hosts:
     - nextcloud.technolab.cloud

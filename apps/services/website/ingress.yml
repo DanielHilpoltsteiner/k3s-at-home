@@ -21,21 +21,21 @@ spec:
       - path: /
         backend:
           serviceName: nginx-website
-          servicePort: 8080
+          servicePort: http
   - host: www.technolab.cloud
     http:
       paths:
       - path: /
         backend:
           serviceName: nginx-website
-          servicePort: 8080
+          servicePort: http
   - host: technolab.cloud
     http:
       paths:
       - path: /
         backend:
           serviceName: nginx-website
-          servicePort: 8080
+          servicePort: http
   tls:
   - hosts:
     - ebrianne.technolab.cloud

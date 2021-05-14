@@ -21,7 +21,7 @@ spec:
       - path:
         backend:
           serviceName: plex
-          servicePort: 32400
+          servicePort: plex
   tls:
   - hosts:
     - plex.technolab.cloud
