@@ -91,7 +91,7 @@ traefik:
     general:
       level: ERROR
     access:
-      enabled: false
+      enabled: true
       filters: {}
       fields:
         general:
@@ -109,7 +109,8 @@ traefik:
     - "--providers.kubernetesingress.ingressclass=traefik"
 
   # Environment variables to be passed to Traefik's binary
-  env: []
+  env:
+    - TZ: Europe/Berlin
 
   envFrom: []
 
@@ -157,58 +158,22 @@ traefik:
     spec:
       externalTrafficPolicy: Cluster
       loadBalancerIP: "10.0.40.20"
-      # clusterIP: "2.3.4.5"
     loadBalancerSourceRanges: []
-      # - 192.168.0.1/32
-      # - 172.16.0.0/16
     externalIPs: []
-      # - 1.2.3.4
 
   ## Create HorizontalPodAutoscaler object.
   ##
   autoscaling:
     enabled: false
-  #   minReplicas: 1
-  #   maxReplicas: 10
-  #   metrics:
-  #   - type: Resource
-  #     resource:
-  #       name: cpu
-  #       targetAverageUtilization: 60
-  #   - type: Resource
-  #     resource:
-  #       name: memory
-  #       targetAverageUtilization: 60
 
-  # Enable persistence using Persistent Volume Claims
-  # ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
-  # After the pvc has been mounted, add the configs into traefik by using the `additionalArguments` list below, eg:
-  # additionalArguments:
-  # - "--certificatesresolvers.le.acme.storage=/data/acme.json"
-  # It will persist TLS certificates.
   persistence:
     enabled: false
-    name: data
-  #  existingClaim: ""
-    accessMode: ReadWriteOnce
-    size: 128Mi
-    # storageClass: ""
-    path: /data
-    annotations: {}
-    # subPath: "" # only mount a subpath of the Volume into the pod
 
-  # If hostNetwork is true, runs traefik in the host network namespace
-  # To prevent unschedulabel pods due to port collisions, if hostNetwork=true
-  # and replicas>1, a pod anti-affinity is recommended and will be set if the
-  # affinity is left as default.
   hostNetwork: false
 
   # Whether Role Based Access Control objects like roles and rolebindings should be created
   rbac:
     enabled: true
-
-    # If set to false, installs ClusterRole and ClusterRoleBinding so Traefik can be used across namespaces.
-    # If set to true, installs namespace-specific Role and RoleBinding and requires provider configuration be set to that same namespace
     namespaced: false
 
   # Enable to create a PodSecurityPolicy and assign it to the Service Account via RoleBinding or ClusterRoleBinding
@@ -217,8 +182,6 @@ traefik:
 
   # The service account the pods will use to interact with the Kubernetes API
   serviceAccount:
-    # If set, an existing service account is used
-    # If not set, a service account is created automatically using the fullname template
     name: ""
 
   # Additional serviceAccount annotations (e.g. for oidc authentication)
@@ -232,7 +195,7 @@ traefik:
       cpu: "300m"
       memory: "150Mi"
   affinity: {}
-  
+
   nodeSelector:
     kubernetes.io/os: linux
     node-role.kubernetes.io/worker: 'true'
@@ -247,7 +210,7 @@ traefik:
   # To run the container with ports below 1024 this will need to be adjust to run as root
   securityContext:
     capabilities:
-      drop: 
+      drop:
         - ALL
     readOnlyRootFilesystem: true
     runAsGroup: 65532
