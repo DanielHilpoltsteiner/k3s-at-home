@@ -3173,20 +3173,9 @@ spec:
       - name: etc-ssl-certs
         emptyDir:
           medium: "Memory"
-  volumeClaimTemplates:
-  - metadata:
-      name: repo-data
-      labels:
-        app: gitaly
-        release: gitlab
-      annotations: {}
-    spec:
-      accessModes:
-      - "ReadWriteOnce"
-      resources:
-        requests:
-          storage: "50Gi"
-      selector: {}
+      - name: repo-data
+        persistentVolumeClaim:
+          claimName: nfs-pvc-gitlab
 ---
 # Source: gitlab/charts/gitlab/charts/migrations/templates/job.yaml
 apiVersion: batch/v1
