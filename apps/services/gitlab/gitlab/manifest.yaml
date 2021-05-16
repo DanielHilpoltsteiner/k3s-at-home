@@ -1137,8 +1137,8 @@ data:
         enabled: false
       ## Registry Integration
       registry:
-        enabled: true
-        host: registry.technolab.cloud
+        enabled: false
+        host: gitlab-registry.technolab.cloud
         api_url: http://gitlab-registry.services.svc:5000
         key: /etc/gitlab/registry/gitlab-registry.key
         issuer: gitlab-issuer
@@ -1319,8 +1319,8 @@ data:
         enabled: false
       ## Registry Integration
       registry:
-        enabled: true
-        host: registry.technolab.cloud
+        enabled: false
+        host: gitlab-registry.technolab.cloud
         api_url: http://gitlab-registry.services.svc:5000
         key: /etc/gitlab/registry/gitlab-registry.key
         issuer: gitlab-issuer
@@ -1386,8 +1386,8 @@ data:
     access_key = $(cat /init-secrets/minio/accesskey)
     secret_key = $(cat /init-secrets/minio/secretkey)
     bucket_location = us-east-1
-    host_base = minio.technolab.cloud
-    host_bucket = minio.technolab.cloud/%(bucket)
+    host_base = 10.0.40.2:9001
+    host_bucket = 10.0.40.2:9001/%(bucket)
     default_mime_type = binary/octet-stream
     enable_multipart = True
     multipart_max_chunks = 10000
@@ -1400,7 +1400,8 @@ data:
     socket_timeout = 300
     use_mime_magic = False
     verbosity = WARNING
-    website_endpoint = https://minio.technolab.cloud
+    use_https = False
+    website_endpoint = http://10.0.40.2:9001
     EOF
     else
       mv "/${secret_dir}/objectstorage/.s3cfg" "/${secret_dir}/.s3cfg"
@@ -1586,8 +1587,8 @@ data:
         git_basic_auth:
       ## Registry Integration
       registry:
-        enabled: true
-        host: registry.technolab.cloud
+        enabled: false
+        host: gitlab-registry.technolab.cloud
         api_url: http://gitlab-registry.services.svc:5000
         key: /etc/gitlab/registry/gitlab-registry.key
         issuer: gitlab-issuer
@@ -2039,7 +2040,7 @@ spec:
       initContainers:
       - name: certificates
         image: "registry.gitlab.com/gitlab-org/build/cng/alpine-certificates:20191127-r2"
-        env: {}
+        env: []
         volumeMounts:
         - name: etc-ssl-certs
           mountPath: /etc/ssl/certs
@@ -2050,7 +2051,7 @@ spec:
       - name: configure
         command: ['sh', '/config/configure']
         image: "busybox:latest"
-        env: {}
+        env: []
         volumeMounts:
         - name: shell-config
           mountPath: /config
@@ -2205,7 +2206,7 @@ spec:
       initContainers:
       - name: certificates
         image: "registry.gitlab.com/gitlab-org/build/cng/alpine-certificates:20191127-r2"
-        env: {}
+        env: []
         volumeMounts:
         - name: etc-ssl-certs
           mountPath: /etc/ssl/certs
@@ -2216,7 +2217,7 @@ spec:
       - name: configure
         command: ['sh', '/config/configure']
         image: "busybox:latest"
-        env: {}
+        env: []
         volumeMounts:
         - name: sidekiq-config
           mountPath: /config
@@ -2451,7 +2452,7 @@ spec:
       initContainers:
       - name: certificates
         image: "registry.gitlab.com/gitlab-org/build/cng/alpine-certificates:20191127-r2"
-        env: {}
+        env: []
         volumeMounts:
         - name: etc-ssl-certs
           mountPath: /etc/ssl/certs
@@ -2462,7 +2463,7 @@ spec:
       - name: configure
         command: ['sh', '/config/configure']
         image: "busybox:latest"
-        env: {}
+        env: []
         volumeMounts:
         - name: task-runner-config
           mountPath: /config
@@ -2665,7 +2666,7 @@ spec:
       initContainers:
       - name: certificates
         image: "registry.gitlab.com/gitlab-org/build/cng/alpine-certificates:20191127-r2"
-        env: {}
+        env: []
         volumeMounts:
         - name: etc-ssl-certs
           mountPath: /etc/ssl/certs
@@ -2677,7 +2678,7 @@ spec:
         command: ['sh']
         args: ['-c', 'sh -x /config-webservice/configure; sh -x /config-workhorse/configure; mkdir -p -m 3770 /tmp/gitlab']
         image: "busybox:latest"
-        env: {}
+        env: []
         volumeMounts:
         - name: webservice-config
           mountPath: /config-webservice
@@ -3065,7 +3066,7 @@ spec:
       initContainers:
       - name: certificates
         image: "registry.gitlab.com/gitlab-org/build/cng/alpine-certificates:20191127-r2"
-        env: {}
+        env: []
         volumeMounts:
         - name: etc-ssl-certs
           mountPath: /etc/ssl/certs
@@ -3076,7 +3077,7 @@ spec:
       - name: configure
         command: ['sh', '/config/configure']
         image: "busybox:latest"
-        env: {}
+        env: []
         volumeMounts:
         - name: gitaly-config
           mountPath: /config
@@ -3205,7 +3206,7 @@ spec:
       initContainers:
       - name: certificates
         image: "registry.gitlab.com/gitlab-org/build/cng/alpine-certificates:20191127-r2"
-        env: {}
+        env: []
         volumeMounts:
         - name: etc-ssl-certs
           mountPath: /etc/ssl/certs
@@ -3216,7 +3217,7 @@ spec:
       - name: configure
         command: ['sh', '/config/configure']
         image: "busybox:latest"
-        env: {}
+        env: []
         volumeMounts:
         - name: migrations-config
           mountPath: /config
