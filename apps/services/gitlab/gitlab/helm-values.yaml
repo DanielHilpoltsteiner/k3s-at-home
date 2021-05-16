@@ -31,9 +31,9 @@ global:
   ## doc/charts/globals.md#configure-ingress-settings
   ingress:
     configureCertmanager: false
-    class: nginx
+    class: traefik
     annotations: {}
-    enabled: true
+    enabled: false
     tls:
       enabled: true
       secretName: services-technolab-cloudflare-org-tls
@@ -68,8 +68,7 @@ global:
       enabled: true
       secret: gitlab-secrets
       key: redis-password
-    # host:
-    serviceName: redis-headless.redis
+    host: redis-headless.redis.svc.cluster.local
     port: 6379
     scheme: redis
 
@@ -299,7 +298,6 @@ global:
   ## Settings for individual sub-charts under GitLab
   ## Note: Many of these settings are configurable via globals
   gitlab:
-    ## https://docs.gitlab.com/charts/charts/gitlab/task-runner
     task-runner:
       replicas: 1
       antiAffinityLabels:
