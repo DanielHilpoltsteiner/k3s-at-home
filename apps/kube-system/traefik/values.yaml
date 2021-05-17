@@ -135,13 +135,11 @@ traefik:
       protocol: TCP
       tls:
         enabled: true
-        options: ""
-        certResolver: ""
-        domains: []
-        # - main: example.com
-        #   sans:
-        #     - foo.example.com
-        #     - bar.example.com
+    ssh:
+      port: 22
+      expose: false
+      exposedPort: 22
+      protocol: TCP
 
   tlsOptions: {}
 
