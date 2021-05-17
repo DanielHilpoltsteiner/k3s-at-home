@@ -450,19 +450,6 @@ data:
 
 # Leave this here - This line denotes end of block to the parser.
 ---
-# Source: gitlab/charts/gitlab/charts/gitlab-shell/templates/nginx-tcp-configmap.yml
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: gitlab-nginx-ingress-tcp
-  namespace: services
-  labels:
-    app: gitlab-shell
-    chart: gitlab-shell-4.11.4
-    release: gitlab
-data:
-  22: "services/gitlab-gitlab-shell:22"
----
 # Source: gitlab/charts/gitlab/charts/migrations/templates/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
