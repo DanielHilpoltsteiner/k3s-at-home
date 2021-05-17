@@ -11,4 +11,4 @@ spec:
     query: /{status}.html
     service:
       name: traefik-default-backend
-      port: http
+      port: 80
