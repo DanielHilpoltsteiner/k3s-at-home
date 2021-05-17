@@ -48,6 +48,9 @@ data:
         - domain: codeserver.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
+        - domain: traefik.technolab.cloud
+          subject: "user:ebrianne"
+          policy: two_factor
         - domain: bitwarden.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
