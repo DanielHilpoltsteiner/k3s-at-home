@@ -16,7 +16,7 @@ spec:
       middlewares:
         - name: authelia-auth
           namespace: services
-        - name: authelia-headers
+        - name: nc-headers
           namespace: services
   tls:
     secretName: traefik-technolab-cloudflare-org-tls
