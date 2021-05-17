@@ -107,6 +107,7 @@ traefik:
 
   additionalArguments:
     - "--providers.kubernetesingress.ingressclass=traefik"
+    - "--entrypoints.ssh.address=:22"
 
   # Environment variables to be passed to Traefik's binary
   env:
@@ -135,11 +136,6 @@ traefik:
       protocol: TCP
       tls:
         enabled: true
-    ssh:
-      port: 22
-      expose: false
-      exposedPort: 22
-      protocol: TCP
 
   tlsOptions: {}
 
