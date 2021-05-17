@@ -118,7 +118,7 @@ traefik:
   ports:
     traefik:
       port: 9000
-      expose: false
+      expose: true
       exposedPort: 9000
       protocol: TCP
     web:
