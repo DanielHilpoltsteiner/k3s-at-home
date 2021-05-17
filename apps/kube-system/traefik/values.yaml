@@ -137,7 +137,7 @@ traefik:
         enabled: true
     ssh:
       port: 2222
-      expose: false
+      expose: true
       exposedPort: 22
       protocol: TCP
 

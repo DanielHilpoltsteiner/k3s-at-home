@@ -1,0 +1,17 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRouteTCP
+metadata:
+  name: gitlab-ssh
+  namespace: services
+spec:
+  entryPoints:
+    - ssh
+  routes:
+    - match: HostSNI(`gitlab.technolab.cloud`)
+      kind: Rule
+      services:
+        - name: gitlab-gitlab-shell
+          port: 22
+  tls:
+    secretName: services-technolab-cloudflare-org-tls
