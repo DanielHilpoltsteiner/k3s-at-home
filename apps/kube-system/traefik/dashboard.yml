@@ -18,5 +18,7 @@ spec:
           namespace: services
         - name: nc-headers
           namespace: services
+        - name: traefik-errors
+          namespace: kube-system
   tls:
     secretName: traefik-technolab-cloudflare-org-tls

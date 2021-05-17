@@ -48,7 +48,7 @@ harbor:
         kubernetes.io/ingress.allow-http: "false"
         traefik.ingress.kubernetes.io/router.entrypoints: websecure
         traefik.ingress.kubernetes.io/router.tls: "true"
-        traefik.ingress.kubernetes.io/router.middlewares: services-harbor-buffer@kubernetescrd,services-nc-headers@kubernetescrd
+        traefik.ingress.kubernetes.io/router.middlewares: services-harbor-buffer@kubernetescrd,services-nc-headers@kubernetescrd,kube-system-traefik-errors@kubernetescrd
         external-dns.alpha.kubernetes.io/hostname: harbor.technolab.cloud
         external-dns.alpha.kubernetes.io/target: technolab.cloud
     clusterIP:
