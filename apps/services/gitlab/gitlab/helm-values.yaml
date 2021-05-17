@@ -334,7 +334,7 @@ global:
         objectStorage:
           config:
             secret: gitlab-secrets
-            key: task-runner-s3-config
+            key: .s3cfg
 
 ## Installation & configuration of jetstack/cert-manager
 ## See requirements.yaml for current version
