@@ -10,16 +10,3 @@ spec:
     trustForwardHeader: true
     authResponseHeaders:
       - X-Forwarded-User
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: authelia-headers
-  namespace: services
-spec:
-  headers:
-    browserXssFilter: true
-    customFrameOptionsValue: "SAMEORIGIN"
-    customResponseHeaders:
-      Cache-Control: "no-store"
-      Pragma: "no-cache"

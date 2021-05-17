@@ -11,7 +11,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.middlewares: services-authelia-auth@kubernetescrd,services-authelia-headers@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: services-authelia-auth@kubernetescrd,services-nc-headers@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: bitwarden.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:

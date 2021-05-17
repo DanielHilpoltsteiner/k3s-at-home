@@ -23,6 +23,9 @@ spec:
     customFrameOptionsValue: SAMEORIGIN
     browserXssFilter: true
     contentTypeNosniff: true
+    customResponseHeaders:
+      Cache-Control: "no-store"
+      Pragma: "no-cache"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
