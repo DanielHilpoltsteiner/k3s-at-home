@@ -14,7 +14,9 @@ spec:
         - name: api@internal
           kind: TraefikService
       middlewares:
-        - name: traefik-ip-whitelist
-          namespace: kube-system
+        - name: authelia-auth
+          namespace: services
+        - name: authelia-headers
+          namespace: services
   tls:
     secretName: traefik-technolab-cloudflare-org-tls
