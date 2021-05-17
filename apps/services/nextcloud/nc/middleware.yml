@@ -22,6 +22,7 @@ spec:
     forceSTSHeader: true
     customFrameOptionsValue: SAMEORIGIN
     browserXssFilter: true
+    contentTypeNosniff: true
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
