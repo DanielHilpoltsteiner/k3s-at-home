@@ -20,7 +20,9 @@ global:
     gitlab:
       name: gitlab.technolab.cloud
       https: true
-    minio: {}
+    minio:
+      name: 10.0.40.2:9001
+      https: false
     registry: {}
     tls: {}
     smartcard: {}
@@ -124,7 +126,13 @@ global:
     maxRequestDurationSeconds:
 
     ## doc/charts/globals.md#cron-jobs-related-settings
-    cron_jobs: {}
+    cron_jobs:
+      stuck_ci_jobs_worker:
+        cron: "0 * * * *"
+      pipeline_schedule_worker:
+        cron: "19 * * * *"
+      expire_build_artifacts_worker:
+        cron: "50 * * * *"
 
     ## doc/charts/globals.md#content-security-policy
     contentSecurityPolicy:
@@ -164,7 +172,6 @@ global:
       enabled: false
     dependencyProxy:
       enabled: false
-
     ## doc/charts/globals.md#pseudonymizer-settings
     pseudonymizer:
       configMap:
@@ -255,7 +262,27 @@ global:
   ## doc/installation/deployment.md#outgoing-email
   ## Outgoing email server settings
   smtp:
-    enabled: false
+    enabled: true
+    address: mailhog.mailhog.svc.cluster.local
+    port: 1025
+    user_name: ""
+    ## doc/installation/secrets.md#smtp-password
+    password: {}
+    # domain:
+    authentication: ""
+    starttls_auto: false
+    openssl_verify_mode: "none"
+
+  email:
+    from: 'gitlab@technolab.cloud'
+    display_name: GitLab
+    reply_to: 'noreply@technolab.cloud'
+    subject_suffix: ''
+    smime:
+      enabled: false
+      secretName: ""
+      keyName: "tls.key"
+      certName: "tls.crt"
 
   ## Timezone for containers.
   time_zone: Europe/Berlin
