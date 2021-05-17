@@ -3258,7 +3258,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: shared-secrets
-          image: "registry.gitlab.com/gitlab-org/build/cng/kubectl:1.13.12"
+          image: "registry.gitlab.com/gitlab-org/build/cng/kubectl:1.14.10"
           command: ["/bin/bash", "/scripts/generate-secrets"]
           volumeMounts:
             - name: scripts
