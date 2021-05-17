@@ -8,10 +8,7 @@ spec:
   entryPoints:
     - ssh
   routes:
-    - match: HostSNI(`gitlab.technolab.cloud`)
-      kind: Rule
+    - match: HostSNI(`*`)
       services:
         - name: gitlab-gitlab-shell
           port: 22
-  tls:
-    secretName: services-technolab-cloudflare-org-tls
