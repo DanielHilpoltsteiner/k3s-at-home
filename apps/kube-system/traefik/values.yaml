@@ -110,7 +110,8 @@ traefik:
 
   # Environment variables to be passed to Traefik's binary
   env:
-    - TZ: Europe/Berlin
+    - name: TZ
+      value: Europe/Berlin
 
   envFrom: []
 
