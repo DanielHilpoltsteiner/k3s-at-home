@@ -23,6 +23,8 @@ spec:
       - name: external-dns
         image: bitnami/external-dns:0.7.6-debian-10-r91
         args:
+        - --source=service
+        - --source=ingress
         - --log-level=debug
         - --log-format=text
         - --annotation-filter=kubernetes.io/ingress.class=traefik
