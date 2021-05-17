@@ -1,0 +1,14 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-errors
+  namespace: kube-system
+spec:
+  errors:
+    status:
+      - "401-509"
+    query: /{status}.html
+    service:
+      name: traefik-default-backend
+      port: http
