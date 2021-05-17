@@ -107,6 +107,7 @@ traefik:
 
   additionalArguments:
     - "--providers.kubernetesingress.ingressclass=traefik"
+    - "--api.insecure=true"
 
   # Environment variables to be passed to Traefik's binary
   env:
