@@ -7,3 +7,28 @@ metadata:
 spec:
   buffering:
     maxRequestBodyBytes: 1024000000
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nc-headers
+  namespace: services
+spec:
+  headers:
+    frameDeny: true
+    sslRedirect: true
+    stsSeconds: 15552000
+    stsIncludeSubdomains: true
+    stsPreload: true
+    forceSTSHeader: true
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nc-caldav
+  namespace: services
+spec:
+  redirectRegex:
+    regex: ^https://(.*)/.well-known/(card|cal)dav
+    replacement: https://${1}/remote.php/dav
+    permanent: true
