@@ -3,7 +3,7 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: traefik-dashboard
-  namespace: services
+  namespace: kube-system
   labels:
     app: traefik
   annotations:
@@ -30,4 +30,4 @@ spec:
   tls:
   - hosts:
     - traefik.technolab.cloud
-    secretName: services-technolab-cloudflare-org-tls
+    secretName: traefik-technolab-cloudflare-org-tls
