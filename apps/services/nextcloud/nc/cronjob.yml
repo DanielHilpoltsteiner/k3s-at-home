@@ -7,12 +7,18 @@ metadata:
   labels:
     app: nextcloud
 spec:
-  successfulJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   schedule: "*/5 * * * *"
   jobTemplate:
     spec:
       template:
+        metadata:
+          name: nextcloud-curl-job
+          labels:
+            app: nextcloud
+          annotations:
+            botkube.io/disable: 'true'
         spec:
           restartPolicy: Never
           containers:
