@@ -64,7 +64,7 @@ spec:
         image: ebrianne/nextcloud:21.0.1-apache
         imagePullPolicy: IfNotPresent
         securityContext:
-          readOnlyRootFilesystem: false
+          readOnlyRootFilesystem: true
           allowPrivilegeEscalation: false
           privileged: false
         ports:
@@ -102,10 +102,6 @@ spec:
           value: "/data"
         - name: NEXTCLOUD_TABLE_PREFIX
           value: "nc_"
-        - name: REDIS_HOST
-          value: "localhost"
-        - name: REDIS_HOST_PORT
-          value: "6379"
         # livenessProbe:
         #   httpGet:
         #     path: /status.php
@@ -157,6 +153,9 @@ spec:
           subPath: themes
         - name: nextcloud-data
           mountPath: /data
+        - name: redis-session-config
+          mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+          subPath: redis-session.ini
         - name: nextcloud-config
           mountPath: /var/www/html/config/redis.config.php
           subPath: redis.config.php
@@ -250,5 +249,8 @@ spec:
       - name: redis-data
         emptyDir: {}
       - name: redis-conf
+        configMap:
+          name: nextcloud-config
+      - name: redis-session-config
         configMap:
           name: nextcloud-config
