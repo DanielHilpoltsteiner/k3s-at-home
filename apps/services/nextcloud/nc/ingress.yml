@@ -11,7 +11,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.middlewares: services-nc-buffer@kubernetescrd,services-nc-headers@kubernetescrd,services-nc-caldav@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: services-nc-buffer@kubernetescrd,services-nc-caldav@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: nextcloud.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:
