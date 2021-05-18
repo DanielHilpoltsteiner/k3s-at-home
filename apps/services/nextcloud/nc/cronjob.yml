@@ -27,6 +27,10 @@ spec:
                 readOnlyRootFilesystem: true
                 allowPrivilegeEscalation: false
                 privileged: false
+              command: ["php"]
+              args:
+                - "-f"
+                - "/var/www/html/cron.php"
               env:
                 - name: POSTGRES_HOST
                   value: "10.0.40.11"
@@ -58,10 +62,6 @@ spec:
                   value: "/data"
                 - name: NEXTCLOUD_TABLE_PREFIX
                   value: "nc_"
-              args:
-                - /bin/sh
-                - -c
-                - "php -f /var/www/html/cron.php"
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp
