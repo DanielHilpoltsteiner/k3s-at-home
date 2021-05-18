@@ -15,10 +15,10 @@ argo-cd:
       repository: argoproj/argocd
       tag: v2.0.1
       imagePullPolicy: IfNotPresent
-    securityContext: {}
-    #  runAsUser: 999
-    #  runAsGroup: 999
-    #  fsGroup: 999
+    securityContext:
+      runAsUser: 999
+      runAsGroup: 999
+      fsGroup: 999
     imagePullSecrets: []
     hostAliases: []
     # - ip: 10.20.30.40
@@ -46,6 +46,7 @@ argo-cd:
       statusProcessors: "20"
       operationProcessors: "10"
       appResyncPeriod: "180"
+      selfHealTimeout: "5"
 
     ## Argo controller log format: text|json
     logFormat: text
@@ -118,7 +119,16 @@ argo-cd:
     ##
     nodeSelector: {}
     tolerations: []
-    affinity: {}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - argocd-application-controller
+            topologyKey: "kubernetes.io/hostname"
 
     priorityClassName: ""
 
@@ -421,7 +431,16 @@ argo-cd:
     ##
     nodeSelector: {}
     tolerations: []
-    affinity: {}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - argocd-server
+            topologyKey: "kubernetes.io/hostname"
 
     priorityClassName: ""
 
@@ -432,13 +451,13 @@ argo-cd:
       #   drop:
       #     - all
 
-    resources: {}
-      # limits:
-      #   cpu: 200m
-      #   memory: 256Mi
-      # requests:
-      #   cpu: 200m
-      #   memory: 256Mi
+    resources:
+      limits:
+        cpu: 200m
+        memory: 256Mi
+      requests:
+        cpu: 200m
+        memory: 256Mi
 
     ## Certificate configuration
     certificate:
@@ -500,17 +519,8 @@ argo-cd:
         - argocd.home-lab.io
       paths:
         - /
-      extraPaths:
-        []
-        # - path: /*
-        #   backend:
-        #     serviceName: ssl-redirect
-        #     servicePort: use-annotation
-      tls:
-        []
-        # - secretName: argocd-example-tls
-        #   hosts:
-        #     - argocd.example.com
+      extraPaths: []
+      tls: []
       https: false
     # dedicated ingess for gRPC as documented at
     # https://argoproj.github.io/argo-cd/operator-manual/ingress/
@@ -864,7 +874,16 @@ argo-cd:
     ##
     nodeSelector: {}
     tolerations: []
-    affinity: {}
+    affinity:
+      podAntiAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - argocd-repo-server
+            topologyKey: "kubernetes.io/hostname"
 
     priorityClassName: ""
 
