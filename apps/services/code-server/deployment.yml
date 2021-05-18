@@ -38,7 +38,7 @@ spec:
           mountPath: /var/lib/docker
         resources: {}
       - name: code-server
-        image: ebrianne/code-server:v3.9.3
+        image: ebrianne/code-server:v3.10.1
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8443
