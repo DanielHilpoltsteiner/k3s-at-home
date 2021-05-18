@@ -1,0 +1,13 @@
+---
+apiVersion: endpointmonitor.stakater.com/v1alpha1
+kind: EndpointMonitor
+metadata:
+  name: authelia
+spec:
+  forceHttps: true
+  providers: "UptimeRobot"
+  url: https://authelia.technolab.cloud
+  uptimeRobotConfig:
+    interval: 300
+    monitorType: http
+    statusPages: "241496"

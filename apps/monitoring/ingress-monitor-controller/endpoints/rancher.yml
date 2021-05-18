@@ -1,0 +1,13 @@
+---
+apiVersion: endpointmonitor.stakater.com/v1alpha1
+kind: EndpointMonitor
+metadata:
+  name: rancher-dashboard
+spec:
+  forceHttps: true
+  providers: "UptimeRobot"
+  url: https://rancher.technolab.cloud
+  uptimeRobotConfig:
+    interval: 300
+    monitorType: http
+    statusPages: "241496"
