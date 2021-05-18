@@ -64,7 +64,7 @@ spec:
         image: ebrianne/nextcloud:21.0.1-apache
         imagePullPolicy: IfNotPresent
         securityContext:
-          readOnlyRootFilesystem: true
+          readOnlyRootFilesystem: false
           allowPrivilegeEscalation: false
           privileged: false
         ports:
