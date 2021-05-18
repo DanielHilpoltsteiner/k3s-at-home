@@ -61,7 +61,7 @@ spec:
               args:
                 - /bin/sh
                 - -c
-                - php -f /var/www/html/cron.php
+                - "php -f /var/www/html/cron.php"
               volumeMounts:
                 - mountPath: /tmp
                   name: tmp
