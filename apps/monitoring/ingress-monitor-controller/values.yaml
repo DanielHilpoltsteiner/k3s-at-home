@@ -1,60 +1,88 @@
-# Generated from /kubernetes/templates/chart/values.yaml.tmpl
-
+---
 ingressmonitorcontroller:
-  kubernetes:
-    host: https://kubernetes.default
+  global:
+    # labels added on all components of chart in addition to some default labels
+    labels: {}
 
-  ingressMonitorController:
-    tolerations: {}
-    watchNamespace: ""
-    mount: "configMap"
-    existingSecret: ""
-    useFullName: false
-    logLevel: info
-    logFormat: text
-    matchLabels:
-      group: com.stakater.platform
-      provider: stakater
-    deployment:
-      labels:
-        version: "v1.0.103"
-      annotations:
-        configmap.reloader.stakater.com/reload: ingressmonitorcontroller
-    config:
-      labels:
-        version: "v1.0.103"
+  replicaCount: 1
 
-    rbac:
-      create: true
+  image:
+    repository: stakater/ingressmonitorcontroller
+    tag: v2.1.7
+    pullPolicy: IfNotPresent
+  imagePullSecrets: []
 
-    # Service account config for the agent pods
-    serviceAccount:
-      # Specifies whether a ServiceAccount should be created
-      create: true
-      labels:
-        version: "v1.0.103"
-      # The name of the ServiceAccount to use.
-      # If not set and create is true, a name is generated using the fullname template
-      name: ingressmonitorcontroller
-
+  kube-rbac-proxy:
     image:
-      name: stakater/ingressmonitorcontroller
-      tag: "v1.0.103"
+      repository: gcr.io/kubebuilder/kube-rbac-proxy
+      tag: v0.8.0
       pullPolicy: IfNotPresent
 
-    configFilePath: /etc/IngressMonitorController/config.yaml
-    
-    data:
-      config.yaml: |-
-        providers:
-        - name: UptimeRobot
-          apiKey: your-api-key
-          apiURL: https://google.com
-          alertContacts: some-alert-contacts
-        enableMonitorDeletion: true
-        monitorNameTemplate: "{{.Namespace}}-{{.IngressName}}"
-        # how often (in seconds) monitors should be synced to their Kubernetes resources (0 = disabled)
-        resyncPeriod: 0
-        # creationDelay is a duration string to add a delay before creating new monitor (e.g., to allow DNS to catch up first)
-        # https://golang.org/pkg/time/#ParseDuration
-        creationDelay: 10
+  # Partial override for ingress-monitor-controller.fullname template (will keep the release name)
+  nameOverride: ""
+
+  # Full override for ingress-monitor-controller.fullname template
+  fullnameOverride: ""
+
+  # Specifies which namespaces IMC should have access to
+  # Leave empty for full access or specify a comma separated list of namespaces to watch
+  watchNamespaces: ""
+
+  # Name of secret containing
+  configSecretName: "imc-config"
+
+  # Monitoring Configuration
+  serviceMonitor:
+    enabled: false
+
+  rbac:
+    create: true
+    allowProxyRole: true
+    allowMetricsReaderRole: true
+    allowLeaderElectionRole: true
+    secretViewerRole: true
+
+  serviceAccount:
+    create: true
+    annotations: {}
+    labels: {}
+    # If not set and create is true, a name is generated using the fullname template
+    name: ""
+
+  resources:
+    {}
+    # limits:
+    #   cpu: 100m
+    #   memory: 128Mi
+    # requests:
+    #   cpu: 100m
+    #   memory: 128Mi
+
+  podAnnotations: {}
+
+  podSecurityContext:
+    {}
+    # fsGroup: 2000
+
+  securityContext:
+    {}
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
+
+  nodeSelector: {}
+
+  tolerations: []
+
+  affinity: {}
+
+  service:
+    type: ClusterIP
+    port: 443
+
+  env: []
+
+  envFrom: []
