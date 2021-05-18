@@ -1,0 +1,137 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name:
+  namespace: services
+  labels:
+    app: nextcloud
+spec:
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          securityContext:
+            fsGroup: 33
+            runAsUser: 33
+            runAsNonRoot: true
+          restartPolicy: OnFailure
+          containers:
+            - name: nextcloud-cron-job
+              image: ebrianne/nextcloud:21.0.1-apache
+              imagePullPolicy: IfNotPresent
+              securityContext:
+                readOnlyRootFilesystem: true
+                allowPrivilegeEscalation: false
+                privileged: false
+              env:
+                - name: POSTGRES_HOST
+                  value: "10.0.40.11"
+                - name: POSTGRES_DB
+                  value: "nextcloud"
+                - name: POSTGRES_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: nextcloud-secret
+                      key: db_username
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: nextcloud-secret
+                      key: db_password
+                - name: NEXTCLOUD_ADMIN_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: nextcloud-secret
+                      key: nextcloud-username
+                - name: NEXTCLOUD_ADMIN_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: nextcloud-secret
+                      key: nextcloud-password
+                - name: NEXTCLOUD_TRUSTED_DOMAINS
+                  value: "nextcloud.technolab.cloud"
+                - name: NEXTCLOUD_DATA_DIR
+                  value: "/data"
+                - name: NEXTCLOUD_TABLE_PREFIX
+                  value: "nc_"
+              args:
+                - /bin/sh
+                - -c
+                - php -f /var/www/html/cron.php
+              volumeMounts:
+                - mountPath: /tmp
+                  name: tmp
+                - mountPath: /var/run
+                  name: run
+                - name: nextcloud-root
+                  mountPath: /var/www/html
+                  subPath: html
+                - name: nextcloud-root
+                  mountPath: /var/www/html/config
+                  subPath: config
+                - name: nextcloud-root
+                  mountPath: /var/www/html/custom_apps
+                  subPath: custom_apps
+                - name: nextcloud-root
+                  mountPath: /var/www/html/themes
+                  subPath: themes
+                - name: nextcloud-data
+                  mountPath: /data
+                - name: redis-session-config
+                  mountPath: /usr/local/etc/php/conf.d/redis-session.ini
+                  subPath: redis-session.ini
+                - name: apache-config
+                  mountPath: /etc/apache2/ports.conf
+                  subPath: ports.conf
+                - name: apache-config
+                  mountPath: /etc/apache2/000-default.conf
+                  subPath: 000-default.conf
+                - name: nextcloud-config
+                  mountPath: /var/www/html/config/redis.config.php
+                  subPath: redis.config.php
+                - name: nextcloud-config
+                  mountPath: /var/www/html/config/custom.config.php
+                  subPath: custom.config.php
+                - name: nextcloud-config
+                  mountPath: /var/www/html/config/.htaccess
+                  subPath: .htaccess
+                - name: nextcloud-config
+                  mountPath: /var/www/html/config/apache-pretty-urls.config.php
+                  subPath: apache-pretty-urls.config.php
+                - name: nextcloud-config
+                  mountPath: /var/www/html/config/apcu.config.php
+                  subPath: apcu.config.php
+                - name: nextcloud-config
+                  mountPath: /var/www/html/config/apps.config.php
+                  subPath: apps.config.php
+              resources: {}
+          volumes:
+            - name: nextcloud-root
+              persistentVolumeClaim:
+                claimName: nfs-pvc-nextcloud
+            - name: nextcloud-config
+              configMap:
+                name: nextcloud-config
+            - name: nextcloud-data
+              nfs:
+                server: "10.0.40.2"
+                path: "/mnt/vault/Nextcloud"
+            - name: redis-data
+              emptyDir: {}
+            - name: redis-conf
+              configMap:
+                name: nextcloud-config
+            - name: redis-session-config
+              configMap:
+                name: nextcloud-config
+            - name: apache-config
+              configMap:
+                name: nextcloud-config
+            - name: tmp
+              emptyDir: {}
+            - name: run
+              emptyDir: {}
