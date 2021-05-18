@@ -156,6 +156,12 @@ spec:
         - name: redis-session-config
           mountPath: /usr/local/etc/php/conf.d/redis-session.ini
           subPath: redis-session.ini
+        - name: apache-config
+          mountPath: /etc/apache2/ports.conf
+          subPath: ports.conf
+        - name: apache-config
+          mountPath: /etc/apache2/000-default.conf
+          subPath: 000-default.conf
         - name: nextcloud-config
           mountPath: /var/www/html/config/redis.config.php
           subPath: redis.config.php
@@ -252,5 +258,8 @@ spec:
         configMap:
           name: nextcloud-config
       - name: redis-session-config
+        configMap:
+          name: nextcloud-config
+      - name: apache-config
         configMap:
           name: nextcloud-config

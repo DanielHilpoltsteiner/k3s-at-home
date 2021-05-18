@@ -85,3 +85,12 @@ data:
   redis-session.ini: |-
     session.save_handler = redis
     session.save_path="tcp://localhost:6379"
+  ports.conf: |-
+    Listen 8000
+  000-default.conf: |-
+    <VirtualHost *:{{ .Values.containerPort }}>
+            ServerAdmin webmaster@localhost
+            DocumentRoot /var/www/html
+            ErrorLog ${APACHE_LOG_DIR}/error.log
+            CustomLog ${APACHE_LOG_DIR}/access.log combined
+    </VirtualHost>
