@@ -15,17 +15,15 @@ metadata:
   namespace: services
 spec:
   headers:
-    sslRedirect: true
     stsSeconds: 15552000
     stsIncludeSubdomains: true
     stsPreload: true
-    forceSTSHeader: true
     customFrameOptionsValue: SAMEORIGIN
     browserXssFilter: true
     contentTypeNosniff: true
+    referrerPolicy: "no-referrer"
     customResponseHeaders:
-      Cache-Control: "no-store"
-      Pragma: "no-cache"
+      X-Robots-Tags: "none"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
