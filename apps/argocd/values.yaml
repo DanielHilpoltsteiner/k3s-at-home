@@ -121,14 +121,13 @@ argo-cd:
     tolerations: []
     affinity:
       podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - argocd-application-controller
-            topologyKey: "kubernetes.io/hostname"
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: argocd-application-controller
+              topologyKey: kubernetes.io/hostname
 
     priorityClassName: ""
 
@@ -433,14 +432,13 @@ argo-cd:
     tolerations: []
     affinity:
       podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - argocd-server
-            topologyKey: "kubernetes.io/hostname"
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: argocd-server
+              topologyKey: kubernetes.io/hostname
 
     priorityClassName: ""
 
@@ -876,14 +874,13 @@ argo-cd:
     tolerations: []
     affinity:
       podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-                - key: app.kubernetes.io/name
-                  operator: In
-                  values:
-                    - argocd-repo-server
-            topologyKey: "kubernetes.io/hostname"
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/name: argocd-repo-server
+              topologyKey: kubernetes.io/hostname
 
     priorityClassName: ""
 
