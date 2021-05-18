@@ -17,12 +17,8 @@ spec:
           restartPolicy: Never
           containers:
             - name: nextcloud-cron-job
-              image: ebrianne/nextcloud:21.0.1-apache
+              image: curlimages/curl:7.76.1
               imagePullPolicy: IfNotPresent
-              securityContext:
-                readOnlyRootFilesystem: true
-                allowPrivilegeEscalation: false
-                privileged: false
               command: ["curl"]
               args:
                 - "--fail"
