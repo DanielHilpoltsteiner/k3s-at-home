@@ -11,7 +11,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    traefik.ingress.kubernetes.io/router.middlewares: services-nc-headers@kubernetescrd,kube-system-traefik-errors@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: services-nc-headers@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: ebrianne.technolab.cloud,www.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:
