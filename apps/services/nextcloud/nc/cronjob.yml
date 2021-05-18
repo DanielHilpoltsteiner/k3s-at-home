@@ -2,7 +2,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name:
+  name: nextcloud-cron-job
   namespace: services
   labels:
     app: nextcloud
