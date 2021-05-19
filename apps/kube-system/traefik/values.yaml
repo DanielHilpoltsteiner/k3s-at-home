@@ -107,6 +107,7 @@ traefik:
 
   additionalArguments:
     - "--providers.kubernetesingress.ingressclass=traefik"
+    - "--metrics.prometheus=true"
 
   # Environment variables to be passed to Traefik's binary
   env:
@@ -135,11 +136,11 @@ traefik:
       protocol: TCP
       tls:
         enabled: true
-    ssh:
-      port: 2222
-      expose: true
-      exposedPort: 22
-      protocol: TCP
+    # ssh:
+    #   port: 2222
+    #   expose: true
+    #   exposedPort: 22
+    #   protocol: TCP
 
   tlsOptions: {}
 
@@ -186,13 +187,13 @@ traefik:
   # Additional serviceAccount annotations (e.g. for oidc authentication)
   serviceAccountAnnotations: {}
 
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "50Mi"
-    limits:
-      cpu: "300m"
-      memory: "150Mi"
+  resources: {}
+    # requests:
+    #   cpu: "100m"
+    #   memory: "50Mi"
+    # limits:
+    #   cpu: "300m"
+    #   memory: "150Mi"
   affinity: {}
 
   nodeSelector:
