@@ -108,6 +108,8 @@ traefik:
   additionalArguments:
     - "--providers.kubernetesingress.ingressclass=traefik"
     - "--metrics.prometheus=true"
+    - "--entryPoints.metrics.address=:8082"
+    - "--metrics.prometheus.entryPoint=metrics"
 
   # Environment variables to be passed to Traefik's binary
   env:
