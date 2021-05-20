@@ -33,12 +33,13 @@ kured:
     slackChannel: ""                          # slack channel for reboot notfications
     slackHookUrl: ${SLACK_HOOK_URL}           # slack hook URL for reboot notfications
     slackUsername: kured                      # slack username for reboot notfications (default "kured")
+    notifyUrl: ""                             # notification URL with the syntax as follows: https://containrrr.dev/shoutrrr/services/overview/
     messageTemplateDrain: Draining node %s.   # slack message template when notifying about a node being drained (default "Draining node %s")
     messageTemplateReboot: Rebooting node %s  # slack message template when notifying about a node being rebooted (default "Rebooted node %s")
     startTime: "22:00"                        # only reboot after this time of day (default "0:00")
     timeZone: Europe/Berlin                   # time-zone to use (valid zones from "time" golang package)
     annotateNodes: true       # enable 'weave.works/kured-reboot-in-progress' and 'weave.works/kured-most-recent-reboot-needed' node annotations to signify kured reboot operations
-    lockReleaseDelay: 0        # hold lock after reboot by this amount of time (default 0, disabled)
+    lockReleaseDelay: 30m        # hold lock after reboot by this amount of time (default 0, disabled)
 
   rbac:
     create: true
