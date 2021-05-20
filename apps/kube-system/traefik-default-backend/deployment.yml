@@ -26,7 +26,7 @@ spec:
         app.kubernetes.io/instance: traefik
     spec:
       containers:
-      - image: ebrianne/default-http-backend:latest
+      - image: ebrianne/default-http-backend:v1.0
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3

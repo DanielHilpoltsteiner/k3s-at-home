@@ -473,7 +473,7 @@ ingress-nginx:
 
     admissionWebhooks:
       annotations: {}
-      enabled: false
+      enabled: true
       failurePolicy: Fail
       # timeoutSeconds: 10
       port: 8443
@@ -610,7 +610,7 @@ ingress-nginx:
     name: default-backend
     image:
       repository: ebrianne/default-http-backend
-      tag: "latest"
+      tag: "v1.0"
       pullPolicy: IfNotPresent
       # nobody user -> uid 65534
       runAsUser: 101
