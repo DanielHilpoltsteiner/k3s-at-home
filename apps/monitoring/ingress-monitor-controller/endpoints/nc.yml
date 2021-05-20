@@ -6,10 +6,7 @@ metadata:
 spec:
   forceHttps: true
   providers: "UptimeRobot"
-  url: https://nextcloud.technolab.cloud
+  url: https://nextcloud.technolab.cloud/status.php
   uptimeRobotConfig:
     interval: 300
-    monitorType: "keyword"
-    keywordExists: "yes"
-    keywordValue: "404"
-    statusPages: "241496"
+    monitorType: "http"
