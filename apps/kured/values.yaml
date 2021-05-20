@@ -1,7 +1,7 @@
 kured:
   image:
     repository: ebrianne/kured
-    tag: v1.6.1
+    tag: v1.7.0
     pullPolicy: IfNotPresent
     pullSecrets: []
 
@@ -37,7 +37,8 @@ kured:
     messageTemplateReboot: Rebooting node %s  # slack message template when notifying about a node being rebooted (default "Rebooted node %s")
     startTime: "22:00"                        # only reboot after this time of day (default "0:00")
     timeZone: Europe/Berlin                   # time-zone to use (valid zones from "time" golang package)
-    annotateNodes: false                      # enable 'weave.works/kured-reboot-in-progress' and 'weave.works/kured-most-recent-reboot-needed' node annotations to signify kured reboot operations
+    annotateNodes: true       # enable 'weave.works/kured-reboot-in-progress' and 'weave.works/kured-most-recent-reboot-needed' node annotations to signify kured reboot operations
+    lockReleaseDelay: 0        # hold lock after reboot by this amount of time (default 0, disabled)
 
   rbac:
     create: true
@@ -63,6 +64,7 @@ kured:
     port: 8080
     annotations: {}
     name: ""
+    type: ClusterIP
 
   podLabels: {}
 
