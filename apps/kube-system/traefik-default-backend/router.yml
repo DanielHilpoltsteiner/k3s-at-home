@@ -1,0 +1,25 @@
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-catchall
+  namespace: services
+spec:
+  entryPoints:
+    - web
+    - websecure
+  routes:
+    - match: HostRegexp(`{host:.+}`)
+      kind: Rule
+      priority: 1
+      middlewares:
+        - name: traefik-errors
+          namespace: kube-system
+      services:
+        - kind: Service
+          name: traefik-default-backend
+          namespace: kube-system
+          port: 80
+          scheme: http
+  tls:
+    secretName: services-technolab-cloudflare-org-tls
