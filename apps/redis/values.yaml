@@ -3,7 +3,7 @@ redis:
   image:
     registry: docker.io
     repository: bitnami/redis
-    tag: 6.2.3-debian-10-r0
+    # tag: 6.2.3-debian-10-r0
     pullPolicy: IfNotPresent
     pullSecrets: []
     debug: false
