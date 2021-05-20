@@ -11,6 +11,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: kube-system-traefik-errors@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: plex.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:
