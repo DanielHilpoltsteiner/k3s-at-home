@@ -6,10 +6,8 @@ metadata:
 spec:
   forceHttps: true
   providers: "UptimeRobot"
-  url: https://plex.technolab.cloud
+  url: https://plex.technolab.cloud/identity
   uptimeRobotConfig:
     interval: 300
-    monitorType: "keyword"
-    keywordExists: "yes"
-    keywordValue: "404"
+    monitorType: "http"
     statusPages: "241496"
