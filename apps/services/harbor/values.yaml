@@ -649,7 +649,7 @@ harbor:
       serviceAccountName: ""
       image:
         repository: goharbor/notary-signer-photon
-        tag: v2.2.1
+        tag: v2.2.2
       replicas: 1
       # resources:
       #  requests:
