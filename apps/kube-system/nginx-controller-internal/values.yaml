@@ -610,7 +610,7 @@ ingress-nginx:
     name: default-backend
     image:
       repository: ebrianne/default-http-backend
-      tag: "v1.0"
+      tag: "v1.1"
       pullPolicy: IfNotPresent
       # nobody user -> uid 65534
       runAsUser: 101
