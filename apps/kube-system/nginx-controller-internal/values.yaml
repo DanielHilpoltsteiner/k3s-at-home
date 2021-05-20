@@ -607,7 +607,7 @@ ingress-nginx:
     ##
     enabled: true
 
-    name: default-backend
+    name: default-http-backend
     image:
       repository: ebrianne/default-http-backend
       tag: "v1.1"
