@@ -6,7 +6,6 @@ metadata:
   namespace: services
 spec:
   entryPoints:
-    - web
     - websecure
   routes:
     - match: HostRegexp(`{host:.+}`)
