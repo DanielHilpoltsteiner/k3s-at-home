@@ -3,7 +3,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: traefik-catchall
-  namespace: services
+  namespace: kube-system
 spec:
   entryPoints:
     - websecure
@@ -21,4 +21,4 @@ spec:
           port: 80
           scheme: http
   tls:
-    secretName: services-technolab-cloudflare-org-tls
+    secretName: traefik-technolab-cloudflare-org-tls
