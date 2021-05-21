@@ -22,10 +22,10 @@ descheduler:
   nameOverride: ""
   fullnameOverride: ""
 
-  schedule: "*/2 * * * *"
-  #startingDeadlineSeconds: 200
-  #successfulJobsHistoryLimit: 1
-  #failedJobsHistoryLimit: 1
+  schedule: "*/5 * * * *"
+  # startingDeadlineSeconds: 200
+  # successfulJobsHistoryLimit: 1
+  # failedJobsHistoryLimit: 1
 
   cmdOptions:
     v: 3
@@ -40,6 +40,10 @@ descheduler:
     strategies:
       RemoveDuplicates:
         enabled: false
+        params:
+          removeDuplicates:
+            excludeOwnerKinds:
+            - "ReplicaSet"
       RemovePodsViolatingNodeTaints:
         enabled: true
       RemovePodsViolatingNodeAffinity:
@@ -48,7 +52,7 @@ descheduler:
           nodeAffinityType:
           - requiredDuringSchedulingIgnoredDuringExecution
       RemovePodsViolatingInterPodAntiAffinity:
-        enabled: false
+        enabled: true
       LowNodeUtilization:
         enabled: true
         params:
@@ -57,11 +61,17 @@ descheduler:
               "memory": 20
             targetThresholds:
               "memory": 60
+      RemovePodsHavingTooManyRestarts:
+        enabled: true
+        params:
+          podsHavingTooManyRestarts:
+            podRestartThreshold: 20
+            includingInitContainers: true
 
   priorityClassName: system-cluster-critical
 
-  nodeSelector: {}
-  #  foo: bar
+  nodeSelector:
+    beta.kubernetes.io/arch: amd64
 
   rbac:
     # Specifies whether RBAC resources should be created
