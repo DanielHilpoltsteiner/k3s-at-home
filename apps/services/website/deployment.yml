@@ -54,4 +54,4 @@ spec:
       imagePullSecrets:
       - name: reg-creds
       nodeSelector: {}
-      tolerations: {}
+      tolerations: []
