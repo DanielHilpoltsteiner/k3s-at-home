@@ -57,11 +57,11 @@ spec:
         beta.kubernetes.io/arch: amd64
       tolerations: []
       affinity:
-      podAntiAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 100
-          podAffinityTerm:
-            labelSelector:
-              matchLabels:
-                app: nginx-website
-            topologyKey: kubernetes.io/hostname
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: nginx-website
+              topologyKey: kubernetes.io/hostname
