@@ -53,5 +53,15 @@ spec:
             memory: 128Mi
       imagePullSecrets:
       - name: reg-creds
-      nodeSelector: {}
+      nodeSelector:
+        beta.kubernetes.io/arch: amd64
       tolerations: []
+      affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: nginx-website
+            topologyKey: kubernetes.io/hostname

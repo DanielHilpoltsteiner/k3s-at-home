@@ -873,7 +873,8 @@ argo-cd:
     ## Node selectors and tolerations for server scheduling to nodes with taints
     ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
     ##
-    nodeSelector: {}
+    nodeSelector:
+      beta.kubernetes.io/arch: amd64
     tolerations: []
     affinity:
       podAntiAffinity:
