@@ -16,6 +16,11 @@ falco:
 
   resources: {}
 
+  extraArgs: []
+  nodeSelector:
+    beta.kubernetes.io/arch: amd64
+  affinity: {}
+
   timezone: Europe/Berlin
 
   ebpf:
@@ -113,6 +118,13 @@ falcosidekick:
   ingress:
     enabled: false
 
+  nodeSelector:
+    beta.kubernetes.io/arch: amd64
+
+  tolerations: []
+
+  affinity: {}
+
   webui:
     enabled: true
 
@@ -134,6 +146,13 @@ falcosidekick:
       hosts:
         - host: falco.home-lab.io
           paths: ["/ui", "/events", "/healthz", "/ws"]
+
+    nodeSelector:
+      beta.kubernetes.io/arch: amd64
+
+    tolerations: []
+
+    affinity: {}
 
 falco-exporter:
   enabled: false
