@@ -26,6 +26,18 @@ jupyterhub:
       limit: 4G
       guarantee: 512M
 
+  cull:
+    enabled: true
+    timeout: 3600
+    every: 300
+
+  prePuller:
+    hook:
+      enabled: false
+    continuous:
+      # NOTE: if used with a Cluster Autoscaler, also add user-placeholders
+      enabled: false
+
   ingress:
     enabled: true
     annotations:
