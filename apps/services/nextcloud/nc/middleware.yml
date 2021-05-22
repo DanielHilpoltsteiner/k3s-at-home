@@ -32,7 +32,7 @@ metadata:
   namespace: services
 spec:
   replacePathRegex:
-    regex: /.well-known/ca(l|rd)dav
+    regex: ^/.well-known/ca(l|rd)dav
     replacement: /remote.php/dav/
 ---
 apiVersion: traefik.containo.us/v1alpha1
@@ -42,6 +42,6 @@ metadata:
   namespace: services
 spec:
   redirectRegex:
-    regex: ^https://nextcloud.technolab.cloud(/.well-known.*)
-    replacement: https://nextcloud.technolab.cloud/index.php$${1}
+    regex: ^https://(.*)/.well-known/(.*)
+    replacement: https://${1}/index.php$${2}
     permanent: true
