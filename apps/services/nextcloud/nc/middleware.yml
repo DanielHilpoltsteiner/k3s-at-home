@@ -38,6 +38,26 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
+  name: nc-webfinger
+  namespace: services
+spec:
+  replacePathRegex:
+    regex: ^/.well-known/webfinger
+    replacement: /public.php?service=webfinger
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nc-nodeinfo
+  namespace: services
+spec:
+  replacePathRegex:
+    regex: ^/.well-known/nodeinfo
+    replacement: /index.php/.well-known/nodeinfo
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
   name: nc-wellknown
   namespace: services
 spec:
