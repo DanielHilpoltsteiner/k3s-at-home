@@ -28,10 +28,8 @@ descheduler:
   # failedJobsHistoryLimit: 1
 
   cmdOptions:
-    v: 3
-    # evict-local-storage-pods:
-    # max-pods-to-evict-per-node: 10
-    # node-selector: "key1=value1,key2=value2"
+    v: 4
+    max-pods-to-evict-per-node: 10
 
   podAnnotations:
     botkube.io/disable: "true"
@@ -39,7 +37,7 @@ descheduler:
   deschedulerPolicy:
     strategies:
       RemoveDuplicates:
-        enabled: false
+        enabled: true
         params:
           removeDuplicates:
             excludeOwnerKinds:
@@ -58,9 +56,13 @@ descheduler:
         params:
           nodeResourceUtilizationThresholds:
             thresholds:
-              "memory": 20
+              "cpu": 10
+              "memory": 10
+              "pods": 10
             targetThresholds:
+              "cpu": 50
               "memory": 60
+              "pods": 50
       RemovePodsHavingTooManyRestarts:
         enabled: true
         params:
