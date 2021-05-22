@@ -1646,7 +1646,7 @@ spec:
                     release: gitlab
       containers:
         - name: gitlab-shell
-          image: "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v13.17.0"
+          image: "registry.gitlab.com/gitlab-org/build/cng/gitlab-shell:v13.18.0"
           ports:
             - containerPort: 2222
               name: ssh
