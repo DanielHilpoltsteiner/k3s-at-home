@@ -34,23 +34,3 @@ spec:
   replacePathRegex:
     regex: ^/.well-known/ca(l|rd)dav
     replacement: /remote.php/dav/
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: nc-webfinger
-  namespace: services
-spec:
-  replacePathRegex:
-    regex: ^/.well-known/webfinger
-    replacement: /public.php?service=webfinger
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: nc-nodeinfo
-  namespace: services
-spec:
-  replacePathRegex:
-    regex: ^/.well-known/nodeinfo
-    replacement: /index.php/.well-known/nodeinfo
