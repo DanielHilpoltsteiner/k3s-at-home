@@ -54,14 +54,3 @@ spec:
   replacePathRegex:
     regex: ^/.well-known/nodeinfo
     replacement: /index.php/.well-known/nodeinfo
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
-  name: nc-wellknown
-  namespace: services
-spec:
-  redirectRegex:
-    regex: ^https://(.*)/.well-known/(.*)
-    replacement: https://${1}/index.php$${2}
-    permanent: true
