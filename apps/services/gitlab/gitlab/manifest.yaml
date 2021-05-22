@@ -2043,7 +2043,7 @@ spec:
             - /bin/bash
             - -c
             - cp -v -r -L /etc/gitlab/.s3cfg $HOME/.s3cfg && while sleep 3600; do :; done # alpine sleep has no infinity
-          image: "registry.gitlab.com/gitlab-org/build/cng/gitlab-task-runner-ce:v13.11.4"
+          image: "registry.gitlab.com/gitlab-org/build/cng/gitlab-task-runner-ce:v13.12.0"
           env:
             - name: ARTIFACTS_BUCKET_NAME
               value: gitlab-artifacts
@@ -2757,7 +2757,7 @@ spec:
       restartPolicy: OnFailure
       containers:
         - name: migrations
-          image: "registry.gitlab.com/gitlab-org/build/cng/gitlab-task-runner-ce:v13.11.4"
+          image: "registry.gitlab.com/gitlab-org/build/cng/gitlab-task-runner-ce:v13.12.0"
           args:
             - /scripts/wait-for-deps
             - /scripts/db-migrate
