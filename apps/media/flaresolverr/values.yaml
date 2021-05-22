@@ -20,11 +20,6 @@ flaresolverr:
   ingress:
     enabled: false
 
-  nodeSelector:
-    kubernetes.io/arch: arm64
+  nodeSelector: {}
 
-  tolerations:
-    - key: "arch"
-      operator: "Equal"
-      value: "arm64"
-      effect: "NoSchedule"
+  tolerations: []
