@@ -31,7 +31,17 @@ metadata:
   name: nc-caldav
   namespace: services
 spec:
+  replacePathRegex:
+    regex: /.well-known/ca(l|rd)dav
+    replacement: /remote.php/dav/
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: nc-wellknown
+  namespace: services
+spec:
   redirectRegex:
-    regex: ^https://(.*)/.well-known/(card|cal)dav
-    replacement: https://${1}/remote.php/dav
+    regex: ^https://nextcloud.technolab.cloud(/.well-known.*)
+    replacement: https://nextcloud.technolab.cloud/index.php$${1}
     permanent: true
