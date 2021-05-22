@@ -496,10 +496,6 @@ prometheus:
       - key: "node-role.kubernetes.io/master"
         operator: "Exists"
         effect: "NoSchedule"
-      - key: "arch"
-        operator: "Equal"
-        value: "arm64"
-        effect: "NoSchedule"
 
     ## Node labels for node-exporter pod assignment
     ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
@@ -775,7 +771,15 @@ prometheus:
 
     ## Pod affinity
     ##
-    affinity: {}
+    affinity:
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: NotIn
+                  values:
+                    - k3s-w-3
 
     ## PodDisruptionBudget settings
     ## ref: https://kubernetes.io/docs/concepts/workloads/pods/disruptions/
