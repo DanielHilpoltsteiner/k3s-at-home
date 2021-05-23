@@ -110,6 +110,8 @@ traefik:
     - "--metrics.prometheus=true"
     - "--entryPoints.metrics.address=:8082"
     - "--metrics.prometheus.entryPoint=metrics"
+    - "--entryPoints.web.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.40.200"
+    - "--entryPoints.websecure.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.40.200"
 
   # Environment variables to be passed to Traefik's binary
   env:
