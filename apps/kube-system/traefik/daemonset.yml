@@ -20,37 +20,12 @@ spec:
         app.kubernetes.io/name: traefik
     spec:
       containers:
-        - args:
-            - '--global.checknewversion'
-            - '--entryPoints.traefik.address=:9000/tcp'
-            - '--entryPoints.websecure.address=:8443/tcp'
-            - '--api.dashboard=true'
-            - '--ping=true'
-            - '--providers.kubernetescrd'
-            - '--providers.kubernetesingress'
-            - >-
-              --providers.kubernetesingress.ingressendpoint.publishedservice=kube-system/traefik
-            - '--entrypoints.websecure.http.tls=true'
-            - '--accesslog=true'
-            - '--accesslog.fields.defaultmode=keep'
-            - '--accesslog.fields.headers.defaultmode=keep'
-            - '--pilot.dashboard=false'
-            - '--providers.kubernetesingress.ingressclass=traefik'
-            - '--metrics.prometheus=true'
-            - '--entryPoints.metrics.address=:8082'
-            - '--metrics.prometheus.entryPoint=metrics'
-            - >-
-              --entryPoints.websecure.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.40.200
-            - '--experimental.plugins.traefik-real-ip.modulename=github.com/soulbalz/traefik-real-ip'
-            - '--experimental.plugins.traefik-real-ip.version=v1.0.3'
+        - name: traefik
+          image: 'traefik:2.4.8'
+          imagePullPolicy: IfNotPresent
           env:
             - name: TZ
               value: Europe/Berlin
-          envFrom:
-            - secretRef:
-                name: traefik-secret
-          image: 'traefik:2.4.8'
-          imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -60,7 +35,6 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 2
-          name: traefik
           ports:
             - containerPort: 9000
               name: traefik
@@ -93,6 +67,8 @@ spec:
               name: tmp
             - mountPath: /plugins-storage
               name: plugins
+            - mountPath: /etc/traefik
+              name: yml-config
       hostNetwork: false
       nodeSelector:
         kubernetes.io/os: linux
@@ -109,6 +85,13 @@ spec:
           name: tmp
         - emptyDir: {}
           name: plugins
+        - name: yml-config
+          secret:
+            secretName: traefik-secret
+            items:
+              - key: traefik.yaml
+                path: traefik.yaml
+                mode: 0600
   updateStrategy:
     rollingUpdate:
       maxUnavailable: 1
