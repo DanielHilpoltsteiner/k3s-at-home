@@ -2,16 +2,6 @@
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
 metadata:
-  name: bitwarden-rate
-  namespace: services
-spec:
-  rateLimit:
-    period: 1s
-    average: 15
----
-apiVersion: traefik.containo.us/v1alpha1
-kind: Middleware
-metadata:
   name: bitwarden-connection
   namespace: services
 spec:

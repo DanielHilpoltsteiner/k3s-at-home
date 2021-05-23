@@ -35,3 +35,17 @@ spec:
         - "131.0.72.0/22"
         - "104.16.0.0/13"
         - "104.24.0.0/14"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: rate-limit
+  namespace: services
+spec:
+  rateLimit:
+    sourceCriterion:
+      ipStrategy:
+        depth: 2
+    burst: 50
+    average: 100
+    period: 5s
