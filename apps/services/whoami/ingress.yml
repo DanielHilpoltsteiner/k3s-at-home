@@ -1,0 +1,29 @@
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: whoami
+  name: whoami
+  namespace: services
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.allow-http: "false"
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: kube-system-traefik-errors@kubernetescrd
+    external-dns.alpha.kubernetes.io/hostname: whoami.technolab.cloud
+    external-dns.alpha.kubernetes.io/target: technolab.cloud
+spec:
+  rules:
+  - host: whoami.technolab.cloud
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: whoami
+          servicePort: http
+  tls:
+  - hosts:
+    - whoami.technolab.cloud
+    secretName: services-technolab-cloudflare-org-tls
