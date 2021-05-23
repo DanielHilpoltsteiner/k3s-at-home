@@ -4,8 +4,9 @@ kind: Service
 metadata:
   name: whoami
   namespace: services
-  label:
+  labels:
     app: whoami
+  annotations:
 spec:
   ports:
   - name: http
