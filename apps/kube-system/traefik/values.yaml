@@ -110,7 +110,6 @@ traefik:
     - "--metrics.prometheus=true"
     - "--entryPoints.metrics.address=:8082"
     - "--metrics.prometheus.entryPoint=metrics"
-    # - "--entryPoints.web.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.40.200"
     - "--entryPoints.websecure.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.40.200"
 
   # Environment variables to be passed to Traefik's binary
@@ -127,12 +126,6 @@ traefik:
       expose: false
       exposedPort: 9000
       protocol: TCP
-    # web:
-    #   port: 8000
-    #   expose: true
-    #   exposedPort: 80
-    #   protocol: TCP
-    #   redirectTo: websecure
     websecure:
       port: 8443
       expose: true
@@ -140,11 +133,6 @@ traefik:
       protocol: TCP
       tls:
         enabled: true
-    # ssh:
-    #   port: 2222
-    #   expose: true
-    #   exposedPort: 22
-    #   protocol: TCP
 
   tlsOptions: {}
 
