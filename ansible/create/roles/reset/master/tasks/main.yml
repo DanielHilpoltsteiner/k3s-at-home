@@ -18,21 +18,14 @@
     - "{{ systemd_dir }}/k3s"
     - /etc/rancher/k3s
     - /var/lib/rancher/k3s
-    - /etc/modules-load.d/overlay.conf
-    - /etc/modules-load.d/br_netfilter.conf
+    - /etc/modules-load.d/kube.conf
     - /etc/sysctl.d/kube.conf
-    
+
 - name: Re-enable swap in fstab
   replace:
     path: /etc/fstab
     regexp: '^# (.+?\sswap\s+sw\s+.*)$'
     replace: '\1'
-
-- name: Start swap service
-  service: 
-    name: swap
-    state: started
-    enabled: yes
 
 - name: Enable SWAP
   shell: |

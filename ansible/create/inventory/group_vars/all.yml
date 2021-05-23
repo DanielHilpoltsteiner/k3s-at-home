@@ -5,24 +5,23 @@ localhost_user: ebrianne
 systemd_dir: /etc/init.d
 
 proxmox:
-  masters: 
+  masters:
     number: 2
-    ram: 2G
-    disk: 10G
+    ram: 4G
+    disk: 30G
   workers:
     number: 1
-    ram: 2G
-    disk: 10G
-  dist: alpine
+    ram: 5G
+    disk: 30G
 
 kube_vip:
-  tag: 0.3.3
+  tag: 0.3.4
   ip: "{{ groups['vip'][0] }}"
   interface: eth0
-  
+
 k3s:
   bootstrap_master_ip: "{{ groups['masters'][0] }}"
-  version: v1.20.5+k3s1
+  version: v1.20.7+k3s1
   user: root
   tls_san: "{{ kube_vip.ip }}"
   cluster_cidr: 10.69.0.0/16
