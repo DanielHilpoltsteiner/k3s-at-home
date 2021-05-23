@@ -41,7 +41,6 @@ spec:
             - '--metrics.prometheus.entryPoint=metrics'
             - >-
               --entryPoints.websecure.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.40.200
-            - '--pilot.token=${TRAEFIK_PILOT_TOKEN}'
             - '--experimental.plugins.traefik-real-ip.modulename=github.com/soulbalz/traefik-real-ip'
             - '--experimental.plugins.traefik-real-ip.version=v1.0.3'
           env:
