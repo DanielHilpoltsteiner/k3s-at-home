@@ -9,7 +9,34 @@ spec:
     address: http://authelia.services.svc.cluster.local/api/verify?rd=https://authelia.technolab.cloud/
     trustForwardHeader: true
     authResponseHeaders:
-      - X-Forwarded-User
+      - Remote-User
+      - Remote-Groups
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: authelia-headers
+  namespace: services
+spec:
+  headers:
+    contentTypeNosniff: true
+    browserXssFilter: true
+    referrerPolicy: "same-origin"
+    accessControlAllowMethods:
+      - "GET"
+      - "OPTIONS"
+      - "PUT"
+    accessControlMaxAge: 100
+    hostsProxyHeaders:
+      - "X-Forwarded-Host"
+    sslRedirect: true
+    stsSeconds: 63072000
+    stsIncludeSubdomains: true
+    stsPreload: true
+    forceSTSHeader: true
+    customResponseHeaders:
+      Cache-Control: "no-store"
+      Pragma: "no-cache"
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: Middleware
