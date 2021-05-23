@@ -158,7 +158,7 @@ traefik:
     # Additional entries here will be added to the service spec. Cannot contains
     # type, selector or ports entries.
     spec:
-      externalTrafficPolicy: Cluster
+      externalTrafficPolicy: Local
       loadBalancerIP: "10.0.40.20"
     loadBalancerSourceRanges: []
     externalIPs: []
