@@ -1,0 +1,110 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  annotations: {}
+  labels:
+    app.kubernetes.io/name: traefik
+  name: traefik
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: traefik
+  template:
+    metadata:
+      annotations:
+        prometheus.io/port: '8082'
+        prometheus.io/scrape: 'true'
+      labels:
+        app.kubernetes.io/name: traefik
+    spec:
+      containers:
+        - args:
+            - '--global.checknewversion'
+            - '--entryPoints.traefik.address=:9000/tcp'
+            - '--entryPoints.websecure.address=:8443/tcp'
+            - '--api.dashboard=true'
+            - '--ping=true'
+            - '--providers.kubernetescrd'
+            - '--providers.kubernetesingress'
+            - >-
+              --providers.kubernetesingress.ingressendpoint.publishedservice=kube-system/traefik
+            - '--entrypoints.websecure.http.tls=true'
+            - '--accesslog=true'
+            - '--accesslog.fields.defaultmode=keep'
+            - '--accesslog.fields.headers.defaultmode=keep'
+            - '--pilot.dashboard=false'
+            - '--providers.kubernetesingress.ingressclass=traefik'
+            - '--metrics.prometheus=true'
+            - '--entryPoints.metrics.address=:8082'
+            - '--metrics.prometheus.entryPoint=metrics'
+            - >-
+              --entryPoints.websecure.proxyProtocol.trustedIPs=127.0.0.1/32,10.0.40.200
+          env:
+            - name: TZ
+              value: Europe/Berlin
+          image: 'traefik:2.4.8'
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: 9000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          name: traefik
+          ports:
+            - containerPort: 9000
+              name: traefik
+              protocol: TCP
+            - containerPort: 8443
+              name: websecure
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 1
+            httpGet:
+              path: /ping
+              port: 9000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 2
+          resources: null
+          securityContext:
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 65532
+            runAsNonRoot: true
+            runAsUser: 65532
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /plugins-storage
+              name: plugins
+      hostNetwork: false
+      nodeSelector:
+        kubernetes.io/os: linux
+        node-role.kubernetes.io/worker: 'true'
+      priorityClassName: system-cluster-critical
+      securityContext:
+        fsGroup: 65532
+      serviceAccountName: traefik
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - emptyDir: {}
+          name: data
+        - emptyDir: {}
+          name: tmp
+        - emptyDir: {}
+          name: plugins
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 1
+    type: RollingUpdate
