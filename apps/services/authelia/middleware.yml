@@ -10,3 +10,14 @@ spec:
     trustForwardHeader: true
     authResponseHeaders:
       - X-Forwarded-User
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-real-ip
+  namespace: services
+spec:
+  plugin:
+    traefik-real-ip:
+      excludednets:
+        - "127.0.0.1/32"
