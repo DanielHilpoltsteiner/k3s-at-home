@@ -9,4 +9,6 @@ spec:
   url: https://authelia.technolab.cloud
   uptimeRobotConfig:
     interval: 300
-    monitorType: http
+    monitorType: "keyword"
+    KeywordExists: "yes"
+    KeywordValue: "404"
