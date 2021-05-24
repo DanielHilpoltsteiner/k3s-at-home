@@ -12,3 +12,13 @@ spec:
     service:
       name: traefik-default-backend
       port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: dashboard-strip-prefix
+  namespace: kube-system
+spec:
+  stripPrefix:
+    prefixes:
+      - /internal
