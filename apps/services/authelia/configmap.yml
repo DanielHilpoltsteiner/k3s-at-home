@@ -19,7 +19,7 @@ data:
 
     theme: dark
 
-    default_redirection_url: https://ebrianne.technolab.cloud
+    default_redirection_url: https://technolab.cloud
 
     totp:
       issuer: authelia.com
@@ -57,7 +57,7 @@ data:
         - domain: bitwarden.technolab.cloud
           subject: "user:mengqing"
           policy: two_factor
-        - domain: ebrianne.technolab.cloud
+        - domain: technolab.cloud
           resources:
           - "^/whoami"
           subject: "user:ebrianne"

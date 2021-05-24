@@ -12,17 +12,10 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: kube-system-traefik-errors@kubernetescrd,services-traefik-real-ip@kubernetescrd,services-rate-limit@kubernetescrd
-    external-dns.alpha.kubernetes.io/hostname: ebrianne.technolab.cloud,www.technolab.cloud
+    external-dns.alpha.kubernetes.io/hostname: www.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:
   rules:
-  - host: ebrianne.technolab.cloud
-    http:
-      paths:
-      - path: /
-        backend:
-          serviceName: nginx-website
-          servicePort: http
   - host: www.technolab.cloud
     http:
       paths:
@@ -39,7 +32,6 @@ spec:
           servicePort: http
   tls:
   - hosts:
-    - ebrianne.technolab.cloud
     - technolab.cloud
     - www.technolab.cloud
     secretName: services-technolab-cloudflare-org-tls
