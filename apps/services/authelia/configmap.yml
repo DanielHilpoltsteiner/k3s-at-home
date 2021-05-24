@@ -70,8 +70,12 @@ data:
       domain: technolab.cloud
 
       redis:
-        host: localhost
+        host: redis-headless.redis.svc.cluster.local
         port: 6379
+        password: EC4qOFNszBZJI9LZA0SjldpbVj1kumw3
+        database_index: 0
+        maximum_active_connections: 8
+        minimum_idle_connections: 0
 
     regulation:
       max_retries: 5

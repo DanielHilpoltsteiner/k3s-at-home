@@ -21,13 +21,6 @@ spec:
         app: authelia
     spec:
       containers:
-      - name: redis
-        image: redis:5.0.12-alpine
-        ports:
-        - containerPort: 6379
-          name: redis
-          protocol: TCP
-        resources: {}
       - name: authelia
         image: authelia/authelia:4.29.4
         imagePullPolicy: IfNotPresent
@@ -46,6 +39,8 @@ spec:
           value: /app/secrets/ldap_password
         - name: AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE
           value: /app/secrets/psql_password
+        - name: AUTHELIA_SESSION_REDIS_PASSWORD_FILE
+          value: /app/secrets/redis_password
         ports:
         - name: authelia-port
           containerPort: 9091
@@ -89,16 +84,8 @@ spec:
         - mountPath: /app/secrets
           name: secrets
           readOnly: true
-      affinity:
-        podAntiAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: app
-                operator: In
-                values:
-                - authelia
-            topologyKey: "kubernetes.io/hostname"
+      affinity: {}
+      tolerations: []
       volumes:
       - name: config-volume
         configMap:
@@ -118,3 +105,5 @@ spec:
             path: psql_password
           - key: LDAP_ADMIN_PASSWORD
             path: ldap_password
+          - key: REDIS_PASSWORD
+            path: redis_password
