@@ -14,7 +14,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: services-traefik-real-ip@kubernetescrd,services-authelia-auth@kubernetescrd,kube-system-traefik-errors@kubernetescrd,services-rate-limit@kubernetescrd,services-authelia-headers@kubernetescrd
 spec:
   rules:
-  - host: ebrianne.technolab.cloud
+  - host: technolab.cloud
     http:
       paths:
       - path: /whoami
@@ -23,5 +23,5 @@ spec:
           servicePort: http
   tls:
   - hosts:
-    - ebrianne.technolab.cloud
+    - technolab.cloud
     secretName: services-technolab-cloudflare-org-tls
