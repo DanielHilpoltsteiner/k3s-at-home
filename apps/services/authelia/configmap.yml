@@ -57,7 +57,9 @@ data:
         - domain: bitwarden.technolab.cloud
           subject: "user:mengqing"
           policy: two_factor
-        - domain: whoami.technolab.cloud
+        - domain: ebrianne.technolab.cloud
+          resources:
+          - "^/whoami"
           subject: "user:ebrianne"
           policy: one_factor
 
