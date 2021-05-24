@@ -12,18 +12,16 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: services-traefik-real-ip@kubernetescrd,services-authelia-auth@kubernetescrd,kube-system-traefik-errors@kubernetescrd,services-rate-limit@kubernetescrd,services-authelia-headers@kubernetescrd
-    external-dns.alpha.kubernetes.io/hostname: whoami.technolab.cloud
-    external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:
   rules:
-  - host: whoami.technolab.cloud
+  - host: ebrianne.technolab.cloud
     http:
       paths:
-      - path: /
+      - path: /whoami
         backend:
           serviceName: whoami
           servicePort: http
   tls:
   - hosts:
-    - whoami.technolab.cloud
+    - ebrianne.technolab.cloud
     secretName: services-technolab-cloudflare-org-tls
