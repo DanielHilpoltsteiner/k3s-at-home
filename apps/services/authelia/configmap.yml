@@ -53,9 +53,6 @@ data:
         - domain: codeserver.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
-        - domain: traefik.technolab.cloud
-          subject: "user:ebrianne"
-          policy: two_factor
         - domain: bitwarden.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
@@ -67,6 +64,11 @@ data:
           - "^/whoami"
           subject: "user:ebrianne"
           policy: one_factor
+        - domain: technolab.cloud
+          resources:
+          - "^/internal/.*$"
+          subject: "user:ebrianne"
+          policy: two_factor
 
     session:
       name: authelia_session
