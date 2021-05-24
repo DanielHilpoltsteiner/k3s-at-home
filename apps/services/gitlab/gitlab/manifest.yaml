@@ -168,7 +168,7 @@ data:
         methods:
           - probe_db
         opts:
-          connection_string: dbname=gitlab user=gitlab host=10.0.40.12 port=5432 password='<%= File.read("/etc/gitlab/postgres/psql-password").strip.gsub(/[\'\\]/) { |esc| '\\' + esc } %>'
+          connection_string: dbname=gitlab user=gitlab host=10.0.40.24 port=5432 password='<%= File.read("/etc/gitlab/postgres/psql-password").strip.gsub(/[\'\\]/) { |esc| '\\' + esc } %>'
       database:
         multiple: true
         ci_builds:
@@ -471,7 +471,7 @@ data:
       database: gitlab
       username: gitlab
       password: "<%= File.read("/etc/gitlab/postgres/psql-password").strip.dump[1..-2] %>"
-      host: "10.0.40.12"
+      host: "10.0.40.24"
       port: 5432
       connect_timeout:
       application_name:
@@ -557,7 +557,7 @@ data:
       database: gitlab
       username: gitlab
       password: "<%= File.read("/etc/gitlab/postgres/psql-password").strip.dump[1..-2] %>"
-      host: "10.0.40.12"
+      host: "10.0.40.24"
       port: 5432
       connect_timeout:
       application_name:
@@ -765,7 +765,7 @@ data:
       database: gitlab
       username: gitlab
       password: "<%= File.read("/etc/gitlab/postgres/psql-password").strip.dump[1..-2] %>"
-      host: "10.0.40.12"
+      host: "10.0.40.24"
       port: 5432
       connect_timeout:
       application_name:
@@ -994,7 +994,7 @@ data:
       database: gitlab
       username: gitlab
       password: "<%= File.read("/etc/gitlab/postgres/psql-password").strip.dump[1..-2] %>"
-      host: "10.0.40.12"
+      host: "10.0.40.24"
       port: 5432
       connect_timeout:
       application_name:

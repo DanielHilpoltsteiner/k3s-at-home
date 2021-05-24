@@ -23,7 +23,7 @@ spec:
     spec:
       terminationGracePeriodSeconds: 30
       securityContext:
-        fsGroup: 999
+        fsGroup: 70
       containers:
         - name: postgres
           image: postgres:13.3-alpine
@@ -32,7 +32,7 @@ spec:
             capabilities:
               drop:
                 - ALL
-            runAsUser: 999
+            runAsUser: 70
             runAsNonRoot: true
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false

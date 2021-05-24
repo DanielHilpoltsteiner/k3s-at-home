@@ -80,7 +80,7 @@ data:
 
     storage:
       postgres:
-        host: 10.0.40.11
+        host: 10.0.40.24
         port: 5432
         database: authelia
         username: authelia
