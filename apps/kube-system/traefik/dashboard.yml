@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`technolab.cloud`) && PathPrefix(`/internal`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+    - match: (Host(`technolab.cloud`) && Path(`/internal`)) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
       kind: Rule
       services:
         - name: api@internal
