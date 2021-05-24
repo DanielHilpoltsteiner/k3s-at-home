@@ -6,7 +6,7 @@ metadata:
 spec:
   forceHttps: true
   providers: "UptimeRobot"
-  url: https://authelia.technolab.cloud
+  url: https://technolab.cloud/auth
   uptimeRobotConfig:
     interval: 300
     monitorType: "keyword"
