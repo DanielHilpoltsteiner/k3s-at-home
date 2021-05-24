@@ -17,6 +17,11 @@ data:
     log_format: json
     # jwt_secret: ${JWT_SECRET}
 
+    server:
+      read_buffer_size: 4096
+      write_buffer_size: 4096
+      path: auth
+
     theme: dark
 
     default_redirection_url: https://technolab.cloud
