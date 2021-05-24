@@ -8,5 +8,272 @@ metadata:
     app.kubernetes.io/name: postgres
 data:
   postgres.conf: |
+    # -----------------------------
+    # PostgreSQL configuration file
+    # -----------------------------
+    #
+    # This file consists of lines of the form:
+    #
+    #   name = value
+    #
+    # (The "=" is optional.)  Whitespace may be used.  Comments are introduced with
+    # "#" anywhere on a line.  The complete list of parameter names and allowed
+    # values can be found in the PostgreSQL documentation.
+    #
+    # The commented-out settings shown in this file represent the default values.
+    # Re-commenting a setting is NOT sufficient to revert it to the default value;
+    # you need to reload the server.
+    #
+    # This file is read on server startup and when the server receives a SIGHUP
+    # signal.  If you edit the file on a running system, you have to SIGHUP the
+    # server for the changes to take effect, run "pg_ctl reload", or execute
+    # "SELECT pg_reload_conf()".  Some parameters, which are marked below,
+    # require a server shutdown and restart to take effect.
+    #
+    # Any parameter can also be given as a command-line option to the server, e.g.,
+    # "postgres -c log_connections=on".  Some parameters can be changed at run time
+    # with the "SET" SQL command.
+    #
+    # Memory units:  kB = kilobytes        Time units:  ms  = milliseconds
+    #                MB = megabytes                     s   = seconds
+    #                GB = gigabytes                     min = minutes
+    #                TB = terabytes                     h   = hours
+    #                                                   d   = days
+
+    #------------------------------------------------------------------------------
+    # CONNECTIONS AND AUTHENTICATION
+    #------------------------------------------------------------------------------
+
+    # - Connection Settings -
+
+    listen_addresses = '*'                                # what IP address(es) to listen on;
+                                                      # comma-separated list of addresses;
+                                                      # defaults to 'localhost'; use '*' for all
+                                                      # (change requires restart)
+    port = 5432                                                # (change requires restart)
+    max_connections = 100                                    # (change requires restart)
+    unix_socket_directories = '/run/postgresql,/tmp'    # comma-separated list of directories
+
+    # - SSL -
+
+    ssl = off
+
+    #------------------------------------------------------------------------------
+    # RESOURCE USAGE (except WAL)
+    #------------------------------------------------------------------------------
+
+    # - Memory -
+
+    shared_buffers = 128MB
+    dynamic_shared_memory_type = posix
+
+    #------------------------------------------------------------------------------
+    # WRITE-AHEAD LOG
+    #------------------------------------------------------------------------------
+
+    # - Checkpoints -
+
+    max_wal_size = 1GB
+    min_wal_size = 80MB
+
+    #------------------------------------------------------------------------------
+    # QUERY TUNING
+    #------------------------------------------------------------------------------
+
+    # - Planner Method Configuration -
+
+    #enable_bitmapscan = on
+    #enable_hashagg = on
+    #enable_hashjoin = on
+    #enable_indexscan = on
+    #enable_indexonlyscan = on
+    #enable_material = on
+    #enable_mergejoin = on
+    #enable_nestloop = on
+    #enable_parallel_append = on
+    #enable_seqscan = on
+    #enable_sort = on
+    #enable_incremental_sort = on
+    #enable_tidscan = on
+    #enable_partitionwise_join = off
+    #enable_partitionwise_aggregate = off
+    #enable_parallel_hash = on
+    #enable_partition_pruning = on
+
+    # - Planner Cost Constants -
+
+    #seq_page_cost = 1.0            # measured on an arbitrary scale
+    #random_page_cost = 4.0            # same scale as above
+    #cpu_tuple_cost = 0.01            # same scale as above
+    #cpu_index_tuple_cost = 0.005        # same scale as above
+    #cpu_operator_cost = 0.0025        # same scale as above
+    #parallel_tuple_cost = 0.1        # same scale as above
+    #parallel_setup_cost = 1000.0    # same scale as above
+
+    #jit_above_cost = 100000        # perform JIT compilation if available
+              # and query more expensive than this;
+              # -1 disables
+    #jit_inline_above_cost = 500000        # inline small functions if query is
+              # more expensive than this; -1 disables
+    #jit_optimize_above_cost = 500000    # use expensive JIT optimizations if
+              # query is more expensive than this;
+              # -1 disables
+
+    #min_parallel_table_scan_size = 8MB
+    #min_parallel_index_scan_size = 512kB
+    #effective_cache_size = 4GB
+
+    # - Genetic Query Optimizer -
+
+    #geqo = on
+    #geqo_threshold = 12
+    #geqo_effort = 5            # range 1-10
+    #geqo_pool_size = 0            # selects default based on effort
+    #geqo_generations = 0            # selects default based on effort
+    #geqo_selection_bias = 2.0        # range 1.5-2.0
+    #geqo_seed = 0.0            # range 0.0-1.0
+
+    # - Other Planner Options -
+
+    #default_statistics_target = 100    # range 1-10000
+    #constraint_exclusion = partition    # on, off, or partition
+    #cursor_tuple_fraction = 0.1        # range 0.0-1.0
+    #from_collapse_limit = 8
+    #join_collapse_limit = 8        # 1 disables collapsing of explicit
+              # JOIN clauses
+    #force_parallel_mode = off
+    #jit = on                # allow JIT compilation
+    #plan_cache_mode = auto            # auto, force_generic_plan or
+              # force_custom_plan
+
+
+    #------------------------------------------------------------------------------
+    # REPORTING AND LOGGING
+    #------------------------------------------------------------------------------
+
+    # - What to Log -
+
+    log_timezone = 'Europe/Berlin'
+
+    #------------------------------------------------------------------------------
+    # CLIENT CONNECTION DEFAULTS
+    #------------------------------------------------------------------------------
+
+    # - Locale and Formatting -
+
+    datestyle = 'iso, mdy'
+    timezone = 'Europe/Berlin'
+
+    # These settings are initialized by initdb, but they can be changed.
+    lc_messages = 'C'            # locale for system error message
+              # strings
+    lc_monetary = 'C'            # locale for monetary formatting
+    lc_numeric = 'C'            # locale for number formatting
+    lc_time = 'C'                # locale for time formatting
+
+    # default configuration for text search
+    default_text_search_config = 'pg_catalog.english'
+
+    #------------------------------------------------------------------------------
+    # CUSTOMIZED OPTIONS
+    #------------------------------------------------------------------------------
+
+    # Add settings for extensions here
 
   pg_hba.conf: |
+    # PostgreSQL Client Authentication Configuration File
+    # ===================================================
+    #
+    # Refer to the "Client Authentication" section in the PostgreSQL
+    # documentation for a complete description of this file.  A short
+    # synopsis follows.
+    #
+    # This file controls: which hosts are allowed to connect, how clients
+    # are authenticated, which PostgreSQL user names they can use, which
+    # databases they can access.  Records take one of these forms:
+    #
+    # local      DATABASE  USER  METHOD  [OPTIONS]
+    # host       DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+    # hostssl    DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+    # hostnossl  DATABASE  USER  ADDRESS  METHOD  [OPTIONS]
+    #
+    # (The uppercase items must be replaced by actual values.)
+    #
+    # The first field is the connection type: "local" is a Unix-domain
+    # socket, "host" is either a plain or SSL-encrypted TCP/IP socket,
+    # "hostssl" is an SSL-encrypted TCP/IP socket, and "hostnossl" is a
+    # plain TCP/IP socket.
+    #
+    # DATABASE can be "all", "sameuser", "samerole", "replication", a
+    # database name, or a comma-separated list thereof. The "all"
+    # keyword does not match "replication". Access to replication
+    # must be enabled in a separate record (see example below).
+    #
+    # USER can be "all", a user name, a group name prefixed with "+", or a
+    # comma-separated list thereof.  In both the DATABASE and USER fields
+    # you can also write a file name prefixed with "@" to include names
+    # from a separate file.
+    #
+    # ADDRESS specifies the set of hosts the record matches.  It can be a
+    # host name, or it is made up of an IP address and a CIDR mask that is
+    # an integer (between 0 and 32 (IPv4) or 128 (IPv6) inclusive) that
+    # specifies the number of significant bits in the mask.  A host name
+    # that starts with a dot (.) matches a suffix of the actual host name.
+    # Alternatively, you can write an IP address and netmask in separate
+    # columns to specify the set of hosts.  Instead of a CIDR-address, you
+    # can write "samehost" to match any of the server's own IP addresses,
+    # or "samenet" to match any address in any subnet that the server is
+    # directly connected to.
+    #
+    # METHOD can be "trust", "reject", "md5", "password", "scram-sha-256",
+    # "gss", "sspi", "ident", "peer", "pam", "ldap", "radius" or "cert".
+    # Note that "password" sends passwords in clear text; "md5" or
+    # "scram-sha-256" are preferred since they send encrypted passwords.
+    #
+    # OPTIONS are a set of options for the authentication in the format
+    # NAME=VALUE.  The available options depend on the different
+    # authentication methods -- refer to the "Client Authentication"
+    # section in the documentation for a list of which options are
+    # available for which authentication methods.
+    #
+    # Database and user names containing spaces, commas, quotes and other
+    # special characters must be quoted.  Quoting one of the keywords
+    # "all", "sameuser", "samerole" or "replication" makes the name lose
+    # its special character, and just match a database or username with
+    # that name.
+    #
+    # This file is read on server startup and when the server receives a
+    # SIGHUP signal.  If you edit the file on a running system, you have to
+    # SIGHUP the server for the changes to take effect, run "pg_ctl reload",
+    # or execute "SELECT pg_reload_conf()".
+    #
+    # Put your actual configuration here
+    # ----------------------------------
+    #
+    # If you want to allow non-local connections, you need to add more
+    # "host" records.  In that case you will also need to make PostgreSQL
+    # listen on a non-local interface via the listen_addresses
+    # configuration parameter, or via the -i or -h command line switches.
+
+    # CAUTION: Configuring the system for local "trust" authentication
+    # allows any local user to connect as any PostgreSQL user, including
+    # the database superuser.  If you do not trust all your local users,
+    # use another authentication method.
+
+
+    # TYPE  DATABASE        USER            ADDRESS                 METHOD
+
+    # "local" is for Unix domain socket connections only
+    local   all             all                                     trust
+    # IPv4 local connections:
+    host    all             all             127.0.0.1/32            trust
+    # IPv6 local connections:
+    host    all             all             ::1/128                 trust
+    # Allow replication connections from localhost, by a user with the
+    # replication privilege.
+    local   replication     all                                     trust
+    host    replication     all             127.0.0.1/32            trust
+    host    replication     all             ::1/128                 trust
+
+    host    replication     replication     all                     md5
+    host    all             all             all                     md5

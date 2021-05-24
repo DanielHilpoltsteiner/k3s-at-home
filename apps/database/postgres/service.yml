@@ -7,8 +7,8 @@ metadata:
   name: postgres
   namespace: database
 spec:
-  type: ClusterIP
-  clusterIP: None
+  type: LoadBalancer
+  loadBalancerIP: 10.0.40.24
   ports:
   - name: postgres
     port: 5432
