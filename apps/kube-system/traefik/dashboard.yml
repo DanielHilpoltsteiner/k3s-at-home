@@ -8,7 +8,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: (Host(`technolab.cloud`) && Path(`/internal`)) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
+    - match: Host(`traefik.technolab.cloud`) && (PathPrefix(`/api`) || PathPrefix(`/dashboard`))
       kind: Rule
       services:
         - name: api@internal
@@ -19,8 +19,6 @@ spec:
         - name: nc-headers
           namespace: services
         - name: traefik-errors
-          namespace: kube-system
-        - name: dashboard-strip-prefix
           namespace: kube-system
   tls:
     secretName: traefik-technolab-cloudflare-org-tls

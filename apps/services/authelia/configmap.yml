@@ -50,6 +50,9 @@ data:
     access_control:
       default_policy: deny
       rules:
+        - domain: traefik.technolab.cloud
+          subject: "user:ebrianne"
+          policy: two_factor
         - domain: codeserver.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
