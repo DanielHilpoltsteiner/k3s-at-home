@@ -84,7 +84,16 @@ spec:
         - mountPath: /app/secrets
           name: secrets
           readOnly: true
-      affinity: {}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - authelia
+            topologyKey: "kubernetes.io/hostname"
       tolerations: []
       volumes:
       - name: config-volume
