@@ -9,9 +9,9 @@ metadata:
   labels:
     app: authelia
 spec:
-  replicas: 1
+  replicas: 2
   strategy:
-    type: Recreate
+    type: RollingUpdate
   selector:
     matchLabels:
       app: authelia
