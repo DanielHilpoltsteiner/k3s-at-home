@@ -12,18 +12,16 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
     traefik.ingress.kubernetes.io/router.middlewares: kube-system-traefik-errors@kubernetescrd,services-traefik-real-ip@kubernetescrd,services-rate-limit@kubernetescrd,services-authelia-headers@kubernetescrd
-    external-dns.alpha.kubernetes.io/hostname: authelia.technolab.cloud
-    external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:
   rules:
-  - host: authelia.technolab.cloud
+  - host: technolab.cloud
     http:
       paths:
-      - path: /
+      - path: /auth
         backend:
           serviceName: authelia
           servicePort: http
   tls:
   - hosts:
-    - authelia.technolab.cloud
+    - technolab.cloud
     secretName: services-technolab-cloudflare-org-tls
