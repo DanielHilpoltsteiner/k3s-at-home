@@ -6,7 +6,7 @@ metadata:
   namespace: services
 spec:
   forwardAuth:
-    address: http://authelia.services.svc.cluster.local/api/verify?rd=https://technolab.cloud/auth
+    address: http://authelia.services.svc.cluster.local/api/verify?rd=https://authelia.technolab.cloud/
     trustForwardHeader: true
     authResponseHeaders:
       - Remote-User

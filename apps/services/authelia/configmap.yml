@@ -20,7 +20,6 @@ data:
     server:
       read_buffer_size: 4096
       write_buffer_size: 4096
-      path: auth
 
     theme: dark
 
