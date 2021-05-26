@@ -7,11 +7,14 @@ metadata:
   labels:
     app: nextcloud
 spec:
-  successfulJobsHistoryLimit: 3
+  successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
   schedule: "*/5 * * * *"
+  concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 2
+      ttlSecondsAfterFinished: 100
       template:
         metadata:
           name: nextcloud-curl-job
