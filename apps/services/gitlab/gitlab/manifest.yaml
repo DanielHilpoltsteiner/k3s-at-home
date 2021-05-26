@@ -1479,7 +1479,7 @@ spec:
               cpu: 50m
         - name: configure
           command: ["sh", "/config/configure"]
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           env:
             - name: MALLOC_CONF
               value: "dirty_decay_ms:0,muzzy_decay_ms:0"
@@ -1616,7 +1616,7 @@ spec:
               cpu: 50m
         - name: configure
           command: ["sh", "/config/configure"]
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           env: []
           volumeMounts:
             - name: shell-config
@@ -1780,7 +1780,7 @@ spec:
               cpu: 50m
         - name: configure
           command: ["sh", "/config/configure"]
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           env: []
           volumeMounts:
             - name: sidekiq-config
@@ -2012,7 +2012,7 @@ spec:
               cpu: 50m
         - name: configure
           command: ["sh", "/config/configure"]
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           env: []
           volumeMounts:
             - name: task-runner-config
@@ -2218,7 +2218,7 @@ spec:
               "-c",
               "sh -x /config-webservice/configure ; sh -x /config-workhorse/configure ; mkdir -p -m 3770 /tmp/gitlab",
             ]
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           env: []
           volumeMounts:
             - name: webservice-config
@@ -2601,7 +2601,7 @@ spec:
               cpu: 50m
         - name: configure
           command: ["sh", "/config/configure"]
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           env: []
           volumeMounts:
             - name: gitaly-config
@@ -2739,7 +2739,7 @@ spec:
               cpu: 50m
         - name: configure
           command: ["sh", "/config/configure"]
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           env: []
           volumeMounts:
             - name: migrations-config
@@ -3291,7 +3291,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: run-check
-          image: "busybox:latest"
+          image: "busybox:1.33.1"
           command: ["/bin/sh", "/scripts/runcheck"]
           env:
             - name: GITLAB_VERSION
