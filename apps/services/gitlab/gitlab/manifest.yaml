@@ -2631,7 +2631,7 @@ spec:
                     release: gitlab
       containers:
         - name: gitaly
-          image: "registry.gitlab.com/gitlab-org/build/cng/gitaly:v13.12.0"
+          image: "registry.gitlab.com/gitlab-org/build/cng/gitaly:v13.12.1"
           ports:
             - containerPort: 8075
             - containerPort: 9236
