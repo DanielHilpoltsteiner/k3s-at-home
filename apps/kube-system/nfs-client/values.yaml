@@ -81,4 +81,13 @@ nfs-subdir-external-provisioner:
       operator: "Exists"
       effect: "NoSchedule"
 
-  affinity: {}
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        - labelSelector:
+            matchExpressions:
+              - key: app
+                operator: In
+                values:
+                  - nfs-subdir-external-provisioner
+          topologyKey: "kubernetes.io/hostname"
