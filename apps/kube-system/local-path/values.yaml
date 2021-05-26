@@ -31,4 +31,4 @@ local-path-provisioner:
             operator: In
             values:
             - local-path-provisioner
-          topologyKey: "kubernetes.io/hostname"
+        topologyKey: "kubernetes.io/hostname"
