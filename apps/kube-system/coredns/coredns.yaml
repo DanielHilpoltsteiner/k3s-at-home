@@ -209,10 +209,10 @@ spec:
           requiredDuringSchedulingIgnoredDuringExecution:
           - labelSelector:
               matchExpressions:
-              - key: app
+              - key: app.kubernetes.io/name
                 operator: In
                 values:
-                - nfs-subdir-external-provisioner
+                - coredns
             topologyKey: "kubernetes.io/hostname"
       tolerations:
       - effect: NoSchedule
