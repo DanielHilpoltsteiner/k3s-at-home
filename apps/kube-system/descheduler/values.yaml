@@ -24,11 +24,11 @@ descheduler:
 
   schedule: "*/5 * * * *"
   # startingDeadlineSeconds: 200
-  # successfulJobsHistoryLimit: 1
-  # failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
 
   cmdOptions:
-    v: 4
+    v: 3
     max-pods-to-evict-per-node: 10
 
   podAnnotations:
@@ -56,9 +56,9 @@ descheduler:
         params:
           nodeResourceUtilizationThresholds:
             thresholds:
-              "cpu": 30
-              "memory": 30
-              "pods": 30
+              "cpu": 40
+              "memory": 40
+              "pods": 40
             targetThresholds:
               "cpu": 50
               "memory": 60

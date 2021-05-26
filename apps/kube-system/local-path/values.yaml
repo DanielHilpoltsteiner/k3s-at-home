@@ -21,3 +21,14 @@ local-path-provisioner:
 
   nodeSelector:
     node-role.kubernetes.io/master: "true"
+
+  affinity:
+    podAntiAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+      - labelSelector:
+          matchExpressions:
+          - key: app.kubernetes.io/name
+            operator: In
+            values:
+            - local-path-provisioner
+          topologyKey: "kubernetes.io/hostname"
