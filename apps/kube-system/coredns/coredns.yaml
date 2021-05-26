@@ -111,8 +111,12 @@ spec:
     app.kubernetes.io/name: coredns
   clusterIP: 10.96.0.10
   ports:
-  - {port: 53, protocol: UDP, name: udp-53}
-  - {port: 53, protocol: TCP, name: tcp-53}
+  - port: 53
+    protocol: UDP
+    name: udp-53
+  - port: 53
+    protocol: TCP
+    name: tcp-53
   type: ClusterIP
 ---
 # Source: coredns/templates/deployment.yaml
@@ -128,7 +132,7 @@ metadata:
     kubernetes.io/name: "CoreDNS"
     app.kubernetes.io/name: coredns
 spec:
-  replicas: 1
+  replicas: 3
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -153,12 +157,6 @@ spec:
       terminationGracePeriodSeconds: 30
       serviceAccountName: default
       dnsPolicy: Default
-      tolerations:
-      - effect: NoSchedule
-        key: node-role.kubernetes.io/master
-        operator: Exists
-      nodeSelector:
-        node-role.kubernetes.io/master: "true"
       containers:
       - name: "coredns"
         image: "coredns/coredns:1.8.3"
@@ -175,9 +173,12 @@ spec:
             cpu: 100m
             memory: 128Mi
         ports:
-        - {containerPort: 53, protocol: UDP, name: udp-53}
-        - {containerPort: 53, protocol: TCP, name: tcp-53}
-
+        - containerPort: 53
+          protocol: UDP
+          name: udp-53
+        - containerPort: 53
+          protocol: TCP
+          name: tcp-53
         livenessProbe:
           httpGet:
             path: /health
@@ -203,3 +204,19 @@ spec:
           items:
           - key: Corefile
             path: Corefile
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - nfs-subdir-external-provisioner
+            topologyKey: "kubernetes.io/hostname"
+      tolerations:
+      - effect: NoSchedule
+        key: node-role.kubernetes.io/master
+        operator: Exists
+      nodeSelector:
+        node-role.kubernetes.io/master: "true"
