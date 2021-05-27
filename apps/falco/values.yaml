@@ -2,7 +2,7 @@ falco:
   image:
     registry: docker.io
     repository: falcosecurity/falco-no-driver
-    tag: 0.28.2
+    tag: 0.28.1
     pullPolicy: IfNotPresent
     pullSecrets: []
 
