@@ -14,7 +14,13 @@ falco:
     enabled: true
     socket: /run/containerd/containerd.sock
 
-  resources: {}
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+    requests:
+      cpu: 200m
+      memory: 256Mi
 
   extraArgs: []
   nodeSelector:
