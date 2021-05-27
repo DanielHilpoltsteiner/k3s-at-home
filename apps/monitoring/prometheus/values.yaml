@@ -50,7 +50,7 @@ prometheus:
     ##
     image:
       repository: quay.io/prometheus/alertmanager
-      tag: v0.22.0
+      tag: v0.22.1
       pullPolicy: IfNotPresent
 
     ## alertmanager priorityClassName
