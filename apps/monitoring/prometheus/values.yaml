@@ -1004,7 +1004,7 @@ prometheus:
     ##
     image:
       repository: prom/pushgateway
-      tag: v1.4.0
+      tag: v1.4.1
       pullPolicy: IfNotPresent
 
     ## pushgateway priorityClassName
