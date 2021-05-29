@@ -129,6 +129,14 @@ argo-cd:
                 matchLabels:
                   app.kubernetes.io/name: argocd-application-controller
               topologyKey: kubernetes.io/hostname
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: NotIn
+                  values:
+                    - k3s-w-3
 
     priorityClassName: ""
 
@@ -885,6 +893,14 @@ argo-cd:
                 matchLabels:
                   app.kubernetes.io/name: argocd-repo-server
               topologyKey: kubernetes.io/hostname
+      nodeAffinity:
+        requiredDuringSchedulingIgnoredDuringExecution:
+          nodeSelectorTerms:
+            - matchExpressions:
+                - key: kubernetes.io/hostname
+                  operator: NotIn
+                  values:
+                    - k3s-w-3
 
     priorityClassName: ""
 
