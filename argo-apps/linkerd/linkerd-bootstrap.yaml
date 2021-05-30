@@ -20,3 +20,25 @@ spec:
     automated:
       prune: false
       selfHeal: true
+
+  ignoreDifferences:
+    - group: "cert-manager.io"
+      kind: Certificate
+      name: linkerd-proxy-injector
+      jsonPointers:
+        - /spec/isCA
+    - group: "cert-manager.io"
+      kind: Certificate
+      name: linkerd-sp-validator
+      jsonPointers:
+        - /spec/isCA
+    - group: "cert-manager.io"
+      kind: Certificate
+      name: tap
+      jsonPointers:
+        - /spec/isCA
+    - group: "cert-manager.io"
+      kind: Certificate
+      name: linkerd-tap-injector
+      jsonPointers:
+        - /spec/isCA
