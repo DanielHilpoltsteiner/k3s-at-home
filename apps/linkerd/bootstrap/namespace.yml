@@ -1,0 +1,16 @@
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: linkerd
+---
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: linkerd-viz
+  labels:
+    linkerd.io/extension: viz
+  annotations:
+    viz.linkerd.io/external-prometheus: http://prometheus.home-lab.io
+    linkerd.io/inject: enabled
+    config.linkerd.io/proxy-await: "enabled"
