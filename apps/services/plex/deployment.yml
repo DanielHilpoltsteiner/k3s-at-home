@@ -17,6 +17,8 @@ spec:
     metadata:
       labels:
         app: plex
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - name: plex

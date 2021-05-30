@@ -17,6 +17,8 @@ spec:
     metadata:
       labels:
         app: whoami
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - name: whoami
@@ -25,7 +27,13 @@ spec:
         ports:
         - name: http
           containerPort: 80
-        resources: {}
+        resources:
+          requests:
+            cpu: 50m
+            memory: 50Mi
+          limits:
+            cpu: 200m
+            memory: 100Mi
       nodeSelector:
         beta.kubernetes.io/arch: amd64
       tolerations: []

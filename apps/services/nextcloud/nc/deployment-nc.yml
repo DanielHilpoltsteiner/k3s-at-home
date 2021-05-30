@@ -17,6 +17,8 @@ spec:
     metadata:
       labels:
         app: nextcloud
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       securityContext:
         fsGroup: 33
