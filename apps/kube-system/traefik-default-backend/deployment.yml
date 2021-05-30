@@ -24,6 +24,7 @@ spec:
       labels:
         app.kubernetes.io/component: default-backend
         app.kubernetes.io/instance: traefik
+      annotations:
         linkerd.io/inject: enabled
     spec:
       containers:
