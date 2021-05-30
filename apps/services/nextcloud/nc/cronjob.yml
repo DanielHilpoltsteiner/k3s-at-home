@@ -22,6 +22,7 @@ spec:
             app: nextcloud
           annotations:
             botkube.io/disable: 'true'
+            linkerd.io/inject: disabled
         spec:
           restartPolicy: Never
           containers:
@@ -30,10 +31,7 @@ spec:
               imagePullPolicy: IfNotPresent
               command: ["curl"]
               args:
-                - "--retry"
-                - "5"
-                - "--retry-delay"
-                - "5"
+                - "--fail"
                 - "-L"
-                - "http://nextcloud:8080/cron.php"
+                - "https://nextcloud.technolab.cloud/cron.php"
               resources: {}
