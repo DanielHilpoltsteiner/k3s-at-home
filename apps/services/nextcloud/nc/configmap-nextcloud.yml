@@ -18,6 +18,7 @@ data:
           array (
             0 => 'localhost',
             1 => 'nextcloud.technolab.cloud'
+            2 => 'nextcloud'
           ),
           'trusted_proxies' =>
           array (
