@@ -7,10 +7,10 @@ linkerd-viz:
   namespace: linkerd-viz
 
   # -- url of external prometheus instance
-  prometheusUrl: "http://prometheus.home-lab.io"
+  # prometheusUrl: ""
 
   # -- url of external grafana instance with reverse proxy configured.
-  grafanaUrl: "http://grafana.home-lab.io"
+  # grafanaUrl: ""
 
   # metrics API configuration
   metricsAPI:
@@ -73,12 +73,12 @@ linkerd-viz:
     # -- Host header validation regex for the dashboard. See the [Linkerd
     # documentation](https://linkerd.io/2/tasks/exposing-dashboard) for more
     # information
-    enforcedHostRegexp: "linkerd.home-lab.io"
+    # enforcedHostRegexp: "linkerd.home-lab.io"
 
   grafana:
     # -- toggle field to enable or disable grafana
-    enabled: false
+    enabled: true
 
   prometheus:
     # -- toggle field to enable or disable prometheus
-    enabled: false
+    enabled: true
