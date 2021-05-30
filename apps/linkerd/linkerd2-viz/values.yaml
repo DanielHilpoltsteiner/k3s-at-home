@@ -1,0 +1,78 @@
+linkerd-viz:
+  # -- Namespace of the Linkerd core control-plane install
+  linkerdNamespace: linkerd
+  # -- Set to false when installing in a custom namespace.
+  installNamespace: true
+  # -- Namespace in which the Linkerd Viz extension has to be installed
+  namespace: linkerd-viz
+
+  # -- url of external prometheus instance
+  prometheusUrl: "http://prometheus.home-lab.io"
+
+  # -- url of external grafana instance with reverse proxy configured.
+  grafanaUrl: "http://grafana.home-lab.io"
+
+  # metrics API configuration
+  metricsAPI:
+    # -- number of replicas of the metrics-api component
+    replicas: 1
+
+  # tap configuration
+  tap:
+      # -- Number of tap component replicas
+    replicas: 1
+    # -- Do not create a secret resource for the Tap component. If this is set to
+    # `true`, the value `tap.caBundle` must be set (see below).
+    externalSecret: false
+    # -- Certificate for the Tap component. If not provided then Helm will
+    # generate one.
+    crtPEM: |
+
+    # -- Certificate key for Tap component. If not provided then Helm will
+    # generate one.
+    keyPEM: |
+
+    # -- Bundle of CA certificates for Tap component. If not provided then Helm
+    # will use the certificate generated  for `tap.crtPEM`. If
+    # `tap.externalSecret` is set to true, this value must be set, as no
+    # certificate will be generated.
+    caBundle: |
+
+  # tapInjector configuration
+  tapInjector:
+    # -- Number of replicas of tapInjector
+    replicas: 1
+    # -- Do not create a secret resource for the tapInjector webhook. If this is
+    # set to `true`, the value `tapInjector.caBundle` must be set (see below)
+    externalSecret: false
+    # -- Certificate for the tapInjector. If not provided then Helm will
+    # generate one.
+    crtPEM: |
+
+    # -- Certificate key for the tapInjector. If not provided then Helm will
+    # generate one.
+    keyPEM: |
+
+    # -- Bundle of CA certificates for the tapInjector. If not provided then
+    # Helm will use the certificate generated  for `tapInjector.crtPEM`. If
+    # `tapInjector.externalSecret` is set to true, this value must be set, as no
+    # certificate will be generated.
+    caBundle: |
+
+  # web dashboard configuration
+  dashboard:
+    # -- Number of replicas of dashboard
+    replicas: 1
+
+    # -- Host header validation regex for the dashboard. See the [Linkerd
+    # documentation](https://linkerd.io/2/tasks/exposing-dashboard) for more
+    # information
+    enforcedHostRegexp: ""
+
+  grafana:
+    # -- toggle field to enable or disable grafana
+    enabled: false
+
+  prometheus:
+    # -- toggle field to enable or disable prometheus
+    enabled: false
