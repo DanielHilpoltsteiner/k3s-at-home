@@ -30,7 +30,6 @@ spec:
               imagePullPolicy: IfNotPresent
               command: ["curl"]
               args:
-                - "--fail"
                 - "--retry"
                 - "5"
                 - "--retry-delay"
