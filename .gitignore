@@ -5,3 +5,5 @@ secret-*.yaml
 charts/
 Chart.lock
 *.ldif
+*.crt
+*.key
