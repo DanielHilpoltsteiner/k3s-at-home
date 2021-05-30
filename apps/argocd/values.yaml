@@ -671,12 +671,6 @@ argo-cd:
           - Backup
           clusters:
           - "*"
-        - apiGroups:
-          - "cert-manager.io"
-          kinds:
-          - Certificate
-          clusters:
-          - "*"
 
     ## Annotations to be added to ArgoCD ConfigMap
     configAnnotations: {}
