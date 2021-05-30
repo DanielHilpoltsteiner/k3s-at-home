@@ -20,3 +20,32 @@ linkerd2:
   # installNamespace -- Set to false when installing Linkerd in a custom namespace. See the
   # [Linkerd documentation](https://linkerd.io/2/tasks/install-helmcustomizing-the-namespace) for more information.
   installNamespace: false
+
+  proxyInjector:
+    externalSecret: true
+    caBundle: |
+      -----BEGIN CERTIFICATE-----
+      MIIBlDCCATmgAwIBAgIQXeJDYsZUy81stHlCKN9ZcjAKBggqhkjOPQQDAjAoMSYw
+      JAYDVQQDEx13ZWJob29rLmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMTA1MzAx
+      MzQ0MDJaFw0zMTA1MjgxMzQ0MDJaMCgxJjAkBgNVBAMTHXdlYmhvb2subGlua2Vy
+      ZC5jbHVzdGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZ9dJ56Q9
+      9zSCZfADQEnG1kE5xqmpTW3Fx1w5WDPYZEPpxqqNjkZHjg1GOCR82VzxDHLUJaIx
+      OT4eslhB1LQm06NFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8C
+      AQEwHQYDVR0OBBYEFJ0dTLU5Sw/o1gn8/MJFzW5XXyyXMAoGCCqGSM49BAMCA0kA
+      MEYCIQCG72CznHwMRuJX3Kk4+4AFrlHy765JhJ8hoKq9B/+rugIhAKLn5xiT05eq
+      jPxbBAwPt2G9+qQztnIQ5VIi/ouFxHXU
+      -----END CERTIFICATE-----
+  profileValidator:
+    externalSecret: true
+    caBundle: |
+      -----BEGIN CERTIFICATE-----
+      MIIBlDCCATmgAwIBAgIQXeJDYsZUy81stHlCKN9ZcjAKBggqhkjOPQQDAjAoMSYw
+      JAYDVQQDEx13ZWJob29rLmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMTA1MzAx
+      MzQ0MDJaFw0zMTA1MjgxMzQ0MDJaMCgxJjAkBgNVBAMTHXdlYmhvb2subGlua2Vy
+      ZC5jbHVzdGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZ9dJ56Q9
+      9zSCZfADQEnG1kE5xqmpTW3Fx1w5WDPYZEPpxqqNjkZHjg1GOCR82VzxDHLUJaIx
+      OT4eslhB1LQm06NFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8C
+      AQEwHQYDVR0OBBYEFJ0dTLU5Sw/o1gn8/MJFzW5XXyyXMAoGCCqGSM49BAMCA0kA
+      MEYCIQCG72CznHwMRuJX3Kk4+4AFrlHy765JhJ8hoKq9B/+rugIhAKLn5xiT05eq
+      jPxbBAwPt2G9+qQztnIQ5VIi/ouFxHXU
+      -----END CERTIFICATE-----

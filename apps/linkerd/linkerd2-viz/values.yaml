@@ -2,7 +2,7 @@ linkerd-viz:
   # -- Namespace of the Linkerd core control-plane install
   linkerdNamespace: linkerd
   # -- Set to false when installing in a custom namespace.
-  installNamespace: true
+  installNamespace: false
   # -- Namespace in which the Linkerd Viz extension has to be installed
   namespace: linkerd-viz
 
@@ -23,20 +23,23 @@ linkerd-viz:
     replicas: 1
     # -- Do not create a secret resource for the Tap component. If this is set to
     # `true`, the value `tap.caBundle` must be set (see below).
-    externalSecret: false
-    # -- Certificate for the Tap component. If not provided then Helm will
-    # generate one.
-    crtPEM: |
-
-    # -- Certificate key for Tap component. If not provided then Helm will
-    # generate one.
-    keyPEM: |
-
+    externalSecret: true
     # -- Bundle of CA certificates for Tap component. If not provided then Helm
     # will use the certificate generated  for `tap.crtPEM`. If
     # `tap.externalSecret` is set to true, this value must be set, as no
     # certificate will be generated.
     caBundle: |
+      -----BEGIN CERTIFICATE-----
+      MIIBlDCCATmgAwIBAgIQXeJDYsZUy81stHlCKN9ZcjAKBggqhkjOPQQDAjAoMSYw
+      JAYDVQQDEx13ZWJob29rLmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMTA1MzAx
+      MzQ0MDJaFw0zMTA1MjgxMzQ0MDJaMCgxJjAkBgNVBAMTHXdlYmhvb2subGlua2Vy
+      ZC5jbHVzdGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZ9dJ56Q9
+      9zSCZfADQEnG1kE5xqmpTW3Fx1w5WDPYZEPpxqqNjkZHjg1GOCR82VzxDHLUJaIx
+      OT4eslhB1LQm06NFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8C
+      AQEwHQYDVR0OBBYEFJ0dTLU5Sw/o1gn8/MJFzW5XXyyXMAoGCCqGSM49BAMCA0kA
+      MEYCIQCG72CznHwMRuJX3Kk4+4AFrlHy765JhJ8hoKq9B/+rugIhAKLn5xiT05eq
+      jPxbBAwPt2G9+qQztnIQ5VIi/ouFxHXU
+      -----END CERTIFICATE-----
 
   # tapInjector configuration
   tapInjector:
@@ -44,20 +47,23 @@ linkerd-viz:
     replicas: 1
     # -- Do not create a secret resource for the tapInjector webhook. If this is
     # set to `true`, the value `tapInjector.caBundle` must be set (see below)
-    externalSecret: false
-    # -- Certificate for the tapInjector. If not provided then Helm will
-    # generate one.
-    crtPEM: |
-
-    # -- Certificate key for the tapInjector. If not provided then Helm will
-    # generate one.
-    keyPEM: |
-
+    externalSecret: true
     # -- Bundle of CA certificates for the tapInjector. If not provided then
     # Helm will use the certificate generated  for `tapInjector.crtPEM`. If
     # `tapInjector.externalSecret` is set to true, this value must be set, as no
     # certificate will be generated.
     caBundle: |
+      -----BEGIN CERTIFICATE-----
+      MIIBlDCCATmgAwIBAgIQXeJDYsZUy81stHlCKN9ZcjAKBggqhkjOPQQDAjAoMSYw
+      JAYDVQQDEx13ZWJob29rLmxpbmtlcmQuY2x1c3Rlci5sb2NhbDAeFw0yMTA1MzAx
+      MzQ0MDJaFw0zMTA1MjgxMzQ0MDJaMCgxJjAkBgNVBAMTHXdlYmhvb2subGlua2Vy
+      ZC5jbHVzdGVyLmxvY2FsMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEZ9dJ56Q9
+      9zSCZfADQEnG1kE5xqmpTW3Fx1w5WDPYZEPpxqqNjkZHjg1GOCR82VzxDHLUJaIx
+      OT4eslhB1LQm06NFMEMwDgYDVR0PAQH/BAQDAgEGMBIGA1UdEwEB/wQIMAYBAf8C
+      AQEwHQYDVR0OBBYEFJ0dTLU5Sw/o1gn8/MJFzW5XXyyXMAoGCCqGSM49BAMCA0kA
+      MEYCIQCG72CznHwMRuJX3Kk4+4AFrlHy765JhJ8hoKq9B/+rugIhAKLn5xiT05eq
+      jPxbBAwPt2G9+qQztnIQ5VIi/ouFxHXU
+      -----END CERTIFICATE-----
 
   # web dashboard configuration
   dashboard:
