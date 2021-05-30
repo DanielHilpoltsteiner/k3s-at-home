@@ -43,8 +43,8 @@ argo-cd:
 
     ## Argo controller commandline flags
     args:
-      statusProcessors: "4"
-      operationProcessors: "2"
+      statusProcessors: "20"
+      operationProcessors: "10"
       appResyncPeriod: "180"
       selfHealTimeout: "5"
 
@@ -830,7 +830,7 @@ argo-cd:
     ##
     extraArgs:
       - --parallelismlimit
-      - "1"
+      - "3"
       - --repo-cache-expiration
       - "12h"
 
