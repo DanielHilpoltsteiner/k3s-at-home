@@ -2,8 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    linkerd.io/inject: disabled
+  annotations: {}
   labels:
     app.kubernetes.io/component: default-backend
     app.kubernetes.io/instance: traefik
@@ -25,6 +24,7 @@ spec:
       labels:
         app.kubernetes.io/component: default-backend
         app.kubernetes.io/instance: traefik
+        linkerd.io/inject: enabled
     spec:
       containers:
       - image: ebrianne/default-http-backend:v1.1
