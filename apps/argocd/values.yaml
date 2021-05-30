@@ -660,6 +660,9 @@ argo-cd:
         - type: helm
           url: https://helm.traefik.io/traefik
           name: traefik
+        - type: helm
+          url: https://helm.linkerd.io/stable
+          name: linkerd
 
       resource.exclusions: |
         - apiGroups:
