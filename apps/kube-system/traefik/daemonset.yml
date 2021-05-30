@@ -2,7 +2,8 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  annotations: {}
+  annotations:
+    linkerd.io/inject: enabled
   labels:
     app.kubernetes.io/name: traefik
   name: traefik
