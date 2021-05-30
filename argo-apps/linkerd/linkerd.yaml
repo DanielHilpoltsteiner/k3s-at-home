@@ -63,9 +63,9 @@ spec:
       kind: CustomResourceDefinition
       name: trafficsplits.split.smi-spec.io
       jsonPointers:
-        - /status
+        - /spec/preserveUnknownFields
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
       name: serviceprofiles.linkerd.io
       jsonPointers:
-        - /status
+        - /spec/preserveUnknownFields
