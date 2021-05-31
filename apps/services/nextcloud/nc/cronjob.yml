@@ -22,7 +22,6 @@ spec:
             app: nextcloud
           annotations:
             botkube.io/disable: 'true'
-            linkerd.io/inject: disabled
         spec:
           restartPolicy: Never
           containers:

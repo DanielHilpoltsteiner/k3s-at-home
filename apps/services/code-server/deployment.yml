@@ -18,8 +18,7 @@ spec:
     metadata:
       labels:
         app: code-server
-      annotations:
-        linkerd.io/inject: enabled
+      annotations: {}
     spec:
       terminationGracePeriodSeconds: 30
       containers:

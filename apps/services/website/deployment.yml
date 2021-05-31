@@ -17,8 +17,7 @@ spec:
     metadata:
       labels:
         app: nginx-website
-      annotations:
-        linkerd.io/inject: enabled
+      annotations: {}
     spec:
       containers:
       - name: nginx-website

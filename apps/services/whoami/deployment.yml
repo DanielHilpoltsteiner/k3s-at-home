@@ -17,8 +17,7 @@ spec:
     metadata:
       labels:
         app: whoami
-      annotations:
-        linkerd.io/inject: enabled
+      annotations: {}
     spec:
       containers:
       - name: whoami
