@@ -15,6 +15,10 @@ spec:
       port: 443
       protocol: TCP
       targetPort: websecure
+    - name: git-ssh
+      port: 10222
+      protocol: TCP
+      targetPort: git-ssh
   selector:
     app.kubernetes.io/name: traefik
   type: LoadBalancer
