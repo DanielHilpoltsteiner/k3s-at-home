@@ -663,14 +663,11 @@ argo-cd:
         - type: helm
           url: https://helm.linkerd.io/stable
           name: linkerd
+        - type: helm
+          url: https://dl.gitea.io/charts/
+          name: gitea-charts
 
-      resource.exclusions: |
-        - apiGroups:
-          - "velero.io"
-          kinds:
-          - Backup
-          clusters:
-          - "*"
+      # resource.exclusions: |
 
     ## Annotations to be added to ArgoCD ConfigMap
     configAnnotations: {}
