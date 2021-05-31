@@ -17,8 +17,8 @@ spec:
     targetPort: 3080
     protocol: TCP
   - name: ssh
-    port: 22
-    targetPort: 22
+    port: 10222
+    targetPort: 10222
     protocol: TCP
   selector:
     app.kubernetes.io/name: gitea
