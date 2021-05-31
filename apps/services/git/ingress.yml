@@ -21,7 +21,7 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: gitea-http
+          serviceName: gitea
           servicePort: http
   tls:
   - hosts:
