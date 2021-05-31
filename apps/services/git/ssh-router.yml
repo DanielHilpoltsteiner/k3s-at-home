@@ -10,7 +10,7 @@ spec:
   entryPoints:
     - git-ssh
   routes:
-    - match: HostSNI(`git.technolab.cloud`)
+    - match: HostSNI(`*`)
       services:
         - name: gitea
           port: 10222

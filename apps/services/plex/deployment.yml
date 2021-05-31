@@ -23,18 +23,24 @@ spec:
       - name: plex
         image: plexinc/pms-docker:1.21.4.4079-1b7748a7b
         imagePullPolicy: IfNotPresent
-        # readinessProbe:
-        #   httpGet:
-        #     path: /identity
-        #     port: 32400
-        #   initialDelaySeconds: 15
-        #   timeoutSeconds: 5
-        # livenessProbe:
-        #   httpGet:
-        #     path: /identity
-        #     port: 32400
-        #   initialDelaySeconds: 30
-        #   timeoutSeconds: 30
+        livenessProbe:
+          httpGet:
+            path: /identity
+            port: 32400
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
+        startupProbe:
+          httpGet:
+            path: /identity
+            port: 32400
+          initialDelaySeconds: 120
+          periodSeconds: 30
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 5
         ports:
         - containerPort: 32400
           name: pms
