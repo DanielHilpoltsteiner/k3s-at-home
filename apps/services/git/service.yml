@@ -27,6 +27,7 @@ metadata:
 spec:
   type: LoadBalancer
   loadBalancerIP: 10.0.40.25
+  externalTrafficPolicy: Local
   ports:
   - name: ssh
     port: 22
