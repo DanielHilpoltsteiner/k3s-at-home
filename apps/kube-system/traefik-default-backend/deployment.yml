@@ -24,7 +24,8 @@ spec:
       labels:
         app.kubernetes.io/component: default-backend
         app.kubernetes.io/instance: traefik
-      annotations: {}
+      annotations:
+        linkerd.io/inject: enabled
     spec:
       containers:
       - image: ebrianne/default-http-backend:v1.1
