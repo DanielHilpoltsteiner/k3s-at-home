@@ -10,7 +10,7 @@ spec:
   externalTrafficPolicy: Local
   ports:
   - name: plex
-    targetPort: 32400
+    targetPort: pms
     port: 32400
   selector:
     app: plex

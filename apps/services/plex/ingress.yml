@@ -11,7 +11,7 @@ metadata:
     kubernetes.io/ingress.allow-http: "false"
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
     traefik.ingress.kubernetes.io/router.tls: "true"
-    # traefik.ingress.kubernetes.io/router.middlewares: kube-system-traefik-errors@kubernetescrd,services-traefik-real-ip@kubernetescrd,services-rate-limit@kubernetescrd
+    traefik.ingress.kubernetes.io/router.middlewares: services-rate-limit@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: plex.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
 spec:
@@ -19,10 +19,10 @@ spec:
   - host: plex.technolab.cloud
     http:
       paths:
-      - path:
+      - path: /
         backend:
           serviceName: plex
-          servicePort: 32400
+          servicePort: plex
   tls:
   - hosts:
     - plex.technolab.cloud
