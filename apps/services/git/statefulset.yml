@@ -1,0 +1,107 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: gitea
+  labels:
+    app.kubernetes.io/name: gitea
+  namespace: services
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: gitea
+  serviceName: gitea
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        app.kubernetes.io/name: gitea
+    spec:
+      securityContext:
+        fsGroup: 1000
+      initContainers:
+        - name: gitea-init
+          image: "gitea/gitea:1.14.1"
+          imagePullPolicy: IfNotPresent
+          command: ["/usr/sbin/init_gitea.sh"]
+          env:
+            - name: GITEA_APP_INI
+              value: /data/gitea/conf/app.ini
+            - name: GITEA_CUSTOM
+              value: /data/gitea
+            - name: GITEA_WORK_DIR
+              value: /data
+          volumeMounts:
+            - name: init
+              mountPath: /usr/sbin
+            - name: config
+              mountPath: /etc/gitea/conf
+            - name: data
+              mountPath: /data
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: gitea
+          image: "gitea/gitea:1.14.1"
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: SSH_LISTEN_PORT
+              value: "2222"
+            - name: SSH_PORT
+              value: "2222"
+            - name: GITEA_APP_INI
+              value: /data/gitea/conf/app.ini
+            - name: GITEA_CUSTOM
+              value: /data/gitea
+            - name: GITEA_WORK_DIR
+              value: /data
+            - name: GITEA_TEMP
+              value: /tmp/gitea
+          ports:
+            - name: ssh
+              containerPort: 2222
+            - name: http
+              containerPort: 3080
+          livenessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 200
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 10
+          readinessProbe:
+            tcpSocket:
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 1
+            successThreshold: 1
+            failureThreshold: 3
+          resources: {}
+          securityContext: {}
+          volumeMounts:
+            - name: temp
+              mountPath: /tmp/gitea
+            - name: data
+              mountPath: /data
+      volumes:
+        - name: init
+          secret:
+            secretName: gitea-secret
+            items:
+              - key: init_gitea.sh
+                path: init_gitea.sh
+                mode: 0777
+        - name: config
+          secret:
+            secretName: gitea-secret
+            items:
+              - key: app.ini
+                path: app.ini
+                mode: 0644
+        - name: temp
+          emptyDir: {}
+        - name: data
+          persistentVolumeClaim:
+            claimName: nfs-pvc-git

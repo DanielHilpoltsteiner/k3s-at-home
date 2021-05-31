@@ -1,0 +1,17 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-git
+spec:
+  storageClassName: ""
+  claimRef:
+    name: nfs-pvc-git
+    namespace: services
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  nfs:
+    server: 10.0.40.2
+    path: "/mnt/vault/Kubernetes/pvc/git"

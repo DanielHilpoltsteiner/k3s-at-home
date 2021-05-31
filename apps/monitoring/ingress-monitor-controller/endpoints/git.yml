@@ -2,11 +2,11 @@
 apiVersion: endpointmonitor.stakater.com/v1alpha1
 kind: EndpointMonitor
 metadata:
-  name: gitlab
+  name: git
 spec:
   forceHttps: true
   providers: "UptimeRobot"
-  url: https://gitlab.technolab.cloud
+  url: https://git.technolab.cloud
   uptimeRobotConfig:
     interval: 300
     monitorType: "keyword"
