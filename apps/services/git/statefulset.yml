@@ -46,9 +46,9 @@ spec:
           imagePullPolicy: IfNotPresent
           env:
             - name: SSH_LISTEN_PORT
-              value: "2222"
+              value: "22"
             - name: SSH_PORT
-              value: "2222"
+              value: "22"
             - name: GITEA_APP_INI
               value: /data/gitea/conf/app.ini
             - name: GITEA_CUSTOM
@@ -59,7 +59,7 @@ spec:
               value: /tmp/gitea
           ports:
             - name: ssh
-              containerPort: 2222
+              containerPort: 22
             - name: http
               containerPort: 3080
           livenessProbe:

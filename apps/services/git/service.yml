@@ -25,11 +25,12 @@ metadata:
   namespace: services
   annotations: {}
 spec:
-  type: ClusterIP
+  type: LoadBalancer
+  loadBalancerIP: 10.0.40.25
   ports:
   - name: ssh
-    port: 2222
-    targetPort: 2222
+    port: 22
+    targetPort: 22
     protocol: TCP
   selector:
     app.kubernetes.io/name: gitea
