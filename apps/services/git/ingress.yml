@@ -22,7 +22,7 @@ spec:
       - path: /
         backend:
           serviceName: gitea
-          servicePort: http
+          servicePort: 3080
   tls:
   - hosts:
     - git.technolab.cloud

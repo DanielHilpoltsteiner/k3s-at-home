@@ -20,7 +20,7 @@ spec:
       - path: /whoami
         backend:
           serviceName: whoami
-          servicePort: http
+          servicePort: 80
   tls:
   - hosts:
     - technolab.cloud

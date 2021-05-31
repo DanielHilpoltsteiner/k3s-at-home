@@ -22,7 +22,7 @@ spec:
       - path: /
         backend:
           serviceName: authelia
-          servicePort: http
+          servicePort: 80
   tls:
   - hosts:
     - authelia.technolab.cloud

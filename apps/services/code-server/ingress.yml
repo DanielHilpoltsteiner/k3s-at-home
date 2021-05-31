@@ -22,7 +22,7 @@ spec:
       - path:
         backend:
           serviceName: code-server
-          servicePort: https
+          servicePort: 8443
   tls:
   - hosts:
     - codeserver.technolab.cloud

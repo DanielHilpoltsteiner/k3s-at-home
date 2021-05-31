@@ -147,22 +147,7 @@ bitwardenrs:
     additionalSpec: {}
 
   ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/ingress.allow-http: "false"
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.tls: "true"
-      traefik.ingress.kubernetes.io/router.middlewares: services-bitwarden-buffer@kubernetescrd,services-bitwarden-connection@kubernetescrd,kube-system-traefik-errors@kubernetescrd,services-traefik-real-ip@kubernetescrd,services-rate-limit@kubernetescrd
-      external-dns.alpha.kubernetes.io/hostname: bitwarden.technolab.cloud
-      external-dns.alpha.kubernetes.io/target: technolab.cloud
-    hosts:
-    - host: bitwarden.technolab.cloud
-      paths: ["/"]
-    tls:
-    - hosts:
-      - bitwarden.technolab.cloud
-      secretName: services-technolab-cloudflare-org-tls
+    enabled: false
 
   resources:
     # We usually recommend not to specify default resources and to leave this as a conscious

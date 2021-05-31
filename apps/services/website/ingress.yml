@@ -22,14 +22,14 @@ spec:
       - path: /
         backend:
           serviceName: nginx-website
-          servicePort: http
+          servicePort: 8080
   - host: technolab.cloud
     http:
       paths:
       - path: /
         backend:
           serviceName: nginx-website
-          servicePort: http
+          servicePort: 8080
   tls:
   - hosts:
     - technolab.cloud
