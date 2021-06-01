@@ -14,6 +14,7 @@ metadata:
     traefik.ingress.kubernetes.io/router.middlewares: services-rate-limit@kubernetescrd,services-traefik-real-ip@kubernetescrd
     external-dns.alpha.kubernetes.io/hostname: git.technolab.cloud
     external-dns.alpha.kubernetes.io/target: technolab.cloud
+    external-dns.alpha.kubernetes.io/cloudflare-proxied: "false"
 spec:
   rules:
   - host: git.technolab.cloud
