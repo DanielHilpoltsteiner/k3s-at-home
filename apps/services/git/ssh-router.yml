@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/name: gitea
 spec:
   entryPoints:
-    - websecure
+    - git-ssh
   routes:
     - match: HostSNI(`*`)
       services:
