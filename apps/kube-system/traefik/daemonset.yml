@@ -42,9 +42,6 @@ spec:
             - containerPort: 8443
               name: websecure
               protocol: TCP
-            - containerPort: 10222
-              name: git-ssh
-              protocol: TCP
           readinessProbe:
             failureThreshold: 1
             httpGet:
