@@ -14,5 +14,3 @@ spec:
       services:
         - name: gitea
           port: 10222
-  tls:
-    secretName: services-technolab-cloudflare-org-tls
