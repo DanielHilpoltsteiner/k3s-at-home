@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
       - name: plex
-        image: plexinc/pms-docker:1.22.0.4163-d8c4875dd
+        image: plexinc/pms-docker:1.23.2.4656-85f0adf5b
         imagePullPolicy: IfNotPresent
         livenessProbe:
           httpGet:
