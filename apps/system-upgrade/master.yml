@@ -16,7 +16,7 @@ spec:
       - {key: node-role.kubernetes.io/master, operator: In, values: ["true"]}
   serviceAccountName: system-upgrade
   tolerations:
-    - {key: node-role.kubernetes.io/master, effect: NoSchedule, operator: Exist}
+    - {key: node-role.kubernetes.io/master, effect: NoSchedule, operator: Exists}
   cordon: true
   # drain:
     # force: true
