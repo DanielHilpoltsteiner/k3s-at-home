@@ -8,8 +8,8 @@ data:
   config: |
     peers:
     - peer-address: 10.0.40.1
-      peer-asn: 64500
-      my-asn: 64501
+      peer-asn: 64501
+      my-asn: 64500
     address-pools:
     - name: default
       protocol: bgp
