@@ -15,6 +15,8 @@ spec:
       - {key: k3s-upgrade, operator: In, values: ["true"]}
       - {key: node-role.kubernetes.io/master, operator: In, values: ["true"]}
   serviceAccountName: system-upgrade
+  tolerations:
+    - {key: node-role.kubernetes.io/master, effect: NoSchedule, operator: Exist}
   cordon: true
   # drain:
     # force: true
