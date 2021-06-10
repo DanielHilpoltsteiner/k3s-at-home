@@ -3,7 +3,7 @@ grafana:
   # helm install -n grafana grafana grafana/grafana -f values.yaml
   image:
     repository: grafana/grafana
-    tag: 8.0.0
+    tag: 8.0.1
     sha: ""
     pullPolicy: IfNotPresent
 
