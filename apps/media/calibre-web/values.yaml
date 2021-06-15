@@ -24,37 +24,31 @@ calibre-web:
     DOCKER_MODS: "linuxserver/calibre-web:calibre"
 
   service:
-    port:
-      port: 8083
+    main:
+      ports:
+        http:
+          port: 8083
 
   ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: nginx-internal
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    hosts:
-      - host: calibre-web.home-lab.io
-        paths:
-          - path: /
+    main:
+      enabled: false
+      annotations:
+        kubernetes.io/ingress.class: nginx-internal
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      hosts:
+        - host: calibre-web.home-lab.io
+          paths:
+            - path: /
 
   persistence:
     config:
-      enabled: false
-      emptyDir: false
+      enabled: true
+      mountPath: /config
+      type: pvc
+      existingClaim: nfs-pvc-calibre-web
 
     books:
-      enabled: false
-      emptyDir: false
-
-  additionalVolumes:
-    - name: data
-      persistentVolumeClaim:
-        claimName: nfs-pvc-calibre-web
-
-  additionalVolumeMounts:
-    - name: data
-      mountPath: /config
-      subPath: config
-    - name: data
+      enabled: true
       mountPath: /books
-      subPath: books
+      type: pvc
+      existingClaim: nfs-pvc-calibre-web
