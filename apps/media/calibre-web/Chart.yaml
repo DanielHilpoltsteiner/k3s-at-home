@@ -7,4 +7,4 @@ appVersion: 0.6.9
 dependencies:
   - name: calibre-web
     repository: https://k8s-at-home.com/charts/
-    version: 7.1.0
+    version: 7.1.1
