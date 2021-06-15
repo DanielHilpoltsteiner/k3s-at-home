@@ -2,11 +2,25 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nfs-pvc-calibre-web
+  name: nfs-pvc-calibre-web-config
   namespace: media
 spec:
   storageClassName: nfs-client
-  volumeName: nfs-pv-calibre-web
+  volumeName: nfs-pv-calibre-web-config
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc-calibre-web-books
+  namespace: media
+spec:
+  storageClassName: nfs-client
+  volumeName: nfs-pv-calibre-web-books
   accessModes:
   - ReadWriteOnce
   resources:

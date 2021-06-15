@@ -42,22 +42,11 @@ calibre-web:
 
   persistence:
     config:
-      enabled: false
+      enabled: true
       mountPath: /config
+      existingClaim: nfs-pvc-calibre-web-config
 
     books:
-      enabled: false
+      enabled: true
       mountPath: /books
-
-  additionalVolumes:
-    - name: data
-      persistentVolumeClaim:
-        claimName: nfs-pvc-calibre-web
-
-  additionalVolumeMounts:
-    - name: data
-      mountPath: /config
-      subPath: config
-    - name: data
-      mountPath: /books
-      subPath: books
+      existingClaim: nfs-pvc-calibre-web-books
