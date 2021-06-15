@@ -14,11 +14,14 @@ flaresolverr:
     LOG_LEVEL: "info"
 
   service:
-    port:
-      port: 8191
+    main:
+      ports:
+        http:
+          port: 8191
 
   ingress:
-    enabled: false
+    main:
+      enabled: false
 
   nodeSelector: {}
 
