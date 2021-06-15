@@ -42,13 +42,13 @@ calibre-web:
 
   persistence:
     config:
-      enabled: true
+      enabled: false
       mountPath: /config
       type: pvc
       existingClaim: nfs-pvc-calibre-web
 
     books:
-      enabled: true
+      enabled: false
       mountPath: /books
       type: pvc
       existingClaim: nfs-pvc-calibre-web
