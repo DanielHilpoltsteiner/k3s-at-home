@@ -677,7 +677,7 @@ harbor:
       serviceAccountName: ""
       image:
         repository: goharbor/harbor-db
-        tag: v2.2.2
+        tag: v2.3.0
       # The initial superuser password for internal database
       password: "changeit"
       # resources:
