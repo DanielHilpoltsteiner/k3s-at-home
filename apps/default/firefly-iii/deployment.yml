@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
       - name: firefly
-        image: jc5x/firefly-iii:version-5.4.6
+        image: fireflyiii/core:version-5.5.12
         imagePullPolicy: IfNotPresent
         env:
         - name: APP_ENV
