@@ -638,7 +638,7 @@ harbor:
       serviceAccountName: ""
       image:
         repository: goharbor/notary-server-photon
-        tag: v2.2.2
+        tag: v2.3.0
       replicas: 1
       # resources:
       #  requests:
