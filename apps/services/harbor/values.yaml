@@ -398,7 +398,7 @@ harbor:
   portal:
     image:
       repository: goharbor/harbor-portal
-      tag: v2.2.2
+      tag: v2.3.0
     # set the service account to be used, default if left empty
     serviceAccountName: ""
     replicas: 1
