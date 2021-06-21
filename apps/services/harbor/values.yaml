@@ -449,7 +449,7 @@ harbor:
   jobservice:
     image:
       repository: goharbor/harbor-jobservice
-      tag: v2.2.2
+      tag: v2.3.0
     replicas: 1
     # set the service account to be used, default if left empty
     serviceAccountName: ""
