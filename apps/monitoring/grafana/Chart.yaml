@@ -7,4 +7,4 @@ appVersion: 7.4.2 # unused
 dependencies:
   - name: grafana
     repository: https://grafana.github.io/helm-charts
-    version: 6.12.1
+    version: 6.13.3
