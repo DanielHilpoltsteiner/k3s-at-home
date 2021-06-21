@@ -581,7 +581,7 @@ harbor:
       # repository the repository for Trivy adapter image
       repository: goharbor/trivy-adapter-photon
       # tag the tag for Trivy adapter image
-      tag: v2.2.2
+      tag: v2.3.0
     # set the service account to be used, default if left empty
     serviceAccountName: ""
     # replicas the number of Pod replicas
