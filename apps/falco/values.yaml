@@ -115,7 +115,7 @@ falcosidekick:
 
   image:
     repository: falcosecurity/falcosidekick
-    tag: 2.22.0
+    tag: 2.23.0
     pullPolicy: IfNotPresent
 
   config:
