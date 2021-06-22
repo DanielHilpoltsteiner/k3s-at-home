@@ -21,7 +21,7 @@ spec:
     spec:
       containers:
         - name: traefik
-          image: 'traefik:2.4.8'
+          image: 'traefik:v2.4.9'
           imagePullPolicy: IfNotPresent
           env:
             - name: TZ
