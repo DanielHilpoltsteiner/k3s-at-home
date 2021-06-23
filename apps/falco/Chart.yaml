@@ -10,7 +10,7 @@ dependencies:
     version: 1.14.1
   - name: falcosidekick
     repository: https://falcosecurity.github.io/charts
-    version: 0.3.7
+    version: 0.3.8
   - name: falco-exporter
     repository: https://falcosecurity.github.io/charts
     version: 0.5.1
