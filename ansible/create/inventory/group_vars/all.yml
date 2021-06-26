@@ -1,27 +1,17 @@
 ---
 ansible_python_interpreter: /usr/bin/python3
-ansible_user: root
-localhost_user: ebrianne
+ansible_user: ansible
+localhost_user: user
 systemd_dir: /etc/init.d
 
-proxmox:
-  masters:
-    number: 2
-    ram: 4G
-    disk: 30G
-  workers:
-    number: 1
-    ram: 5G
-    disk: 30G
-
 kube_vip:
-  tag: 0.3.4
+  tag: 0.3.5
   ip: "{{ groups['vip'][0] }}"
-  interface: eth0
+  interface: ens18
 
 k3s:
   bootstrap_master_ip: "{{ groups['masters'][0] }}"
-  version: v1.20.7+k3s1
+  version: v1.21.1+k3s1
   user: root
   tls_san: "{{ kube_vip.ip }}"
   cluster_cidr: 10.69.0.0/16

@@ -1,9 +1,0 @@
-apiVersion: v2
-type: application
-name: adminer
-version: 0.1.6
-appVersion: 4.7.7
-dependencies:
-  - name: adminer
-    repository: https://cetic.github.io/helm-charts
-    version: 0.1.6

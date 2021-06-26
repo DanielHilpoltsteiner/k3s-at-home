@@ -1,18 +1,13 @@
 
 ## Prerequisites
-### Pre-setup on Alpine linux
-
-A little bit of preparation before starting k3s.
-
-```bash
-apk add iptables cni-plugins open-iscsi nfs-utils sudo
-rc-service cgroups start
-rc-update add cgroups boot
-swapoff -a
-rc-update del swap boot
-```
-
 ### General Pre-setup
+
+Disable swap
+```bash
+swapoff -a
+sed -i '/ swap / s/^/#/' /etc/fstab
+rm /swap.img
+```
 
 Load these modules
 
