@@ -1,0 +1,49 @@
+version: "3"
+
+services:
+  deluge:
+    image: ebrianne/docker-deluge-openvpn:v1.0.3
+    container_name: deluge
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    cap_add:
+      - NET_ADMIN
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+    environment:
+      - PUID=65534
+      - PGID=65534
+      - TZ=Europe/Berlin
+      - OPENVPN_PROVIDER=NORDVPN
+      - NORDVPN_COUNTRY=NL
+      - NORDVPN_CATEGORY=legacy_p2p
+      - NORDVPN_PROTOCOL=udp
+      - CREATE_TUN_DEVICE=true
+      - LOCAL_NETWORK="172.18.0.0/16"
+      - ENABLE_UFW=true
+      - UFW_ALLOW_GW_NET=true
+      - DROP_DEFAULT_ROUTE=false
+      - OPENVPN_USERNAME=
+      - OPENVPN_PASSWORD=
+    volumes:
+      - /home/ebrianne/deluge/data:/config
+      - /nfs/Media/Movies/downloads:/downloads
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.deluge.entrypoints=http"
+      - "traefik.http.routers.deluge.rule=Host(`deluge.local.technolab.cloud`)"
+      - "traefik.http.middlewares.deluge-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.deluge.middlewares=deluge-https-redirect"
+      - "traefik.http.routers.deluge-secure.entrypoints=https"
+      - "traefik.http.routers.deluge-secure.rule=Host(`deluge.local.technolab.cloud`)"
+      - "traefik.http.routers.deluge-secure.tls=true"
+      - "traefik.http.routers.deluge-secure.service=deluge"
+      - "traefik.http.services.deluge.loadbalancer.server.port=8112"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

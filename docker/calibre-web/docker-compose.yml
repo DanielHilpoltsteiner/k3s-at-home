@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  calibre-web:
+    image: linuxserver/calibre-web:version-0.6.12
+    container_name: calibre-web
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/Berlin
+      - DOCKER_MODS=linuxserver/calibre-web:calibre
+    volumes:
+      - /home/ebrianne/calibre-web/config:/config
+      - /home/ebrianne/calibre-web/books:/books
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.calibre-web.entrypoints=http"
+      - "traefik.http.routers.calibre-web.rule=Host(`calibre.local.technolab.cloud`)"
+      - "traefik.http.middlewares.calibre-web-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.calibre-web.middlewares=calibre-web-https-redirect"
+      - "traefik.http.routers.calibre-web-secure.entrypoints=https"
+      - "traefik.http.routers.calibre-web-secure.rule=Host(`calibre.local.technolab.cloud`)"
+      - "traefik.http.routers.calibre-web-secure.tls=true"
+      - "traefik.http.routers.calibre-web-secure.service=calibre-web"
+      - "traefik.http.services.calibre-web.loadbalancer.server.port=8083"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

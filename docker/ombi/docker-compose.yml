@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  ombi:
+    image: linuxserver/ombi:version-v4.0.1430
+    container_name: ombi
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - PUID=65534
+      - PGID=65534
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/ebrianne/ombi/data:/config
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.ombi.entrypoints=http"
+      - "traefik.http.routers.ombi.rule=Host(`ombi.local.technolab.cloud`)"
+      - "traefik.http.middlewares.ombi-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.ombi.middlewares=ombi-https-redirect"
+      - "traefik.http.routers.ombi-secure.entrypoints=https"
+      - "traefik.http.routers.ombi-secure.rule=Host(`ombi.local.technolab.cloud`)"
+      - "traefik.http.routers.ombi-secure.tls=true"
+      - "traefik.http.routers.ombi-secure.service=ombi"
+      - "traefik.http.services.ombi.loadbalancer.server.port=3579"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

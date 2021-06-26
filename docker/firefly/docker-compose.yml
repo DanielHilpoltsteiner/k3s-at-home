@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  firefly:
+    image: fireflyiii/core:version-5.5.12
+    container_name: firefly
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - APP_ENV=local
+      - APP_KEY=
+      - DB_HOST=
+      - DB_CONNECTION=pgsql
+      - DB_PORT=5432
+      - DB_DATABASE=
+      - DB_USERNAME=
+      - DB_PASSWORD=
+      - TRUSTED_PROXIES="**"
+      - APP_URL=https://firefly.local.technolab.cloud
+    volumes:
+      - /home/ebrianne/firefly/uploads:/var/www/html/firefly-iii/storage/upload
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.firefly.entrypoints=http"
+      - "traefik.http.routers.firefly.rule=Host(`firefly.local.technolab.cloud`)"
+      - "traefik.http.middlewares.firefly-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.firefly.middlewares=firefly-https-redirect"
+      - "traefik.http.routers.firefly-secure.entrypoints=https"
+      - "traefik.http.routers.firefly-secure.rule=Host(`firefly.local.technolab.cloud`)"
+      - "traefik.http.routers.firefly-secure.tls=true"
+      - "traefik.http.routers.firefly-secure.service=firefly"
+      - "traefik.http.services.firefly.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

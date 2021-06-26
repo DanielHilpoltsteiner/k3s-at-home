@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  duplicati:
+    image: linuxserver/duplicati:version-v2.0.6.1-2.0.6.1_beta_2021-05-03
+    container_name: duplicati
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - PUID=1001
+      - PGID=1001
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/ebrianne/duplicati/data:/config
+      - /home/ebrianne:/source
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.duplicati.entrypoints=http"
+      - "traefik.http.routers.duplicati.rule=Host(`duplicati.local.technolab.cloud`)"
+      - "traefik.http.middlewares.duplicati-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.duplicati.middlewares=duplicati-https-redirect"
+      - "traefik.http.routers.duplicati-secure.entrypoints=https"
+      - "traefik.http.routers.duplicati-secure.rule=Host(`duplicati.local.technolab.cloud`)"
+      - "traefik.http.routers.duplicati-secure.tls=true"
+      - "traefik.http.routers.duplicati-secure.service=duplicati"
+      - "traefik.http.services.duplicati.loadbalancer.server.port=8200"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

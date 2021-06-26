@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  lidarr:
+    image: ghcr.io/linuxserver/lidarr:version-0.8.1.2135
+    container_name: lidarr
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - PUID=65534
+      - PGID=65534
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/ebrianne/lidarr/data:/config
+      - /nfs/Media/downloads/completed:/downloads
+      - /nfs/Media/Music:/music
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.lidarr.entrypoints=http"
+      - "traefik.http.routers.lidarr.rule=Host(`lidarr.local.technolab.cloud`)"
+      - "traefik.http.middlewares.lidarr-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.lidarr.middlewares=lidarr-https-redirect"
+      - "traefik.http.routers.lidarr-secure.entrypoints=https"
+      - "traefik.http.routers.lidarr-secure.rule=Host(`lidarr.local.technolab.cloud`)"
+      - "traefik.http.routers.lidarr-secure.tls=true"
+      - "traefik.http.routers.lidarr-secure.service=lidarr"
+      - "traefik.http.services.lidarr.loadbalancer.server.port=8686"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

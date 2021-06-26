@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  ddclient:
+    image: ghcr.io/linuxserver/ddclient:version-v3.9.1
+    container_name: ddclient
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+    volumes:
+      - /home/ebrianne/cloudflare/data:/config

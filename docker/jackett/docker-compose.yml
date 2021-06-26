@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+  jackett:
+    image: linuxserver/jackett:version-v0.18.379
+    container_name: jackett
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - PUID=65534
+      - PGID=65534
+      - TZ=Europe/Berlin
+      - AUTO_UPDATE=true
+    volumes:
+      - /home/ebrianne/jackett/data:/config
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.jackett.entrypoints=http"
+      - "traefik.http.routers.jackett.rule=Host(`jackett.local.technolab.cloud`)"
+      - "traefik.http.middlewares.jackett-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.jackett.middlewares=jackett-https-redirect"
+      - "traefik.http.routers.jackett-secure.entrypoints=https"
+      - "traefik.http.routers.jackett-secure.rule=Host(`jackett.local.technolab.cloud`)"
+      - "traefik.http.routers.jackett-secure.tls=true"
+      - "traefik.http.routers.jackett-secure.service=jackett"
+      - "traefik.http.services.jackett.loadbalancer.server.port=9117"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

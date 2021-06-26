@@ -1,0 +1,29 @@
+version: "3"
+
+services:
+  adminer:
+    image: adminer:4.8.1-standalone
+    container_name: adminer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - ADMINER_DESIGN=pepa-linha
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.adminer.entrypoints=http"
+      - "traefik.http.routers.adminer.rule=Host(`adminer.local.technolab.cloud`)"
+      - "traefik.http.middlewares.adminer-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.adminer.middlewares=adminer-https-redirect"
+      - "traefik.http.routers.adminer-secure.entrypoints=https"
+      - "traefik.http.routers.adminer-secure.rule=Host(`adminer.local.technolab.cloud`)"
+      - "traefik.http.routers.adminer-secure.tls=true"
+      - "traefik.http.routers.adminer-secure.service=adminer"
+      - "traefik.http.services.adminer.loadbalancer.server.port=8080"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

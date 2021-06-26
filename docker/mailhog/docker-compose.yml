@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  mailhog:
+    image: docker.io/mailhog/mailhog:v1.0.1
+    container_name: mailhog
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailhog.entrypoints=http"
+      - "traefik.http.routers.mailhog.rule=Host(`mailhog.local.technolab.cloud`)"
+      - "traefik.http.middlewares.mailhog-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.mailhog.middlewares=mailhog-https-redirect"
+      - "traefik.http.routers.mailhog-secure.entrypoints=https"
+      - "traefik.http.routers.mailhog-secure.rule=Host(`mailhog.local.technolab.cloud`)"
+      - "traefik.http.routers.mailhog-secure.tls=true"
+      - "traefik.http.routers.mailhog-secure.service=mailhog"
+      - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
+      - "traefik.tcp.routers.mailhog_smtp.entrypoints=smtp"
+      - "traefik.tcp.routers.mailhog_smtp.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.mailhog_smtp.service=mailhog_smtp"
+      - "traefik.tcp.services.mailhog_smtp.loadbalancer.server.port=1025"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

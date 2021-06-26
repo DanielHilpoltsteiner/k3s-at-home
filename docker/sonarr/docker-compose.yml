@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  sonarr:
+    image: ghcr.io/linuxserver/sonarr:version-3.0.6.1196
+    container_name: sonarr
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - PUID=65534
+      - PGID=65534
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/ebrianne/sonarr/data:/config
+      - /nfs/Media/downloads/completed:/downloads
+      - /nfs/Media/Series:/tv
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.sonarr.entrypoints=http"
+      - "traefik.http.routers.sonarr.rule=Host(`sonarr.local.technolab.cloud`)"
+      - "traefik.http.middlewares.sonarr-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.sonarr.middlewares=sonarr-https-redirect"
+      - "traefik.http.routers.sonarr-secure.entrypoints=https"
+      - "traefik.http.routers.sonarr-secure.rule=Host(`sonarr.local.technolab.cloud`)"
+      - "traefik.http.routers.sonarr-secure.tls=true"
+      - "traefik.http.routers.sonarr-secure.service=sonarr"
+      - "traefik.http.services.sonarr.loadbalancer.server.port=8989"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

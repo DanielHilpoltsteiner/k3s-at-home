@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  traefik:
+    image: traefik:v2.4.9
+    container_name: traefik
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    ports:
+      - 80:80
+      - 443:443
+      - 1025:1025
+    environment:
+      - CF_API_EMAIL=
+      - CF_API_KEY=
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /home/ebrianne/traefik/data/traefik.yml:/traefik.yml:ro
+      - /home/ebrianne/traefik/data/acme.json:/acme.json
+      - /home/ebrianne/traefik/data/config.yml:/config.yml:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.entrypoints=http"
+      - "traefik.http.routers.traefik.rule=Host(`traefik.local.technolab.cloud`)"
+      - "traefik.http.middlewares.traefik-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.middlewares.sslheader.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.routers.traefik.middlewares=traefik-https-redirect"
+      - "traefik.http.routers.traefik-secure.entrypoints=https"
+      - "traefik.http.routers.traefik-secure.rule=Host(`traefik.local.technolab.cloud`)"
+      - "traefik.http.routers.traefik-secure.tls=true"
+      - "traefik.http.routers.traefik-secure.tls.certresolver=cloudflare"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].main=local.technolab.cloud"
+      - "traefik.http.routers.traefik-secure.tls.domains[0].sans=*.local.technolab.cloud"
+      - "traefik.http.routers.traefik-secure.service=api@internal"
+
+networks:
+  proxy:
+    external: true

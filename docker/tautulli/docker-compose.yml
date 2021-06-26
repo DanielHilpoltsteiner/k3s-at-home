@@ -1,0 +1,33 @@
+version: "3"
+
+services:
+  tautulli:
+    image: ghcr.io/linuxserver/tautulli:version-v2.7.4
+    container_name: tautulli
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - PUID=65534
+      - PGID=65534
+      - TZ=Europe/Berlin
+    volumes:
+      - /home/ebrianne/tautulli/data:/config
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tautulli.entrypoints=http"
+      - "traefik.http.routers.tautulli.rule=Host(`tautulli.local.technolab.cloud`)"
+      - "traefik.http.middlewares.tautulli-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.tautulli.middlewares=tautulli-https-redirect"
+      - "traefik.http.routers.tautulli-secure.entrypoints=https"
+      - "traefik.http.routers.tautulli-secure.rule=Host(`tautulli.local.technolab.cloud`)"
+      - "traefik.http.routers.tautulli-secure.tls=true"
+      - "traefik.http.routers.tautulli-secure.service=tautulli"
+      - "traefik.http.services.tautulli.loadbalancer.server.port=8181"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true

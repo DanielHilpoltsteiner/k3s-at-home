@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  flaresolverr:
+    image: flaresolverr/flaresolverr:v1.2.8
+    container_name: flaresolverr
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    environment:
+      - TZ=Europe/Berlin
+      - LOG_LEVEL=info
+
+networks:
+  proxy:
+    external: true
