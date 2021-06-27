@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  namespace: argocd
+  namespace: argo-cd
   name: botkube
 spec:
   project: default
@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ebrianne/k3s-at-home.git
     targetRevision: HEAD
-    path: apps/monitoring/botkube/
+    path: k3s/apps/monitoring/botkube/
     helm:
       releaseName: botkube
       valueFiles:

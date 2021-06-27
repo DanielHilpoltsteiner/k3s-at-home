@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  namespace: argocd
+  namespace: argo-cd
   name: metallb
 spec:
   project: default
@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ebrianne/k3s-at-home.git
     targetRevision: HEAD
-    path: apps/kube-system/metallb
+    path: k3s/apps/kube-system/metallb
 
   destination:
     server: https://kubernetes.default.svc
