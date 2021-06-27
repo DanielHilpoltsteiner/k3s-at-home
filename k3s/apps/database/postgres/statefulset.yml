@@ -114,6 +114,6 @@ spec:
             nodeSelectorTerms:
               - matchExpressions:
                   - key: kubernetes.io/hostname
-                    operator: NotIn
+                    operator: In
                     values:
-                      - k3s-w-3
+                      - k3s-w-1

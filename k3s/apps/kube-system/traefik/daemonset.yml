@@ -96,6 +96,4 @@ spec:
                 path: traefik.yaml
                 mode: 0600
   updateStrategy:
-    rollingUpdate:
-      maxUnavailable: 1
     type: RollingUpdate

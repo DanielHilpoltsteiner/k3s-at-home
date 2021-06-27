@@ -9,7 +9,7 @@ metadata:
   namespace: kube-system
 spec:
   externalTrafficPolicy: Local
-  loadBalancerIP: 10.0.40.20
+  loadBalancerIP: 10.0.30.10
   ports:
     - name: websecure
       port: 443

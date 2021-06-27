@@ -14,4 +14,4 @@ spec:
     - ReadWriteOnce
   nfs:
     server: 10.0.40.2
-    path: "/mnt/vault/Kubernetes/pvc/postgres"
+    path: "/mnt/vault/Kubernetes/postgres"

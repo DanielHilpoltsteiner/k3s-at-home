@@ -32,9 +32,9 @@ data:
       disable_reset_password: true
       refresh_interval: 5m
       ldap:
-        url: ldap://openldap.ldap:389
+        url: ldap://ldap.local.technolab.cloud:389
         start_tls: false
-        base_dn: dc=example,dc=com
+        base_dn: dc=technolab,dc=cloud
         username_attribute: uid
         additional_users_dn: ou=users
         users_filter: (&({username_attribute}={input})(objectClass=person))
@@ -43,15 +43,12 @@ data:
         group_name_attribute: cn
         mail_attribute: mail
         display_name_attribute: displayName
-        user: cn=admin,dc=example,dc=com
+        user: cn=admin,dc=technolab,dc=cloud
         # password: ${LDAP_ADMIN_PASSWORD}
 
     access_control:
       default_policy: deny
       rules:
-        - domain: traefik.technolab.cloud
-          subject: "user:ebrianne"
-          policy: two_factor
         - domain: codeserver.technolab.cloud
           subject: "user:ebrianne"
           policy: two_factor
@@ -90,7 +87,7 @@ data:
 
     storage:
       postgres:
-        host: 10.0.40.24
+        host: 10.0.30.12
         port: 5432
         database: authelia
         username: authelia
@@ -105,7 +102,7 @@ data:
         # username: ebrianne
         # Password can also be set using a secret: https://docs.authelia.com/configuration/secrets.html
         # password: ${SMTP_PASSWORD}
-        host: mailhog.mailhog.svc.cluster.local
+        host: 10.0.40.3
         port: 1025
         sender: authelia@home-lab.io
         # HELO/EHLO Identifier. Some SMTP Servers may reject the default of localhost.

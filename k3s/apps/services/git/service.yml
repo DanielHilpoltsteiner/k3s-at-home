@@ -9,7 +9,7 @@ metadata:
   annotations: {}
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.0.40.25
+  loadBalancerIP: 10.0.30.14
   externalTrafficPolicy: Local
   ports:
   - name: http

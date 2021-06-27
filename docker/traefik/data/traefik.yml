@@ -7,6 +7,8 @@ entryPoints:
     address: ":443"
   smtp:
     address: ":1025"
+  ldap:
+    address: ":389"
 serversTransport:
   insecureSkipVerify: true
 providers:
@@ -18,7 +20,7 @@ providers:
 certificatesResolvers:
   cloudflare:
     acme:
-      email: 
+      email: eldwan35@gmail.com
       storage: acme.json
       dnsChallenge:
         provider: cloudflare

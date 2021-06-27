@@ -35,7 +35,7 @@ argo-cd:
       imagePullPolicy: IfNotPresent
 
     # If changing the number of replicas you must pass the number as ARGOCD_CONTROLLER_REPLICAS as an environment variable
-    replicas: 2
+    replicas: 1
 
     # Deploy the application as a StatefulSet instead of a Deployment, this is required for HA capability.
     # This is a feature flag that will become the default in chart version 3.x
@@ -65,7 +65,7 @@ argo-cd:
     ##
     env:
       - name: "ARGOCD_CONTROLLER_REPLICAS"
-        value: "2"
+        value: "1"
 
     ## Annotations to be added to controller pods
     ##
@@ -134,9 +134,9 @@ argo-cd:
           nodeSelectorTerms:
             - matchExpressions:
                 - key: kubernetes.io/hostname
-                  operator: NotIn
+                  operator: In
                   values:
-                    - k3s-w-3
+                    - k3s-w-1
 
     priorityClassName: ""
 
@@ -370,7 +370,7 @@ argo-cd:
   server:
     name: server
 
-    replicas: 2
+    replicas: 1
 
     autoscaling:
       enabled: false
@@ -479,7 +479,7 @@ argo-cd:
     service:
       annotations: {}
       labels: {}
-      type: ClusterIP
+      type: LoadBalancer
       ## For node port default ports
       nodePortHttp: 30080
       nodePortHttps: 30443
@@ -488,7 +488,7 @@ argo-cd:
       servicePortHttpName: http
       servicePortHttpsName: https
       namedTargetPort: true
-      loadBalancerIP: ""
+      loadBalancerIP: "10.0.30.11"
       loadBalancerSourceRanges: []
       externalIPs: []
 
@@ -513,20 +513,16 @@ argo-cd:
       annotations: {}
 
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: nginx-internal
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+      enabled: false
+      annotations: {}
       labels: {}
 
       ## Argo Ingress.
       ## Hostnames must be provided if Ingress is enabled.
       ## Secrets must be manually created in the namespace
       ##
-      hosts:
-        - argocd.home-lab.io
-      paths:
+      hosts: []
+      paths: 
         - /
       extraPaths: []
       tls: []
@@ -572,7 +568,7 @@ argo-cd:
     ## reference https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
     config:
       # Argo CD's externally facing base URL (optional). Required when configuring SSO
-      url: https://argocd.home-lab.io
+      url: https://argocd.local.technolab.cloud
       # Argo CD instance label key
       application.instanceLabelKey: argocd.argoproj.io/instance
       repositories: |
@@ -806,7 +802,7 @@ argo-cd:
   repoServer:
     name: repo-server
 
-    replicas: 2
+    replicas: 1
 
     autoscaling:
       enabled: false
@@ -892,9 +888,9 @@ argo-cd:
           nodeSelectorTerms:
             - matchExpressions:
                 - key: kubernetes.io/hostname
-                  operator: NotIn
+                  operator: In
                   values:
-                    - k3s-w-3
+                    - k3s-w-1
 
     priorityClassName: ""
 

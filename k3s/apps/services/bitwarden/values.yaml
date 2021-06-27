@@ -39,7 +39,7 @@ bitwardenrs:
       # Supported values: 'mysql', 'postgresql'.
       type: "postgresql"
       # Database host. Required if external database is enabled.
-      host: "10.0.40.24"
+      host: "10.0.30.12"
       # Database port. Optional, default value is specific to the database backend.
       port: "5432"
       # Database name.

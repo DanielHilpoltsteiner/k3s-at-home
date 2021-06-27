@@ -15,9 +15,6 @@ spec:
       app.kubernetes.io/component: default-backend
       app.kubernetes.io/instance: traefik
   strategy:
-    rollingUpdate:
-      maxSurge: 25%
-      maxUnavailable: 25%
     type: RollingUpdate
   template:
     metadata:

@@ -9,7 +9,7 @@ metadata:
 spec:
   replicas: 1
   strategy:
-    type: RollingUpdate
+    type: Recreate
   selector:
     matchLabels:
       app: nextcloud
@@ -74,7 +74,7 @@ spec:
           protocol: TCP
         env:
         - name: POSTGRES_HOST
-          value: "10.0.40.24"
+          value: "10.0.30.12"
         - name: POSTGRES_DB
           value: "nextcloud"
         - name: POSTGRES_USER

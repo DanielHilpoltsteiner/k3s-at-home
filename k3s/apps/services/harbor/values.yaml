@@ -688,7 +688,7 @@ harbor:
       tolerations: []
       affinity: {}
     external:
-      host: "10.0.40.24"
+      host: "10.0.30.12"
       port: "5432"
       username: "harbor"
       password: "harbor"

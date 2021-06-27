@@ -32,5 +32,5 @@ spec:
               args:
                 - "--fail"
                 - "-L"
-                - "https://nextcloud.technolab.cloud/cron.php"
+                - "http://nextcloud:8080/cron.php"
               resources: {}

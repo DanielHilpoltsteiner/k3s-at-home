@@ -32,7 +32,7 @@ data:
         reload
         loadbalance
     }
-    home-lab.io.:53 {
+    local.technolab.cloud:53 {
         errors
         log
         forward . 192.168.10.252
@@ -131,13 +131,12 @@ metadata:
     kubernetes.io/cluster-service: "true"
     kubernetes.io/name: "CoreDNS"
     app.kubernetes.io/name: coredns
+  annotations:
+    configmap.reloader.stakater.com/reload: "coredns-coredns"
 spec:
-  replicas: 3
+  replicas: 1
   strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxUnavailable: 1
-      maxSurge: 25%
+    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/instance: "coredns"

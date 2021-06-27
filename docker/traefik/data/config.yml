@@ -48,6 +48,14 @@ http:
         - default-headers
       tls: {}
       service: rancher
+    argo-cd:
+      entryPoints:
+        - "https"
+      rule: "Host(`argocd.local.technolab.cloud`)"
+      middlewares:
+        - default-headers
+      tls: {}
+      service: argo-cd
 
   services:
     proxmox:
@@ -79,6 +87,11 @@ http:
       loadBalancer:
         servers:
           - url: "https://10.0.40.4/"
+        passHostHeader: true
+    argo-cd:
+      loadBalancer:
+        servers:
+          - url: "http://10.0.30.11/"
         passHostHeader: true
 
   middlewares:

@@ -1,5 +1,5 @@
 local-path-provisioner:
-  replicaCount: 2
+  replicaCount: 1
 
   image:
     repository: rancher/local-path-provisioner

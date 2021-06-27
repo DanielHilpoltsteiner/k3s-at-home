@@ -8,7 +8,7 @@ metadata:
   namespace: database
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.0.40.24
+  loadBalancerIP: 10.0.30.12
   ports:
   - name: postgres
     port: 5432

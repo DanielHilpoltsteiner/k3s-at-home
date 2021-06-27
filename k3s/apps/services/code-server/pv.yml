@@ -8,9 +8,9 @@ spec:
     name: nfs-pvc-code-server
     namespace: services
   capacity:
-    storage: 5Gi
+    storage: 10Gi
   accessModes:
     - ReadWriteOnce
   nfs:
     server: 10.0.40.2
-    path: "/mnt/vault/Kubernetes/pvc/code-server"
+    path: "/mnt/vault/Kubernetes/code-server"

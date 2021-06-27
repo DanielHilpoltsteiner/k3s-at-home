@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  openldap:
+    image: osixia/openldap:1.5.0
+    container_name: openldap
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    networks:
+      - proxy
+    command: 
+      - "--copy-service"
+      - "--loglevel"
+      - "debug"
+    volumes:
+      - /home/ebrianne/ldap/data:/var/lib/ldap
+    environment:
+      - LDAP_LOG_LEVEL=256
+      - LDAP_OPENLDAP_UID=1000
+      - LDAP_OPENLDAP_GID=1000
+      - LDAP_ORGANISATION=Technolab
+      - LDAP_DOMAIN=technolab.cloud
+      - LDAP_READONLY_USER=false
+      - LDAP_ADMIN_PASSWORD=
+      - LDAP_ADDITIONAL_MODULES=memberof
+      - LDAP_ADDITIONAL_SCHEMAS=openldap
+      - LDAP_TLS=false
+      - LDAP_REPLICATION=false
+    labels:
+      - "traefik.enable=true"
+      - "traefik.tcp.routers.openldap.entrypoints=ldap"
+      - "traefik.tcp.routers.openldap.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.openldap.service=openldap"
+      - "traefik.tcp.services.openldap.loadbalancer.server.port=389"
+      - "traefik.docker.network=proxy"
+
+networks:
+  proxy:
+    external: true
