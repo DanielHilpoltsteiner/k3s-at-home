@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/ebrianne/k3s-at-home.git
     targetRevision: HEAD
-    path: k3s/monitoring/ingress-monitor-controller/
+    path: k3s/apps/monitoring/ingress-monitor-controller/
     helm:
       releaseName: imc
       valueFiles:

@@ -152,7 +152,7 @@ velero:
       # for details of required/optional fields for your provider.
       config:
         s3ForcePathStyle: true
-        s3Url: https://minio.local.technolab.cloud
+        s3Url: http://10.0.40.2:9001
         region: minio
       #  region:
       #  s3ForcePathStyle:
