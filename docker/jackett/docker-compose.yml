@@ -2,7 +2,7 @@ version: "3"
 
 services:
   jackett:
-    image: linuxserver/jackett:version-v0.18.386
+    image: linuxserver/jackett:version-v0.18.390
     container_name: jackett
     restart: unless-stopped
     security_opt:
