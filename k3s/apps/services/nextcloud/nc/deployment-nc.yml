@@ -62,7 +62,7 @@ spec:
           mountPath: /data
         resources: {}
       - name: nextcloud
-        image: ebrianne/nextcloud:21.0.2-apache
+        image: ebrianne/nextcloud:21.0.3-apache
         imagePullPolicy: IfNotPresent
         securityContext:
           readOnlyRootFilesystem: true
