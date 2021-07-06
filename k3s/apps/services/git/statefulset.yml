@@ -24,7 +24,7 @@ spec:
         fsGroup: 1000
       initContainers:
         - name: gitea-init
-          image: "gitea/gitea:1.14.3"
+          image: "gitea/gitea:1.14.4"
           imagePullPolicy: IfNotPresent
           command: ["/usr/sbin/init_gitea.sh"]
           env:
@@ -44,7 +44,7 @@ spec:
       terminationGracePeriodSeconds: 60
       containers:
         - name: gitea
-          image: "gitea/gitea:1.14.3"
+          image: "gitea/gitea:1.14.4"
           imagePullPolicy: IfNotPresent
           env:
             - name: SSH_LISTEN_PORT
