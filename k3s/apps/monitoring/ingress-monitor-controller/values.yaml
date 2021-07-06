@@ -8,7 +8,7 @@ ingressmonitorcontroller:
 
   image:
     repository: stakater/ingressmonitorcontroller
-    tag: v2.1.8
+    tag: v2.1.9
     pullPolicy: IfNotPresent
   imagePullSecrets: []
 
