@@ -1,4 +1,4 @@
-FROM nextcloud:21.0.3-apache
+FROM nextcloud:22.0.0-apache
 
 RUN set -ex; \
     apt-get update && \
